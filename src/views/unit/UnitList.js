@@ -3,6 +3,8 @@ import $ from 'jquery';
 import 'datatables.net';
 import 'datatables.net-bs4';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../all-views-scss/_datatable.scss'
+import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Modal, Button, Form } from 'react-bootstrap';
 
 const UnitList = () => {
@@ -12,7 +14,7 @@ const UnitList = () => {
     { unitID: '3', unitNum: '303', unitOwner: 'Bob', unitTower: 'Tower 3', unitFloor: '3rd Floor', unitSize: '20 sqm', dateAdded: '2023-05-03', status: 'Vacant' },
   ]);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [showViewModal, setShowViewModal] = useState(false);
+  // const [showViewModal, setShowViewModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedData, setSelectedData] = useState({});
@@ -38,10 +40,10 @@ const UnitList = () => {
     setShowAddModal(true);
   };
 
-  const handleViewButtonClick = (data) => {
-    setSelectedData(data);
-    setShowViewModal(true);
-  };
+  // const handleViewButtonClick = (data) => {
+  //   setSelectedData(data);
+  //   setShowViewModal(true);
+  // };
 
   const handleEditButtonClick = (data) => {
     setSelectedData(data);
@@ -82,11 +84,12 @@ const UnitList = () => {
   };
 
   return (
-    <div>
-      <Button variant="primary" onClick={handleAddNewEntry}>
-        Add New Entry
-      </Button>
-
+    <div className="container">
+      <div className="addnewbtn">
+        <Button variant="primary" onClick={handleAddNewEntry}>
+          Add New Unit
+        </Button>
+      </div>
       <table id="example" className="table table-striped table-bordered">
         <thead>
           <tr>
@@ -111,25 +114,25 @@ const UnitList = () => {
               <td>{entry.dateAdded}</td>
               <td>{entry.status}</td>
               <td>
-                <Button
-                  variant="info"
+                {/* <Button
+                  className="view"
                   onClick={() => handleViewButtonClick(entry)}
                 >
-                  View
-                </Button>
+                  <FaEye />
+                </Button> */}
                 {' '}
                 <Button
-                  variant="warning"
+                  className="edit"
                   onClick={() => handleEditButtonClick(entry)}
                 >
-                  Edit
+                  <FaEdit />
                 </Button>
                 {' '}
                 <Button
-                  variant="danger"
+                  className="delete"
                   onClick={() => handleDeleteButtonClick(entry)}
                 >
-                  Delete
+                  <FaTrash />
                 </Button>
               </td>
             </tr>
@@ -138,98 +141,229 @@ const UnitList = () => {
       </table>
       <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Add New Entry</Modal.Title>
+          <Modal.Title>Add New Unit</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleFormSubmit}>
-            <Form.Group controlId="formName">
-              <Form.Label>Unit Owner</Form.Label>
+
+            <Form.Group controlId="unitNum" className="addForm">
+              <Form.Label className="formIcon"><FaEdit /></Form.Label>
               <Form.Control
+                className="formField"
                 type="text"
-                placeholder="Enter name"
-                name="name"
-                value={formData.unitOwner}
+                placeholder="Enter unit number"
+                name="unitNum"
                 onChange={handleInputChange}
               />
             </Form.Group>
-            <Form.Group controlId="formAge">
-              <Form.Label>Unit Tower</Form.Label>
+
+            <Form.Group controlId="unitOwner" className="addForm">
+              <Form.Label className="formIcon"><FaEdit /></Form.Label>
               <Form.Control
-                type="number"
-                placeholder="Enter age"
-                name="age"
-                value={formData.unitTower}
+                className="formField"
+                type="text"
+                placeholder="Enter unit owner"
+                name="unitOwner"
                 onChange={handleInputChange}
               />
             </Form.Group>
-            <Form.Group controlId="formGender">
-              <Form.Label>Gender</Form.Label>
+
+            <Form.Group controlId="unitTower" className="addForm">
+              <Form.Label className="formIcon"><FaEdit /></Form.Label>
               <Form.Control
+                className="formField"
                 as="select"
-                name="gender"
-                value={formData.gender}
+                name="unitTower"
                 onChange={handleInputChange}
               >
-                <option>Male</option>
-                <option>Female</option>
+                <option value="">Select Tower</option>
+                <option value="Tower 1">Tower 1</option>
+                <option value="Tower 2">Tower 2</option>
               </Form.Control>
             </Form.Group>
-            <Button variant="primary" type="submit">
+
+            <Form.Group controlId="unitFloor" className="addForm">
+              <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Control
+                className="formField"
+                as="select"
+                name="unitFloor"
+                onChange={handleInputChange}
+              >
+                <option value="">Select Floor</option>
+                <option value="1st Floor">1st Floor</option>
+                <option value="2nd Floo">2nd Floor</option>
+                <option value="3rd Floor">3rd Floor</option>
+                <option value="4th Floor">4th Floor</option>
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="unitSize" className="addForm">
+              <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Control
+                className="formField"
+                as="select"
+                name="unitSize"
+                onChange={handleInputChange}
+              >
+                <option value="">Select Unit Size</option>
+                <option value="5 sqm">5 sqm</option>
+                <option value="10 sqm">10 sqm</option>
+                <option value="15 sqm">15 sqm</option>
+                <option value="20 sqm">20 sqm</option>
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="dateAdded" className="addForm">
+              <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="date"
+                placeholder="yyyy-mm-dd"
+                name="dateAdded"
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="status" className="addForm">
+              <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Control
+                className="formField"
+                as="select"
+                name="status"
+                onChange={handleInputChange}
+              >
+                <option value="">Select Status</option>
+                <option value="Owner Occupied">Owner Occupied</option>
+                <option value="Tenant Occupied">Tenant Occupied</option>
+                <option value="Vacant">Vacant</option>
+              </Form.Control>
+            </Form.Group>
+            <br />
+            <Button className="modalbtn" type="submit">
               Save
             </Button>
           </Form>
         </Modal.Body>
       </Modal>
 
-      <Modal show={showViewModal} onHide={() => setShowViewModal(false)}>
+      {/* <Modal show={showViewModal} onHide={() => setShowViewModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>View Entry</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p><strong>Name:</strong> {selectedData.unitOwner}</p>
-          <p><strong>Age:</strong> {selectedData.unitTower}</p>
+          <p><strong>Unit Owner:</strong> {selectedData.unitOwner}</p>
+          <p><strong>Unit Tower:</strong> {selectedData.unitTower}</p>
+          <p><strong>Unit Floor:</strong> {selectedData.unitFloor}</p>
+          <p><strong>Unit Size:</strong> {selectedData.unitOwner}</p>
+          <p><strong>Status:</strong> {selectedData.unitTower}</p>
           <p><strong>Gender:</strong> {selectedData.unitFloor}</p>
         </Modal.Body>
-      </Modal>
+      </Modal> */}
 
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Entry</Modal.Title>
+          <Modal.Title>Edit Unit</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleUpdateSubmit}>
-            <Form.Group controlId="formName">
-              <Form.Label>Name</Form.Label>
+            <Form.Group controlId="unitNum" className="editForm">
+            <Form.Label className="formIcon"><FaEdit /></Form.Label>
               <Form.Control
+                className="formField"
                 type="text"
-                placeholder="Enter name"
-                name="name"
-                value={formData.name}
+                placeholder="Enter unit number"
+                name="unitNum"
+                value={formData.unitNum}
                 onChange={handleInputChange}
               />
             </Form.Group>
-            <Form.Group controlId="formAge">
-              <Form.Label>Age</Form.Label>
+
+            <Form.Group controlId="unitOwner" className="editForm">
+            <Form.Label className="formIcon"><FaEdit /></Form.Label>
               <Form.Control
-                type="number"
-                placeholder="Enter age"
-                name="age"
-                value={formData.age}
+                className="formField"
+                type="text"
+                placeholder="Enter unit owner"
+                name="unitOwner"
+                value={formData.unitOwner}
                 onChange={handleInputChange}
               />
             </Form.Group>
-            <Form.Group controlId="formGender">
-              <Form.Label>Gender</Form.Label>
+
+            <Form.Group controlId="unitTower" className="editForm">
+            <Form.Label className="formIcon"><FaEdit /></Form.Label>
               <Form.Control
+                className="formField"
                 as="select"
-                name="gender"
-                value={formData.gender}
+                name="unitTower"
+                value={formData.unitTower}
                 onChange={handleInputChange}
               >
-                <option>Male</option>
-                <option>Female</option>
+                <option value="Tower 1">Tower 1</option>
+                <option value="Tower 2">Tower 2</option>
               </Form.Control>
             </Form.Group>
+
+            <Form.Group controlId="unitFloor" className="editForm">
+            <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Control
+                className="formField"
+                as="select"
+                name="unitFloor"
+                value={formData.unitFloor}
+                onChange={handleInputChange}
+              >
+                <option value="1st Floor">1st Floor</option>
+                <option value="2nd Floo">2nd Floor</option>
+                <option value="3rd Floor">3rd Floor</option>
+                <option value="4th Floor">4th Floor</option>
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="unitSize" className="editForm">
+            <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Control
+                className="formField"
+                as="select"
+                name="unitSize"
+                value={formData.unitSize}
+                onChange={handleInputChange}
+              >
+                <option value="5 sqm">5 sqm</option>
+                <option value="10 sqm">10 sqm</option>
+                <option value="15 sqm">15 sqm</option>
+                <option value="20 sqm">20 sqm</option>
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="dateAdded" className="editForm">
+            <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="date"
+                placeholder="yyyy-mm-dd"
+                name="dateAdded"
+                value={formData.dateAdded}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="status" className="editForm">
+            <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Control
+                className="formField"
+                as="select"
+                name="status"
+                value={formData.status}
+                onChange={handleInputChange}
+              >
+                <option value="Owner Occupied">Owner Occupied</option>
+                <option value="Tenant Occupied">Tenant Occupied</option>
+                <option value="Vacant">Vacant</option>
+              </Form.Control>
+            </Form.Group>
+            <br />
             <Button variant="primary" type="submit">
               Save
             </Button>
