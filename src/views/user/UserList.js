@@ -13,7 +13,7 @@ function UserList() {
   const [listOfUsers, setListOfUsers] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/users").then((response) => {
+    axios.get("http://localhost:3001/users/getAllUser").then((response) => {
       setListOfUsers(response.data);
       console.log(response.data);
     });
