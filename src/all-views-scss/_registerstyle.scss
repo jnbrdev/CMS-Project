@@ -1,0 +1,118 @@
+// This is a login form style
+#root {
+    background-image: url(../all-views-images/bglog.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.registercontainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100vh;
+    background-color: transparent;
+}
+
+.wrapper{
+    justify-content: center;
+}
+
+.registerform {
+    padding: 10px;
+    border-radius: 60px;
+    // width:400px;
+    background-color: #ffffffaa;
+}
+
+.text-divider {
+    --text-divider-gap: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 0.9375rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: bolder;
+    font-family: sans-serif;
+    margin-bottom: 5px;
+}
+  
+.text-divider::before, .text-divider::after {
+    content: '';
+    height: 3px;
+    background-color: rgb(5, 5, 5);
+    flex-grow: 1;
+}
+
+.text-divider::before {
+    margin-right: var(--text-divider-gap);
+}
+
+.text-divider::after {
+    margin-left: var(--text-divider-gap);
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.registerform h1{
+    text-align: center;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    font-weight: bolder;
+    font-size: 50px;
+}
+
+.registerform p{
+    text-align: center;
+}
+
+.input-group-text {
+    background-color: #009DFF;
+    color: #ffffff;
+    padding: 0px 18px 0px 18px;
+    font-size: 25px;
+}
+
+.input-group {
+   height: 50px;
+   border-radius: 15px;
+   position: relative;
+}
+
+.input-group p {
+   text-transform: uppercase;
+   font-family: sans-serif;
+//    padding-top: 10px;
+   padding-bottom: 0px;
+   font-size: 15px;
+   margin: 0%;
+   font-weight: bolder;
+ } 
+
+.create-acc {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+.create-acc button {
+    text-align: center;
+    color: #ffffff;
+    background-color: #009DFF;
+    border: none;
+    border-radius: 10px;
+    margin:5px;
+    padding: 10px 112px 10px 112px;
+}
+
+.userIcon {
+    display: flex;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    font-size: 150px;
+}
