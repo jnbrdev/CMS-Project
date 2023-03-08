@@ -1,7 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { FaUserCircle, FaUserAlt, FaLock } from 'react-icons/fa'
-import '../../../all-views-scss/_loginstyle.scss'
+import React, { useRef, useState, useEffect, useContext } from "react";
+import AuthContext from "src/authentication/authProvider";
+import { Link, redirect, useNavigate } from "react-router-dom";
+import { FaUserCircle, FaUserAlt, FaLock } from "react-icons/fa";
+import "../../../all-views-scss/_loginstyle.scss";
 import {
   CButton,
   CCard,
@@ -14,9 +15,54 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
-} from '@coreui/react'
+} from "@coreui/react";
+import axios from 'src/api/axios'
+//import { axios } from "axios";
+const LOGIN_URL = '/login/loginUser'
 
 const Login = () => {
+  const {setAuth} = useContext(AuthContext);
+  const userRef = useRef();
+  const errRef = useRef();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    //userRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    setErrMsg("");
+  }, [email, password]);
+
+  const login = async (e) => {
+    axios.post(LOGIN_URL, {
+      email: email,
+      password: password
+    }).then((response) => {
+      console.log(response);
+      if(!response.data.email ){
+        return redirect("/dashboard")
+      }
+    })
+  }
+
+  {/*const handleSubmit = async (e) => {
+    //e.preventDefault();
+    console.log("sad")
+    try {
+      const response = await axios.post(LOGIN_URL, JSON.stringify({email, password}))
+      setSuccess == true;
+      console.log(JSON.stringify(response))
+    } catch (err) {
+      console.log(err)
+    }
+    
+  }*/}
+
   return (
     <CContainer className="logincontainer">
       <CRow className="wrapper">
@@ -28,12 +74,23 @@ const Login = () => {
                   <CCol className="userIcon">
                     <FaUserCircle />
                   </CCol>
-                  <p className="text-medium-emphasis">Sign In to your account</p>
+                  <p className="text-medium-emphasis">
+                    Sign In to your account
+                  </p>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
                       <FaUserAlt />
                     </CInputGroupText>
-                    <CFormInput placeholder="Username" autoComplete="username" />
+                    <CFormInput
+                      type="email"
+                      placeholder="email"
+                      id="email"
+                      ref={userRef}
+                      autoComplete="off"
+                      onChange={(e) => setEmail(e.target.value)}
+                      value={email}
+                      required
+                    />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
@@ -42,13 +99,16 @@ const Login = () => {
                     <CFormInput
                       type="password"
                       placeholder="Password"
-                      autoComplete="current-password"
+                      id="password"
+                      onChange={(e) => setPassword(e.target.value)}
+                      value={password}
+                      required
                     />
                   </CInputGroup>
-                  <Link to="/dashboard" className="login">
+                  <Link>
                     <CRow>
                       <CCol>
-                        <CButton color="primary">Login</CButton>
+                        <CButton color="primary" onClick={login}>Login</CButton>
                       </CCol>
                     </CRow>
                   </Link>
@@ -66,7 +126,7 @@ const Login = () => {
         </CCol>
       </CRow>
     </CContainer>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
