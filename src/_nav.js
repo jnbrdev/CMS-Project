@@ -120,44 +120,19 @@ const _nav = [
     icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
   },*/
   {
-    component: CNavGroup,
+    component: CNavItem,
     name: 'Units',
+    to: '/units/condounitlist',
     icon: <CIcon icon={cilHouse} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Unit List',
-        to: '/units/unitlist',
-      },
-      {
-        component: CNavItem,
-        name: 'Add Unit',
-        to: '/units/addunit',
-      },
-      {
-        component: CNavItem,
-        name: 'View Unit Details',
-        to: '/units/unitdetails',
-      },
-    ],
   },
+
   {
-    component: CNavGroup,
-    name: 'User',
+    component: CNavItem,
+    name: 'Users',
+    to: '/user/userlist',
     icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'User List',
-        to: '/user/userlist',
-      },
-      {
-        component: CNavItem,
-        name: 'Add User',
-        to: '/user/adduser',
-      },
-    ],
   },
+
   {
     component: CNavGroup,
     name: 'Admin Management',

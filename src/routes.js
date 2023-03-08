@@ -55,12 +55,9 @@ const ManageBilling = React.lazy(() => import('./views/billings/ManageBilling'))
 const AddBilling = React.lazy(() => import('./views/billings/AddBilling'))
 
 //Unit
-const AddUnit = React.lazy(() => import('./views/unit/AddUnit'))
-const UnitList = React.lazy(() => import('./views/unit/UnitList'))
-const ViewUnitDetails = React.lazy(() => import('./views/unit/ViewUnitDetails'))
+const CondoUnitList = React.lazy(() => import('./views/unit/CondoUnitList'))
 
 //User
-const AddNewUser = React.lazy(() => import('./views/user/AddNewUser'))
 const UserList = React.lazy(() => import('./views/user/UserList'))
 
 //Security
@@ -140,11 +137,8 @@ const routes = [
   { path: '/requests/requestapproval', name: 'Request Approval', element: RequestApproval },
   { path: '/services/servicelist', name: 'Service List', element: ServiceList },
   { path: '/services/addservice', name: 'Add New Service', element: AddNewService },
-  { path: '/units/unitlist', name: 'Unit List', element: UnitList },
-  { path: '/units/addunit', name: 'Add Unit', element: AddUnit },
-  { path: '/units/unitdetails', name: 'View Unit Details', element: ViewUnitDetails },
+  { path: '/units/condounitlist', name: 'View Unit Details', element: CondoUnitList },
   { path: '/user/userlist', name: 'User List', element: UserList },
-  { path: '/user/adduser', name: 'Add User', element: AddNewUser },
   { path: '/user/userlist', name: 'User List', element: UserList },
   { path: '/security/securityguardlist', name: 'Security Guard List', element: SecurityGuardList },
   { path: '/security/addsecurityguard', name: 'Add Security Guard', element: AddNewSecurityGuard },

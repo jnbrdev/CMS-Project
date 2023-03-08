@@ -4,17 +4,22 @@ import 'datatables.net';
 import 'datatables.net-bs4';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../all-views-scss/_datatable.scss'
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaEye, FaHospitalUser, FaBuilding, FaLayerGroup, FaInnosoft, FaFilter } from 'react-icons/fa';
+import { MdNumbers } from 'react-icons/md';
+import { BsFillBuildingsFill } from 'react-icons/bs';
+import { RiCalendarTodoFill } from 'react-icons/ri';
+import { FiRefreshCcw } from 'react-icons/fi';
+import { CFormSelect } from '@coreui/react';
 import { Modal, Button, Form } from 'react-bootstrap';
 
-const UnitList = () => {
+const CondoUnitList = () => {
   const [data, setData] = useState([
     { unitID: '1', unitNum: '104', unitOwner: 'John', unitTower: 'Tower 1', unitFloor: '1st Floor', unitSize: '10 sqm', dateAdded: '2023-05-01', status: 'Owner Occupied' },
     { unitID: '2', unitNum: '253', unitOwner: 'Jane', unitTower: 'Tower 2', unitFloor: '2nd Floor', unitSize: '15 sqm', dateAdded: '2023-05-02', status: 'Tenant Occupied' },
     { unitID: '3', unitNum: '303', unitOwner: 'Bob', unitTower: 'Tower 3', unitFloor: '3rd Floor', unitSize: '20 sqm', dateAdded: '2023-05-03', status: 'Vacant' },
   ]);
   const [showAddModal, setShowAddModal] = useState(false);
-  // const [showViewModal, setShowViewModal] = useState(false);
+  const [showViewModal, setShowViewModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedData, setSelectedData] = useState({});
@@ -40,10 +45,10 @@ const UnitList = () => {
     setShowAddModal(true);
   };
 
-  // const handleViewButtonClick = (data) => {
-  //   setSelectedData(data);
-  //   setShowViewModal(true);
-  // };
+  const handleViewButtonClick = (data) => {
+    setSelectedData(data);
+    setShowViewModal(true);
+  };
 
   const handleEditButtonClick = (data) => {
     setSelectedData(data);
@@ -85,11 +90,62 @@ const UnitList = () => {
 
   return (
     <div className="container">
-      <div className="addnewbtn">
-        <Button variant="primary" onClick={handleAddNewEntry}>
-          Add New Unit
-        </Button>
+      <br />
+      <div className="tbl-title">
+        <h1 className="text-divider">UNIT LIST</h1>
       </div>
+      <div className="table-head">
+        <Form.Group controlId="dateFrom" className="filter-date-from">
+          <Form.Label className="filter-date-label">From</Form.Label>
+          <Form.Control
+            className="filter-date-input"
+            type="date"
+            placeholder="yyyy-mm-dd"
+            name="datFrom"
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="dateTo" className="filter-date-to">
+          <Form.Label className="filter-date-label">To</Form.Label>
+          <Form.Control
+            className="filter-date-input"
+            type="date"
+            placeholder="yyyy-mm-dd"
+            name="dateTo"
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+        <CFormSelect className="costum-select">
+          <option value="">Filter by Tower</option>
+          <option value="Tower 1">Tower 1</option>
+          <option value="Tower 2">Tower 2</option>
+        </CFormSelect>
+        <CFormSelect className="costum-select">
+          <option value="">Filter by Floor</option>
+          <option value="1st Floor">1st Floor</option>
+          <option value="2nd Floo">2nd Floor</option>
+          <option value="3rd Floor">3rd Floor</option>
+          <option value="4th Floor">4th Floor</option>
+        </CFormSelect>
+        <CFormSelect className="costum-select">
+          <option value="">Filter by Status</option>
+          <option value="Owner Occupied">Owner Occupied</option>
+          <option value="Tenant Occupied">Tenant Occupied</option>
+          <option value="Vacant">Vacant</option>
+        </CFormSelect>
+        <div className="thead-btn">
+          <Button className="thead-btn-primary" name="filter" type="submit">
+            <FaFilter />
+          </Button>
+          <Button className="thead-btn-secondary">
+            <FiRefreshCcw />
+          </Button>
+          <Button className="thead-btn-tertiary" onClick={handleAddNewEntry}>
+            Add New
+          </Button>
+        </div>
+      </div>
+      <div className="divider"></div><hr />
       <table id="example" className="table table-striped table-bordered">
         <thead>
           <tr>
@@ -114,12 +170,12 @@ const UnitList = () => {
               <td>{entry.dateAdded}</td>
               <td>{entry.status}</td>
               <td>
-                {/* <Button
+                <Button
                   className="view"
                   onClick={() => handleViewButtonClick(entry)}
                 >
                   <FaEye />
-                </Button> */}
+                </Button>
                 {' '}
                 <Button
                   className="edit"
@@ -140,14 +196,13 @@ const UnitList = () => {
         </tbody>
       </table>
       <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add New Unit</Modal.Title>
-        </Modal.Header>
+        <br/>
+        <h1 className="text-divider">Add New Unit</h1>
         <Modal.Body>
           <Form onSubmit={handleFormSubmit}>
 
             <Form.Group controlId="unitNum" className="addForm">
-              <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Label className="formIcon"><MdNumbers /></Form.Label>
               <Form.Control
                 className="formField"
                 type="text"
@@ -158,7 +213,7 @@ const UnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="unitOwner" className="addForm">
-              <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Label className="formIcon"><FaHospitalUser /></Form.Label>
               <Form.Control
                 className="formField"
                 type="text"
@@ -169,7 +224,7 @@ const UnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="unitTower" className="addForm">
-              <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Label className="formIcon"><FaBuilding /></Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
@@ -183,7 +238,7 @@ const UnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="unitFloor" className="addForm">
-              <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Label className="formIcon"><FaLayerGroup /></Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
@@ -199,7 +254,7 @@ const UnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="unitSize" className="addForm">
-              <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Label className="formIcon"><BsFillBuildingsFill /></Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
@@ -215,7 +270,7 @@ const UnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="dateAdded" className="addForm">
-              <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Label className="formIcon"><RiCalendarTodoFill /></Form.Label>
               <Form.Control
                 className="formField"
                 type="date"
@@ -226,7 +281,7 @@ const UnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="status" className="addForm">
-              <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Label className="formIcon"><FaInnosoft /></Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
@@ -240,35 +295,86 @@ const UnitList = () => {
               </Form.Control>
             </Form.Group>
             <br />
-            <Button className="modalbtn" type="submit">
-              Save
-            </Button>
+            <Modal.Footer className="modalbtn">
+              <Button className="primarybtn" onClick={() => setShowAddModal(false)}>
+                Cancel
+              </Button>
+              <Button className="secondarybtn" type="submit">
+                Save
+              </Button>
+            </Modal.Footer>
           </Form>
         </Modal.Body>
       </Modal>
 
-      {/* <Modal show={showViewModal} onHide={() => setShowViewModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>View Entry</Modal.Title>
-        </Modal.Header>
+      <Modal show={showViewModal} onHide={() => setShowViewModal(false)}>
+        <Modal.Header closeButton />
         <Modal.Body>
-          <p><strong>Unit Owner:</strong> {selectedData.unitOwner}</p>
-          <p><strong>Unit Tower:</strong> {selectedData.unitTower}</p>
-          <p><strong>Unit Floor:</strong> {selectedData.unitFloor}</p>
-          <p><strong>Unit Size:</strong> {selectedData.unitOwner}</p>
-          <p><strong>Status:</strong> {selectedData.unitTower}</p>
-          <p><strong>Gender:</strong> {selectedData.unitFloor}</p>
+          <h1 className="modal-divider">Condo Unit Details</h1>
+          <div className="viewModal">
+            <div className="col-md-6">
+              <p><strong>Unit Number:</strong> <br /> {selectedData.unitNum}</p>
+            </div>
+            <div className="col-md-6">
+              <p><strong>Unit Owner:</strong> <br /> {selectedData.unitOwner}</p>
+            </div>
+          </div>
+
+          <div className="viewModal">
+            <div className="col-md-6">
+              <p><strong>Unit Tower:</strong> <br /> {selectedData.unitTower}</p>
+            </div>
+            <div className="col-md-6">
+              <p><strong>Unit Floor:</strong> <br /> {selectedData.unitFloor}</p>
+            </div>
+          </div>
+
+          <div className="viewModal">
+            <div className="col-md-6">
+              <p><strong>Unit Size:</strong> <br /> {selectedData.unitSize}</p>
+            </div>
+            <div className="col-md-6">
+              <p><strong>Status:</strong> <br /> {selectedData.status}</p>
+            </div>
+          </div><br />
+         
+          <h1 className="modal-divider">Tenant Details</h1>
+          <div className="viewModal">
+            <div className="col-md-6">
+              <p><strong>Main Tenant:</strong> <br /> {selectedData.mainTenant}</p>
+            </div>
+            <div className="col-md-6">
+              <p><strong>Number of Occupants:</strong> <br /> {selectedData.numOccupants}</p>
+            </div>
+          </div>
+
+          <div className="viewModal">
+            <div className="col-md-6">
+              <p><strong>Assoc Dues Billed to:</strong> <br /> {selectedData.assocBills}</p>
+            </div>
+            <div className="col-md-6">
+              <p><strong>Water Bills Billed to:</strong> <br /> {selectedData.waterBills}</p>
+            </div>
+          </div>
+
+          <div className="viewModal">
+            <div className="col-md-6">
+              <p><strong>Date Move In:</strong> <br /> {selectedData.dateMoveIn}</p>
+            </div>
+            <div className="col-md-6">
+              <p><strong>Date Move Out:</strong> <br /> {selectedData.dateMoveOut}</p>
+            </div>
+          </div>
         </Modal.Body>
-      </Modal> */}
+      </Modal>
 
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Unit</Modal.Title>
-        </Modal.Header>
+        <br/>
+        <h1 className="text-divider">Edit Unit</h1>
         <Modal.Body>
           <Form onSubmit={handleUpdateSubmit}>
             <Form.Group controlId="unitNum" className="editForm">
-            <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Label className="formIcon"><MdNumbers /></Form.Label>
               <Form.Control
                 className="formField"
                 type="text"
@@ -280,7 +386,7 @@ const UnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="unitOwner" className="editForm">
-            <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Label className="formIcon"><FaHospitalUser /></Form.Label>
               <Form.Control
                 className="formField"
                 type="text"
@@ -292,7 +398,7 @@ const UnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="unitTower" className="editForm">
-            <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Label className="formIcon"><FaBuilding /></Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
@@ -306,7 +412,7 @@ const UnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="unitFloor" className="editForm">
-            <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Label className="formIcon"><FaLayerGroup /></Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
@@ -322,7 +428,7 @@ const UnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="unitSize" className="editForm">
-            <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Label className="formIcon"><BsFillBuildingsFill /></Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
@@ -338,7 +444,7 @@ const UnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="dateAdded" className="editForm">
-            <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Label className="formIcon"><RiCalendarTodoFill /></Form.Label>
               <Form.Control
                 className="formField"
                 type="date"
@@ -350,7 +456,7 @@ const UnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="status" className="editForm">
-            <Form.Label className="formIcon"><FaEdit /></Form.Label>
+              <Form.Label className="formIcon"><FaInnosoft /></Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
@@ -364,25 +470,29 @@ const UnitList = () => {
               </Form.Control>
             </Form.Group>
             <br />
-            <Button variant="primary" type="submit">
-              Save
-            </Button>
+            <Modal.Footer className="modalbtn">
+              <Button className="primarybtn" onClick={() => setShowEditModal(false)}>
+                Cancel
+              </Button>
+              <Button className="secondarybtn" type="submit">
+                Save
+              </Button>
+            </Modal.Footer>
           </Form>
         </Modal.Body>
       </Modal>
 
-      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Delete Entry</Modal.Title>
-        </Modal.Header>
+      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} className="deleteModal">
+        <br/>
+        <h1 className="text-divider">Delete Unit</h1>
         <Modal.Body>
-          <p>Are you sure you want to delete this entry?</p>
+          <p className="confirmation">Are you sure you want to delete this unit?</p>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+        <Modal.Footer className="modalbtn">
+          <Button className="primarybtn" onClick={() => setShowDeleteModal(false)}>
             Cancel
           </Button>
-          <Button variant="danger" onClick={handleDeleteConfirm}>
+          <Button className="secondarybtn" onClick={handleDeleteConfirm}>
             Delete
           </Button>
         </Modal.Footer>
@@ -391,4 +501,4 @@ const UnitList = () => {
   );
 };
 
-export default UnitList;
+export default CondoUnitList;
