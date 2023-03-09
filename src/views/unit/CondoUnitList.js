@@ -6,9 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../all-views-scss/_datatable.scss'
 import { FaEdit, FaTrash, FaEye, FaHospitalUser, FaBuilding, FaLayerGroup, FaInnosoft, FaFilter } from 'react-icons/fa';
 import { MdNumbers } from 'react-icons/md';
-import { BsFillBuildingsFill } from 'react-icons/bs';
+import { BsFillBuildingsFill, BsFiletypeCsv, BsFillPlusSquareFill } from 'react-icons/bs';
 import { RiCalendarTodoFill } from 'react-icons/ri';
-import { FiRefreshCcw } from 'react-icons/fi';
+import { FiRefreshCcw, FiUpload } from 'react-icons/fi';
 import { CFormSelect } from '@coreui/react';
 import { Modal, Button, Form } from 'react-bootstrap';
 
@@ -19,9 +19,10 @@ const CondoUnitList = () => {
     { unitID: '3', unitNum: '303', unitOwner: 'Bob', unitTower: 'Tower 3', unitFloor: '3rd Floor', unitSize: '20 sqm', dateAdded: '2023-05-03', status: 'Vacant' },
   ]);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showUploadModal, setShowUploadModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  // const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [formData, setFormData] = useState({
     unitNum: '',
@@ -45,6 +46,10 @@ const CondoUnitList = () => {
     setShowAddModal(true);
   };
 
+  const handleUploadEntry = () => {
+    setShowUploadModal(true);
+  };
+
   const handleViewButtonClick = (data) => {
     setSelectedData(data);
     setShowViewModal(true);
@@ -56,10 +61,10 @@ const CondoUnitList = () => {
     setShowEditModal(true);
   };
 
-  const handleDeleteButtonClick = (data) => {
-    setSelectedData(data);
-    setShowDeleteModal(true);
-  };
+  // const handleDeleteButtonClick = (data) => {
+  //   setSelectedData(data);
+  //   setShowDeleteModal(true);
+  // };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -69,6 +74,16 @@ const CondoUnitList = () => {
     setFormData({ unitNum: '', unitOwner: '', unitTower: '', unitFloor: '', unitSize: '', dateAdded: '', status: '' });
     setShowAddModal(false);
   };
+
+  const handleUploadFormSubmit = (event) => {
+    event.preventDefault();
+    const newId = data.length + 1;
+    const newData = { unitID: newId, ...formData };
+    setData([...data, newData]);
+    setFormData({ unitNum: '', unitOwner: '', unitTower: '', unitFloor: '', unitSize: '', dateAdded: '', status: '' });
+    setShowUploadModal(false);
+  };
+
 
   const handleUpdateSubmit = (event) => {
     event.preventDefault();
@@ -81,12 +96,12 @@ const CondoUnitList = () => {
     setShowEditModal(false);
   };
 
-  const handleDeleteConfirm = () => {
-    const newData = data.filter((item) => item.unitID !== selectedData.unitID);
-    setData(newData);
-    setSelectedData({});
-    setShowDeleteModal(false);
-  };
+  // const handleDeleteConfirm = () => {
+  //   const newData = data.filter((item) => item.unitID !== selectedData.unitID);
+  //   setData(newData);
+  //   setSelectedData({});
+  //   setShowDeleteModal(false);
+  // };
 
   return (
     <div className="container">
@@ -141,10 +156,14 @@ const CondoUnitList = () => {
             <FiRefreshCcw />
           </Button>
           <Button className="thead-btn-tertiary" onClick={handleAddNewEntry}>
-            Add New
+            <BsFillPlusSquareFill />
+          </Button>
+          <Button className="thead-btn-quaternary" onClick={handleUploadEntry}>
+            <FiUpload />
           </Button>
         </div>
       </div>
+      
       <div className="divider"></div><hr />
       <table id="example" className="table table-striped table-bordered">
         <thead>
@@ -183,13 +202,13 @@ const CondoUnitList = () => {
                 >
                   <FaEdit />
                 </Button>
-                {' '}
+                {/* {' '}
                 <Button
                   className="delete"
                   onClick={() => handleDeleteButtonClick(entry)}
                 >
                   <FaTrash />
-                </Button>
+                </Button> */}
               </td>
             </tr>
           ))}
@@ -297,6 +316,35 @@ const CondoUnitList = () => {
             <br />
             <Modal.Footer className="modalbtn">
               <Button className="primarybtn" onClick={() => setShowAddModal(false)}>
+                Cancel
+              </Button>
+              <Button className="secondarybtn" type="submit">
+                Save
+              </Button>
+            </Modal.Footer>
+          </Form>
+        </Modal.Body>
+      </Modal>
+      <Modal show={showUploadModal} onHide={() => setShowUploadModal(false)}>
+        <br/>
+        <h1 className="text-divider">Upload CSV</h1>
+        <Modal.Body>
+          <Form onSubmit={handleUploadFormSubmit}>
+
+            <Form.Group controlId="unit_upload" className="addForm">
+              <Form.Label className="formIcon"><BsFiletypeCsv /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="file"
+                placeholder="Upload CSV"
+                name="unit_upload"
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+
+            <br />
+            <Modal.Footer className="modalbtn">
+              <Button className="primarybtn" onClick={() => setShowUploadModal(false)}>
                 Cancel
               </Button>
               <Button className="secondarybtn" type="submit">
@@ -482,7 +530,7 @@ const CondoUnitList = () => {
         </Modal.Body>
       </Modal>
 
-      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} className="deleteModal">
+      {/* <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} className="deleteModal">
         <br/>
         <h1 className="text-divider">Delete Unit</h1>
         <Modal.Body>
@@ -496,7 +544,7 @@ const CondoUnitList = () => {
             Delete
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
     </div>
   );
 };

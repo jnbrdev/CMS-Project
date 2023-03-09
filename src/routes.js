@@ -69,8 +69,6 @@ const RequestApproval = React.lazy(() => import('./views/request/RequestApproval
 const RequestList = React.lazy(() => import('./views/request/RequestList'))
 
 //Guest
-const AddNewGuest = React.lazy(() => import('./views/guest/AddNewGuest'))
-const GuestApproval = React.lazy(() => import('./views/guest/GuestApproval'))
 const GuestList = React.lazy(() => import('./views/guest/GuestList'))
 
 //Admin
@@ -79,7 +77,6 @@ const AdminList = React.lazy(() => import('./views/admin/AdminList'))
 const AdminPriv = React.lazy(() => import('./views/admin/AdminPriv'))
 
 //Services
-const AddNewService = React.lazy(() => import('./views/services/AddNewService'))
 const ServiceList = React.lazy(() => import('./views/services/ServiceList'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
@@ -136,9 +133,7 @@ const routes = [
   { path: '/requests/requestlist', name: 'Request List', element: RequestList },
   { path: '/requests/requestapproval', name: 'Request Approval', element: RequestApproval },
   { path: '/services/servicelist', name: 'Service List', element: ServiceList },
-  { path: '/services/addservice', name: 'Add New Service', element: AddNewService },
   { path: '/units/condounitlist', name: 'View Unit Details', element: CondoUnitList },
-  { path: '/user/userlist', name: 'User List', element: UserList },
   { path: '/user/userlist', name: 'User List', element: UserList },
   { path: '/security/securityguardlist', name: 'Security Guard List', element: SecurityGuardList },
   { path: '/security/addsecurityguard', name: 'Add Security Guard', element: AddNewSecurityGuard },
@@ -146,8 +141,6 @@ const routes = [
   { path: '/admin/addadmin', name: 'Add Admin User', element: AddNewAdminUser },
   { path: '/admin/adminprivileges', name: 'Admin Privileges', element: AdminPriv },
   { path: '/guest/guestlist', name: 'Guest List', element: GuestList },
-  { path: '/guest/addguest', name: 'Add Guest', element: AddNewGuest },
-  { path: '/guest/guestapproval', name: 'Guest Approval', element: GuestApproval },
 ]
 
 export default routes
