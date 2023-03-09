@@ -47,7 +47,7 @@ const Login = () => {
       })
       .then((response) => {
         console.log(response);
-        if (response.data.email) {
+        if (response.data.role === "Super Admin" && response.data.status === "Active") {
           window.location.href = '/dashboard';
         }
       });
