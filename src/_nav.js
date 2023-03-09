@@ -96,22 +96,12 @@ const _nav = [
       },
     ],
   },
+
   {
-    component: CNavGroup,
+    component: CNavItem,
     name: 'Services',
+    to: '/services/servicelist',
     icon: <CIcon icon={cilPool} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Service List',
-        to: '/services/servicelist',
-      },
-      {
-        component: CNavItem,
-        name: 'AddNewService',
-        to: '/services/addservice',
-      },
-    ],
   },
   /*{
     component: CNavItem,
@@ -155,27 +145,12 @@ const _nav = [
       },
     ],
   },
+
   {
-    component: CNavGroup,
+    component: CNavItem,
     name: 'Guest',
+    to: '/guest/guestlist',
     icon: <CIcon icon={cilBell} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Guest List',
-        to: '/guest/guestlist',
-      },
-      {
-        component: CNavItem,
-        name: 'Add Guest',
-        to: '/guest/addguest',
-      },
-      {
-        component: CNavItem,
-        name: 'Guest Approval',
-        to: '/guest/guestapproval',
-      },
-    ],
   },
   /*{ // ForReference
     component: CNavItem,

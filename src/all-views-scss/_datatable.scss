@@ -8,6 +8,15 @@
     color:  #0B5ED7;
 }
 
+.service-edit {
+    font-size: 20px;
+    padding: 0px 0px 5px 0px;
+    width: 100px;
+    background-color: transparent;
+    border: none;
+    color:  #0B5ED7;
+}
+
 // modals
 .modal-divider {
     --modal-divider-gap: 1rem;
@@ -148,6 +157,7 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
 .table-head {
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 15px 0px 0px 0px;
     margin: 0px 10px 0px 10px;
     border-radius: 5px;
@@ -160,10 +170,17 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
     width: 180px;
 }
 
-.thead-btn-primary, .thead-btn-secondary, .thead-btn-tertiary {
+// .thead-btn {
+//     display: flex;
+//     justify-content: center;
+//     margin-top: 10px;
+// }
+
+.thead-btn-primary, .thead-btn-secondary, .thead-btn-tertiary, .thead-btn-quaternary {
     margin: 0px 3px 0px 3px;
-    padding-top: -5px;
+    padding-top: 0px;
     background: #0B5ED7;
+    font-size: 17px;
 }
 
 .filter-date {
