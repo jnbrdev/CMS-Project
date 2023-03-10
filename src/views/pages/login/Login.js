@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "src/authentication/authProvider";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link, redirect} from "react-router-dom";
 import { FaUserCircle, FaUserAlt, FaLock } from "react-icons/fa";
 import "../../../all-views-scss/_loginstyle.scss";
 import {
@@ -16,12 +16,13 @@ import {
   CInputGroupText,
   CRow,
 } from "@coreui/react";
-import axios from 'src/api/axios'
+import axios from "src/api/axios";
 //import { axios } from "axios";
-const LOGIN_URL = '/login/loginUser'
+const LOGIN_URL = "/login/loginUser";
 
 const Login = () => {
-  const {setAuth} = useContext(AuthContext);
+  //const history = useHistory();
+  const { setAuth } = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
 
@@ -39,18 +40,21 @@ const Login = () => {
   }, [email, password]);
 
   const login = async (e) => {
-    axios.post(LOGIN_URL, {
-      email: email,
-      password: password
-    }).then((response) => {
-      console.log(response);
-      if(!response.data.email ){
-        return redirect("/dashboard")
-      }
-    })
-  }
+    axios
+      .post(LOGIN_URL, {
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.data.role === "Super Admin" && response.data.status === "Active") {
+          window.location.href = '/dashboard';
+        }
+      });
+  };
 
-  {/*const handleSubmit = async (e) => {
+  {
+    /*const handleSubmit = async (e) => {
     //e.preventDefault();
     console.log("sad")
     try {
@@ -61,7 +65,8 @@ const Login = () => {
       console.log(err)
     }
     
-  }*/}
+  }*/
+  }
 
   return (
     <CContainer className="logincontainer">
@@ -108,7 +113,9 @@ const Login = () => {
                   <Link>
                     <CRow>
                       <CCol>
-                        <CButton color="primary" onClick={login}>Login</CButton>
+                        <CButton color="primary" onClick={login}>
+                          Login
+                        </CButton>
                       </CCol>
                     </CRow>
                   </Link>
