@@ -26,42 +26,19 @@ import { CFormSelect } from "@coreui/react";
 import { Modal, Button, Form } from "react-bootstrap";
 import AuthContext from "src/authentication/authProvider";
 import axios from "src/api/axios";
+import Axios from "axios";
 
 const UNIT_ADD_URL = "/unit/addUnit";
 const UNIT_SHOW_URL = "/unit/getAllUnit";
+const UNIT_UPDATE_URL = "/unit/updateUnit/";
 const CondoUnitList = () => {
-  const [data, setData] = useState([
-    {
-      unitID: "1",
-      unitNum: "104",
-      unitOwner: "John",
-      unitTower: "Tower 1",
-      unitFloor: "1st Floor",
-      unitSize: "10 sqm",
-      dateAdded: "2023-05-01",
-      status: "Owner Occupied",
-    },
-    {
-      unitID: "2",
-      unitNum: "253",
-      unitOwner: "Jane",
-      unitTower: "Tower 2",
-      unitFloor: "2nd Floor",
-      unitSize: "15 sqm",
-      dateAdded: "2023-05-02",
-      status: "Tenant Occupied",
-    },
-    {
-      unitID: "3",
-      unitNum: "303",
-      unitOwner: "Bob",
-      unitTower: "Tower 3",
-      unitFloor: "3rd Floor",
-      unitSize: "20 sqm",
-      dateAdded: "2023-05-03",
-      status: "Vacant",
-    },
-  ]);
+  const [listOfUnit, setListOfUnit] = useState([]);
+
+  const [data, setData] = useState([]);
+
+  // SHOW UNIT DATAs
+  console.log(data);
+
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
@@ -69,25 +46,28 @@ const CondoUnitList = () => {
   // const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [formData, setFormData] = useState({
-    unitNum: "",
-    unitOwner: "",
-    unitTower: "",
-    unitFloor: "",
-    unitSize: "",
-    dateAdded: "",
-    status: "",
+    unit_id: null,
+    unit_no: null,
+    unit_owner: null,
+    unit_tower: null,
+    unit_floor: null,
+    unit_size: null,
+    occupied_by: null,
+    status: null,
   });
 
   const [unNo, setUnitNo] = useState("");
-  const [unOwner, setUnitOwner] = useState("");
+  const [unOwner, setUnitOwner] = useState();
   const [unTower, setUnitTower] = useState("");
   const [unFloor, setUnitFloor] = useState("");
   const [unSize, setUnitSize] = useState("");
   const [occupiedBy, setOccupiedBy] = useState("");
   const [unStatus, setUnitStatus] = useState("");
 
+
   // ADD UNIT
   const handleAddNewUnit = async (e) => {
+    
     axios
       .post(UNIT_ADD_URL, {
         unit_no: unNo,
@@ -100,31 +80,61 @@ const CondoUnitList = () => {
       })
       .then((response) => {
         console.log(response);
-        if (
-          response.data.role === "Super Admin" &&
-          response.data.status === "Active"
-        ) {
-          window.location.href = "/dashboard";
-        }
       });
   };
 
-  // SHOW UNIT DATA
-  const [listOfUnit, setListOfUnit] = useState([]);
+  // UPDATE UNIT
+  const handleUpdateUnit = async (e) => {
+    e.preventDefault();
+    
+    /*
+    const newData = data.map((item) =>
+      item.unit_no === selectedData.unit_no ? formData : item
+    );
+    //setData(newData);
+    setFormData({
+      unit_no: "",
+      unit_owner: "",
+      unit_tower: "",
+      unit_floor: "",
+      unit_size: "",
+      occupied_by: "",
+      status: "",
+    });
+    console.log("unit no" + formData.unit_no);
+    console.log("unit no" + formData.unit_owner);
+    console.log("DATA" + formData);*/
+    const id = formData.unit_no;
+    try {
+      await axios.put(UNIT_UPDATE_URL + `${id}`, {
+        unit_no: formData.unit_no,
+        unit_owner: formData.unit_owner,
+        unit_tower: formData.unit_tower,
+        unit_floor: formData.unit_floor,
+        unit_size: formData.unit_size,
+        occupied_by: formData.occupied_by,
+        status: formData.status,
+      }).then((response) => {
+        console.log(response.data);
+      });
+    } catch (error) {
+      console.log(error)
+    }
+
+    setSelectedData({});
+    setShowEditModal(false);
+  };
 
   useEffect(() => {
     axios.post(UNIT_SHOW_URL).then((response) => {
-      setListOfUnit(response.data);
+      setData(response.data);
       console.log(response.data);
     });
-  }, []);
-
-  useEffect(() => {
-    $("#example").DataTable();
+    $("example").DataTable();
   }, []);
 
   const handleInputChange = (event) => {
-    setFormData({ ...formData, [event.target.unitNum]: event.target.value });
+    setFormData({ ...formData, [event.target.unit_no]: event.target.value });
   };
 
   const handleAddNewEntry = () => {
@@ -154,16 +164,16 @@ const CondoUnitList = () => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     const newId = data.length + 1;
-    const newData = { unitID: newId, ...formData };
+    const newData = { unit_no: newId, ...formData };
     setData([...data, newData]);
     setFormData({
-      unitNum: "",
-      unitOwner: "",
-      unitTower: "",
-      unitFloor: "",
-      unitSize: "",
-      dateAdded: "",
-      status: "",
+      unit_no: "",
+      unit_owner: "",
+      unit_tower: "",
+      unit_floor: "",
+      unit_size: "",
+      occupied_by: "",
+      unsStatus: "",
     });
     setShowAddModal(false);
   };
@@ -171,16 +181,16 @@ const CondoUnitList = () => {
   const handleUploadFormSubmit = (event) => {
     event.preventDefault();
     const newId = data.length + 1;
-    const newData = { unitID: newId, ...formData };
+    const newData = { unit_no: newId, ...formData };
     setData([...data, newData]);
     setFormData({
-      unitNum: "",
-      unitOwner: "",
-      unitTower: "",
-      unitFloor: "",
-      unitSize: "",
-      dateAdded: "",
-      status: "",
+      unit_no: "",
+      unit_owner: "",
+      unit_tower: "",
+      unit_floor: "",
+      unit_size: "",
+      occupied_by: "",
+      unsStatus: "",
     });
     setShowUploadModal(false);
   };
@@ -188,17 +198,17 @@ const CondoUnitList = () => {
   const handleUpdateSubmit = (event) => {
     event.preventDefault();
     const newData = data.map((item) =>
-      item.unitID === selectedData.unitID ? formData : item
+      item.unit_no === selectedData.unit_no ? formData : item
     );
     setData(newData);
     setFormData({
-      unitNum: "",
-      unitOwner: "",
-      unitTower: "",
-      unitFloor: "",
-      unitSize: "",
-      dateAdded: "",
-      status: "",
+      unit_no: "",
+      unit_owner: "",
+      unit_tower: "",
+      unit_floor: "",
+      unit_size: "",
+      occupied_by: "",
+      unsStatus: "",
     });
     setSelectedData({});
     setShowEditModal(false);
@@ -287,16 +297,16 @@ const CondoUnitList = () => {
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody  >
-          {listOfUnit.map((value, index) => (
-            <tr key={index}>
-              <td>{value.unit_no}</td>
-              <td>{value.unit_owner}</td>
-              <td>{value.unit_tower}</td>
-              <td>{value.unit_floor}</td>
-              <td>{value.unit_size}</td>
-              <td>{value.occupied_by}</td>
-              <td>{value.status}</td>
+        <tbody>
+          {data.map((entry) => (
+            <tr key={entry.id}>
+              <td>{entry.unit_no}</td>
+              <td>{entry.unit_owner}</td>
+              <td>{entry.unit_tower}</td>
+              <td>{entry.unit_floor}</td>
+              <td>{entry.unit_size}</td>
+              <td>{entry.occupied_by}</td>
+              <td>{entry.status}</td>
               <td>
                 <Button
                   className="view"
@@ -327,7 +337,7 @@ const CondoUnitList = () => {
         <h1 className="text-divider">Add New Unit</h1>
         <Modal.Body>
           <Form onSubmit={handleFormSubmit}>
-            <Form.Group controlId="unitNum" className="addForm">
+            <Form.Group controlId="unit_no" className="addForm">
               <Form.Label className="formIcon">
                 <MdNumbers />
               </Form.Label>
@@ -335,12 +345,12 @@ const CondoUnitList = () => {
                 className="formField"
                 type="text"
                 placeholder="Enter unit number"
-                name="unitNum"
+                name="unit_no"
                 onChange={(e) => setUnitNo(e.target.value)}
               />
             </Form.Group>
 
-            <Form.Group controlId="unitOwner" className="addForm">
+            <Form.Group controlId="unit_owner" className="addForm">
               <Form.Label className="formIcon">
                 <FaHospitalUser />
               </Form.Label>
@@ -348,19 +358,19 @@ const CondoUnitList = () => {
                 className="formField"
                 type="text"
                 placeholder="Enter unit owner"
-                name="unitOwner"
+                name="unit_owner"
                 onChange={(e) => setUnitOwner(e.target.value)}
               />
             </Form.Group>
 
-            <Form.Group controlId="unitTower" className="addForm">
+            <Form.Group controlId="unit_tower" className="addForm">
               <Form.Label className="formIcon">
                 <FaBuilding />
               </Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
-                name="unitTower"
+                name="unit_tower"
                 onChange={(e) => setUnitTower(e.target.value)}
               >
                 <option value="">Select Tower</option>
@@ -369,14 +379,14 @@ const CondoUnitList = () => {
               </Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="unitFloor" className="addForm">
+            <Form.Group controlId="unit_floor" className="addForm">
               <Form.Label className="formIcon">
                 <FaLayerGroup />
               </Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
-                name="unitFloor"
+                name="unit_floor"
                 onChange={(e) => setUnitFloor(e.target.value)}
               >
                 <option value="">Select Floor</option>
@@ -387,14 +397,14 @@ const CondoUnitList = () => {
               </Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="unitSize" className="addForm">
+            <Form.Group controlId="unit_size" className="addForm">
               <Form.Label className="formIcon">
                 <BsFillBuildingsFill />
               </Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
-                name="unitSize"
+                name="unit_size"
                 onChange={(e) => setUnitSize(e.target.value)}
               >
                 <option value="">Select Unit Size</option>
@@ -413,7 +423,7 @@ const CondoUnitList = () => {
                 className="formField"
                 type="text"
                 placeholder="Occupied By"
-                name="unitOwner"
+                name="unit_owner"
                 onChange={(e) => setOccupiedBy(e.target.value)}
               />
             </Form.Group>
@@ -494,25 +504,12 @@ const CondoUnitList = () => {
           <div className="viewModal">
             <div className="col-md-6">
               <p>
-                <strong>Unit Number:</strong> <br /> {selectedData.unitNum}
+                <strong>Unit Number:</strong> <br /> {selectedData.unit_no}
               </p>
             </div>
             <div className="col-md-6">
               <p>
-                <strong>Unit Owner:</strong> <br /> {selectedData.unitOwner}
-              </p>
-            </div>
-          </div>
-
-          <div className="viewModal">
-            <div className="col-md-6">
-              <p>
-                <strong>Unit Tower:</strong> <br /> {selectedData.unitTower}
-              </p>
-            </div>
-            <div className="col-md-6">
-              <p>
-                <strong>Unit Floor:</strong> <br /> {selectedData.unitFloor}
+                <strong>Unit Owner:</strong> <br /> {selectedData.unit_owner}
               </p>
             </div>
           </div>
@@ -520,7 +517,20 @@ const CondoUnitList = () => {
           <div className="viewModal">
             <div className="col-md-6">
               <p>
-                <strong>Unit Size:</strong> <br /> {selectedData.unitSize}
+                <strong>Unit Tower:</strong> <br /> {selectedData.unit_tower}
+              </p>
+            </div>
+            <div className="col-md-6">
+              <p>
+                <strong>Unit Floor:</strong> <br /> {selectedData.unit_floor}
+              </p>
+            </div>
+          </div>
+
+          <div className="viewModal">
+            <div className="col-md-6">
+              <p>
+                <strong>Unit Size:</strong> <br /> {selectedData.unit_size}
               </p>
             </div>
             <div className="col-md-6">
@@ -581,8 +591,8 @@ const CondoUnitList = () => {
         <br />
         <h1 className="text-divider">Edit Unit</h1>
         <Modal.Body>
-          <Form onSubmit={handleUpdateSubmit}>
-            <Form.Group controlId="unitNum" className="editForm">
+          <Form onSubmit={handleFormSubmit}>
+            <Form.Group controlId="unit_no" className="editForm">
               <Form.Label className="formIcon">
                 <MdNumbers />
               </Form.Label>
@@ -590,13 +600,13 @@ const CondoUnitList = () => {
                 className="formField"
                 type="text"
                 placeholder="Enter unit number"
-                name="unitNum"
-                value={formData.unitNum}
+                name="unit_no"
+                defaultValue={formData.unit_no}
                 onChange={handleInputChange}
               />
             </Form.Group>
 
-            <Form.Group controlId="unitOwner" className="editForm">
+            <Form.Group controlId="unit_owner" className="editForm">
               <Form.Label className="formIcon">
                 <FaHospitalUser />
               </Form.Label>
@@ -604,21 +614,21 @@ const CondoUnitList = () => {
                 className="formField"
                 type="text"
                 placeholder="Enter unit owner"
-                name="unitOwner"
-                value={formData.unitOwner}
+                name="unit_owner"
+                defaultValue={formData.unit_owner}
                 onChange={handleInputChange}
               />
             </Form.Group>
 
-            <Form.Group controlId="unitTower" className="editForm">
+            <Form.Group controlId="unit_tower" className="editForm">
               <Form.Label className="formIcon">
                 <FaBuilding />
               </Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
-                name="unitTower"
-                value={formData.unitTower}
+                name="unit_tower"
+                defaultValue={formData.unit_tower}
                 onChange={handleInputChange}
               >
                 <option value="Tower 1">Tower 1</option>
@@ -626,15 +636,15 @@ const CondoUnitList = () => {
               </Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="unitFloor" className="editForm">
+            <Form.Group controlId="unit_floor" className="editForm">
               <Form.Label className="formIcon">
                 <FaLayerGroup />
               </Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
-                name="unitFloor"
-                value={formData.unitFloor}
+                name="unit_floor"
+                defaultValue={formData.unit_floor}
                 onChange={handleInputChange}
               >
                 <option value="1st Floor">1st Floor</option>
@@ -644,15 +654,15 @@ const CondoUnitList = () => {
               </Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="unitSize" className="editForm">
+            <Form.Group controlId="unit_size" className="editForm">
               <Form.Label className="formIcon">
                 <BsFillBuildingsFill />
               </Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
-                name="unitSize"
-                value={formData.unitSize}
+                name="unit_size"
+                defaultValue={formData.unit_size}
                 onChange={handleInputChange}
               >
                 <option value="5 sqm">5 sqm</option>
@@ -662,16 +672,16 @@ const CondoUnitList = () => {
               </Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="dateAdded" className="editForm">
+            <Form.Group controlId="occupied_by" className="editForm">
               <Form.Label className="formIcon">
-                <RiCalendarTodoFill />
+                <MdNumbers />
               </Form.Label>
               <Form.Control
                 className="formField"
-                type="date"
-                placeholder="yyyy-mm-dd"
-                name="dateAdded"
-                value={formData.dateAdded}
+                type="text"
+                placeholder="Enter Tenant"
+                name="occupied_by"
+                defaultValue={formData.occupied_by}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -684,7 +694,7 @@ const CondoUnitList = () => {
                 className="formField"
                 as="select"
                 name="status"
-                value={formData.status}
+                defaultValue={formData.status}
                 onChange={handleInputChange}
               >
                 <option value="Owner Occupied">Owner Occupied</option>
@@ -700,7 +710,7 @@ const CondoUnitList = () => {
               >
                 Cancel
               </Button>
-              <Button className="secondarybtn" type="submit">
+              <Button className="secondarybtn" type="submit" onClick={handleUpdateUnit}>
                 Save
               </Button>
             </Modal.Footer>
