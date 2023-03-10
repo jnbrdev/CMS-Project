@@ -1,22 +1,66 @@
-import { useState, useEffect } from 'react';
-import $ from 'jquery';
-import 'datatables.net';
-import 'datatables.net-bs4';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../all-views-scss/_datatable.scss'
-import { FaEdit, FaTrash, FaEye, FaHospitalUser, FaBuilding, FaLayerGroup, FaInnosoft, FaFilter } from 'react-icons/fa';
-import { MdNumbers } from 'react-icons/md';
-import { BsFillBuildingsFill, BsFiletypeCsv, BsFillPlusSquareFill } from 'react-icons/bs';
-import { RiCalendarTodoFill } from 'react-icons/ri';
-import { FiRefreshCcw, FiUpload } from 'react-icons/fi';
-import { CFormSelect } from '@coreui/react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { useState, useEffect, useRef, useContext } from "react";
+import $ from "jquery";
+import "datatables.net";
+import "datatables.net-bs4";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../../all-views-scss/_datatable.scss";
+import {
+  FaEdit,
+  FaTrash,
+  FaEye,
+  FaHospitalUser,
+  FaBuilding,
+  FaLayerGroup,
+  FaInnosoft,
+  FaFilter,
+} from "react-icons/fa";
+import { MdNumbers } from "react-icons/md";
+import {
+  BsFillBuildingsFill,
+  BsFiletypeCsv,
+  BsFillPlusSquareFill,
+} from "react-icons/bs";
+import { RiCalendarTodoFill } from "react-icons/ri";
+import { FiRefreshCcw, FiUpload } from "react-icons/fi";
+import { CFormSelect } from "@coreui/react";
+import { Modal, Button, Form } from "react-bootstrap";
+import AuthContext from "src/authentication/authProvider";
+import axios from "src/api/axios";
 
+const UNIT_ADD_URL = "/unit/addUnit";
+const UNIT_SHOW_URL = "/unit/getAllUnit";
 const CondoUnitList = () => {
   const [data, setData] = useState([
-    { unitID: '1', unitNum: '104', unitOwner: 'John', unitTower: 'Tower 1', unitFloor: '1st Floor', unitSize: '10 sqm', dateAdded: '2023-05-01', status: 'Owner Occupied' },
-    { unitID: '2', unitNum: '253', unitOwner: 'Jane', unitTower: 'Tower 2', unitFloor: '2nd Floor', unitSize: '15 sqm', dateAdded: '2023-05-02', status: 'Tenant Occupied' },
-    { unitID: '3', unitNum: '303', unitOwner: 'Bob', unitTower: 'Tower 3', unitFloor: '3rd Floor', unitSize: '20 sqm', dateAdded: '2023-05-03', status: 'Vacant' },
+    {
+      unitID: "1",
+      unitNum: "104",
+      unitOwner: "John",
+      unitTower: "Tower 1",
+      unitFloor: "1st Floor",
+      unitSize: "10 sqm",
+      dateAdded: "2023-05-01",
+      status: "Owner Occupied",
+    },
+    {
+      unitID: "2",
+      unitNum: "253",
+      unitOwner: "Jane",
+      unitTower: "Tower 2",
+      unitFloor: "2nd Floor",
+      unitSize: "15 sqm",
+      dateAdded: "2023-05-02",
+      status: "Tenant Occupied",
+    },
+    {
+      unitID: "3",
+      unitNum: "303",
+      unitOwner: "Bob",
+      unitTower: "Tower 3",
+      unitFloor: "3rd Floor",
+      unitSize: "20 sqm",
+      dateAdded: "2023-05-03",
+      status: "Vacant",
+    },
   ]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
@@ -25,17 +69,58 @@ const CondoUnitList = () => {
   // const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [formData, setFormData] = useState({
-    unitNum: '',
-    unitOwner: '',
-    unitTower: '',
-    unitFloor: '',
-    unitSize: '',
-    dateAdded: '',
-    status: '',
+    unitNum: "",
+    unitOwner: "",
+    unitTower: "",
+    unitFloor: "",
+    unitSize: "",
+    dateAdded: "",
+    status: "",
   });
 
+  const [unNo, setUnitNo] = useState("");
+  const [unOwner, setUnitOwner] = useState("");
+  const [unTower, setUnitTower] = useState("");
+  const [unFloor, setUnitFloor] = useState("");
+  const [unSize, setUnitSize] = useState("");
+  const [occupiedBy, setOccupiedBy] = useState("");
+  const [unStatus, setUnitStatus] = useState("");
+
+  // ADD UNIT
+  const handleAddNewUnit = async (e) => {
+    axios
+      .post(UNIT_ADD_URL, {
+        unit_no: unNo,
+        unit_owner: unOwner,
+        unit_tower: unTower,
+        unit_floor: unFloor,
+        unit_size: unSize,
+        occupied_by: occupiedBy,
+        status: unStatus,
+      })
+      .then((response) => {
+        console.log(response);
+        if (
+          response.data.role === "Super Admin" &&
+          response.data.status === "Active"
+        ) {
+          window.location.href = "/dashboard";
+        }
+      });
+  };
+
+  // SHOW UNIT DATA
+  const [listOfUnit, setListOfUnit] = useState([]);
+
   useEffect(() => {
-    $('#example').DataTable();
+    axios.post(UNIT_SHOW_URL).then((response) => {
+      setListOfUnit(response.data);
+      console.log(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    $("#example").DataTable();
   }, []);
 
   const handleInputChange = (event) => {
@@ -71,7 +156,15 @@ const CondoUnitList = () => {
     const newId = data.length + 1;
     const newData = { unitID: newId, ...formData };
     setData([...data, newData]);
-    setFormData({ unitNum: '', unitOwner: '', unitTower: '', unitFloor: '', unitSize: '', dateAdded: '', status: '' });
+    setFormData({
+      unitNum: "",
+      unitOwner: "",
+      unitTower: "",
+      unitFloor: "",
+      unitSize: "",
+      dateAdded: "",
+      status: "",
+    });
     setShowAddModal(false);
   };
 
@@ -80,10 +173,17 @@ const CondoUnitList = () => {
     const newId = data.length + 1;
     const newData = { unitID: newId, ...formData };
     setData([...data, newData]);
-    setFormData({ unitNum: '', unitOwner: '', unitTower: '', unitFloor: '', unitSize: '', dateAdded: '', status: '' });
+    setFormData({
+      unitNum: "",
+      unitOwner: "",
+      unitTower: "",
+      unitFloor: "",
+      unitSize: "",
+      dateAdded: "",
+      status: "",
+    });
     setShowUploadModal(false);
   };
-
 
   const handleUpdateSubmit = (event) => {
     event.preventDefault();
@@ -91,7 +191,15 @@ const CondoUnitList = () => {
       item.unitID === selectedData.unitID ? formData : item
     );
     setData(newData);
-    setFormData({ unitNum: '', unitOwner: '', unitTower: '', unitFloor: '', unitSize: '', dateAdded: '', status: '' });
+    setFormData({
+      unitNum: "",
+      unitOwner: "",
+      unitTower: "",
+      unitFloor: "",
+      unitSize: "",
+      dateAdded: "",
+      status: "",
+    });
     setSelectedData({});
     setShowEditModal(false);
   };
@@ -163,8 +271,9 @@ const CondoUnitList = () => {
           </Button>
         </div>
       </div>
-      
-      <div className="divider"></div><hr />
+
+      <div className="divider"></div>
+      <hr />
       <table id="example" className="table table-striped table-bordered">
         <thead>
           <tr>
@@ -173,29 +282,28 @@ const CondoUnitList = () => {
             <th>Unit Tower</th>
             <th>Unit Floor</th>
             <th>Unit Size</th>
-            <th>Date Added</th>
+            <th>Occupied By</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
-          {data.map((entry) => (
-            <tr key={entry.unitID}>
-              <td>{entry.unitNum}</td>
-              <td>{entry.unitOwner}</td>
-              <td>{entry.unitTower}</td>
-              <td>{entry.unitFloor}</td>
-              <td>{entry.unitSize}</td>
-              <td>{entry.dateAdded}</td>
-              <td>{entry.status}</td>
+        <tbody  >
+          {listOfUnit.map((value, index) => (
+            <tr key={index}>
+              <td>{value.unit_no}</td>
+              <td>{value.unit_owner}</td>
+              <td>{value.unit_tower}</td>
+              <td>{value.unit_floor}</td>
+              <td>{value.unit_size}</td>
+              <td>{value.occupied_by}</td>
+              <td>{value.status}</td>
               <td>
                 <Button
                   className="view"
                   onClick={() => handleViewButtonClick(entry)}
                 >
                   <FaEye />
-                </Button>
-                {' '}
+                </Button>{" "}
                 <Button
                   className="edit"
                   onClick={() => handleEditButtonClick(entry)}
@@ -215,40 +323,45 @@ const CondoUnitList = () => {
         </tbody>
       </table>
       <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
-        <br/>
+        <br />
         <h1 className="text-divider">Add New Unit</h1>
         <Modal.Body>
           <Form onSubmit={handleFormSubmit}>
-
             <Form.Group controlId="unitNum" className="addForm">
-              <Form.Label className="formIcon"><MdNumbers /></Form.Label>
+              <Form.Label className="formIcon">
+                <MdNumbers />
+              </Form.Label>
               <Form.Control
                 className="formField"
                 type="text"
                 placeholder="Enter unit number"
                 name="unitNum"
-                onChange={handleInputChange}
+                onChange={(e) => setUnitNo(e.target.value)}
               />
             </Form.Group>
 
             <Form.Group controlId="unitOwner" className="addForm">
-              <Form.Label className="formIcon"><FaHospitalUser /></Form.Label>
+              <Form.Label className="formIcon">
+                <FaHospitalUser />
+              </Form.Label>
               <Form.Control
                 className="formField"
                 type="text"
                 placeholder="Enter unit owner"
                 name="unitOwner"
-                onChange={handleInputChange}
+                onChange={(e) => setUnitOwner(e.target.value)}
               />
             </Form.Group>
 
             <Form.Group controlId="unitTower" className="addForm">
-              <Form.Label className="formIcon"><FaBuilding /></Form.Label>
+              <Form.Label className="formIcon">
+                <FaBuilding />
+              </Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
                 name="unitTower"
-                onChange={handleInputChange}
+                onChange={(e) => setUnitTower(e.target.value)}
               >
                 <option value="">Select Tower</option>
                 <option value="Tower 1">Tower 1</option>
@@ -257,12 +370,14 @@ const CondoUnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="unitFloor" className="addForm">
-              <Form.Label className="formIcon"><FaLayerGroup /></Form.Label>
+              <Form.Label className="formIcon">
+                <FaLayerGroup />
+              </Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
                 name="unitFloor"
-                onChange={handleInputChange}
+                onChange={(e) => setUnitFloor(e.target.value)}
               >
                 <option value="">Select Floor</option>
                 <option value="1st Floor">1st Floor</option>
@@ -273,12 +388,14 @@ const CondoUnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="unitSize" className="addForm">
-              <Form.Label className="formIcon"><BsFillBuildingsFill /></Form.Label>
+              <Form.Label className="formIcon">
+                <BsFillBuildingsFill />
+              </Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
                 name="unitSize"
-                onChange={handleInputChange}
+                onChange={(e) => setUnitSize(e.target.value)}
               >
                 <option value="">Select Unit Size</option>
                 <option value="5 sqm">5 sqm</option>
@@ -288,24 +405,28 @@ const CondoUnitList = () => {
               </Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="dateAdded" className="addForm">
-              <Form.Label className="formIcon"><RiCalendarTodoFill /></Form.Label>
+            <Form.Group controlId="" className="addForm">
+              <Form.Label className="formIcon">
+                <FaHospitalUser />
+              </Form.Label>
               <Form.Control
                 className="formField"
-                type="date"
-                placeholder="yyyy-mm-dd"
-                name="dateAdded"
-                onChange={handleInputChange}
+                type="text"
+                placeholder="Occupied By"
+                name="unitOwner"
+                onChange={(e) => setOccupiedBy(e.target.value)}
               />
             </Form.Group>
 
             <Form.Group controlId="status" className="addForm">
-              <Form.Label className="formIcon"><FaInnosoft /></Form.Label>
+              <Form.Label className="formIcon">
+                <FaInnosoft />
+              </Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
                 name="status"
-                onChange={handleInputChange}
+                onChange={(e) => setUnitStatus(e.target.value)}
               >
                 <option value="">Select Status</option>
                 <option value="Owner Occupied">Owner Occupied</option>
@@ -315,10 +436,17 @@ const CondoUnitList = () => {
             </Form.Group>
             <br />
             <Modal.Footer className="modalbtn">
-              <Button className="primarybtn" onClick={() => setShowAddModal(false)}>
+              <Button
+                className="primarybtn"
+                onClick={() => setShowAddModal(false)}
+              >
                 Cancel
               </Button>
-              <Button className="secondarybtn" type="submit">
+              <Button
+                className="secondarybtn"
+                type="submit"
+                onClick={handleAddNewUnit}
+              >
                 Save
               </Button>
             </Modal.Footer>
@@ -326,13 +454,14 @@ const CondoUnitList = () => {
         </Modal.Body>
       </Modal>
       <Modal show={showUploadModal} onHide={() => setShowUploadModal(false)}>
-        <br/>
+        <br />
         <h1 className="text-divider">Upload CSV</h1>
         <Modal.Body>
           <Form onSubmit={handleUploadFormSubmit}>
-
             <Form.Group controlId="unit_upload" className="addForm">
-              <Form.Label className="formIcon"><BsFiletypeCsv /></Form.Label>
+              <Form.Label className="formIcon">
+                <BsFiletypeCsv />
+              </Form.Label>
               <Form.Control
                 className="formField"
                 type="file"
@@ -344,7 +473,10 @@ const CondoUnitList = () => {
 
             <br />
             <Modal.Footer className="modalbtn">
-              <Button className="primarybtn" onClick={() => setShowUploadModal(false)}>
+              <Button
+                className="primarybtn"
+                onClick={() => setShowUploadModal(false)}
+              >
                 Cancel
               </Button>
               <Button className="secondarybtn" type="submit">
@@ -361,68 +493,99 @@ const CondoUnitList = () => {
           <h1 className="modal-divider">Condo Unit Details</h1>
           <div className="viewModal">
             <div className="col-md-6">
-              <p><strong>Unit Number:</strong> <br /> {selectedData.unitNum}</p>
+              <p>
+                <strong>Unit Number:</strong> <br /> {selectedData.unitNum}
+              </p>
             </div>
             <div className="col-md-6">
-              <p><strong>Unit Owner:</strong> <br /> {selectedData.unitOwner}</p>
+              <p>
+                <strong>Unit Owner:</strong> <br /> {selectedData.unitOwner}
+              </p>
             </div>
           </div>
 
           <div className="viewModal">
             <div className="col-md-6">
-              <p><strong>Unit Tower:</strong> <br /> {selectedData.unitTower}</p>
+              <p>
+                <strong>Unit Tower:</strong> <br /> {selectedData.unitTower}
+              </p>
             </div>
             <div className="col-md-6">
-              <p><strong>Unit Floor:</strong> <br /> {selectedData.unitFloor}</p>
+              <p>
+                <strong>Unit Floor:</strong> <br /> {selectedData.unitFloor}
+              </p>
             </div>
           </div>
 
           <div className="viewModal">
             <div className="col-md-6">
-              <p><strong>Unit Size:</strong> <br /> {selectedData.unitSize}</p>
+              <p>
+                <strong>Unit Size:</strong> <br /> {selectedData.unitSize}
+              </p>
             </div>
             <div className="col-md-6">
-              <p><strong>Status:</strong> <br /> {selectedData.status}</p>
+              <p>
+                <strong>Status:</strong> <br /> {selectedData.status}
+              </p>
             </div>
-          </div><br />
-         
+          </div>
+          <br />
+
           <h1 className="modal-divider">Tenant Details</h1>
           <div className="viewModal">
             <div className="col-md-6">
-              <p><strong>Main Tenant:</strong> <br /> {selectedData.mainTenant}</p>
+              <p>
+                <strong>Main Tenant:</strong> <br /> {selectedData.mainTenant}
+              </p>
             </div>
             <div className="col-md-6">
-              <p><strong>Number of Occupants:</strong> <br /> {selectedData.numOccupants}</p>
-            </div>
-          </div>
-
-          <div className="viewModal">
-            <div className="col-md-6">
-              <p><strong>Assoc Dues Billed to:</strong> <br /> {selectedData.assocBills}</p>
-            </div>
-            <div className="col-md-6">
-              <p><strong>Water Bills Billed to:</strong> <br /> {selectedData.waterBills}</p>
+              <p>
+                <strong>Number of Occupants:</strong> <br />{" "}
+                {selectedData.numOccupants}
+              </p>
             </div>
           </div>
 
           <div className="viewModal">
             <div className="col-md-6">
-              <p><strong>Date Move In:</strong> <br /> {selectedData.dateMoveIn}</p>
+              <p>
+                <strong>Assoc Dues Billed to:</strong> <br />{" "}
+                {selectedData.assocBills}
+              </p>
             </div>
             <div className="col-md-6">
-              <p><strong>Date Move Out:</strong> <br /> {selectedData.dateMoveOut}</p>
+              <p>
+                <strong>Water Bills Billed to:</strong> <br />{" "}
+                {selectedData.waterBills}
+              </p>
+            </div>
+          </div>
+
+          <div className="viewModal">
+            <div className="col-md-6">
+              <p>
+                <strong>Date Move In:</strong> <br /> {selectedData.dateMoveIn}
+              </p>
+            </div>
+            <div className="col-md-6">
+              <p>
+                <strong>Date Move Out:</strong> <br />{" "}
+                {selectedData.dateMoveOut}
+              </p>
             </div>
           </div>
         </Modal.Body>
       </Modal>
 
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
-        <br/>
+        <br />
         <h1 className="text-divider">Edit Unit</h1>
         <Modal.Body>
           <Form onSubmit={handleUpdateSubmit}>
             <Form.Group controlId="unitNum" className="editForm">
-              <Form.Label className="formIcon"><MdNumbers /></Form.Label>
+              <Form.Label className="formIcon">
+                <MdNumbers />
+              </Form.Label>
               <Form.Control
                 className="formField"
                 type="text"
@@ -434,7 +597,9 @@ const CondoUnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="unitOwner" className="editForm">
-              <Form.Label className="formIcon"><FaHospitalUser /></Form.Label>
+              <Form.Label className="formIcon">
+                <FaHospitalUser />
+              </Form.Label>
               <Form.Control
                 className="formField"
                 type="text"
@@ -446,7 +611,9 @@ const CondoUnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="unitTower" className="editForm">
-              <Form.Label className="formIcon"><FaBuilding /></Form.Label>
+              <Form.Label className="formIcon">
+                <FaBuilding />
+              </Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
@@ -460,7 +627,9 @@ const CondoUnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="unitFloor" className="editForm">
-              <Form.Label className="formIcon"><FaLayerGroup /></Form.Label>
+              <Form.Label className="formIcon">
+                <FaLayerGroup />
+              </Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
@@ -476,7 +645,9 @@ const CondoUnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="unitSize" className="editForm">
-              <Form.Label className="formIcon"><BsFillBuildingsFill /></Form.Label>
+              <Form.Label className="formIcon">
+                <BsFillBuildingsFill />
+              </Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
@@ -492,7 +663,9 @@ const CondoUnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="dateAdded" className="editForm">
-              <Form.Label className="formIcon"><RiCalendarTodoFill /></Form.Label>
+              <Form.Label className="formIcon">
+                <RiCalendarTodoFill />
+              </Form.Label>
               <Form.Control
                 className="formField"
                 type="date"
@@ -504,7 +677,9 @@ const CondoUnitList = () => {
             </Form.Group>
 
             <Form.Group controlId="status" className="editForm">
-              <Form.Label className="formIcon"><FaInnosoft /></Form.Label>
+              <Form.Label className="formIcon">
+                <FaInnosoft />
+              </Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
@@ -519,7 +694,10 @@ const CondoUnitList = () => {
             </Form.Group>
             <br />
             <Modal.Footer className="modalbtn">
-              <Button className="primarybtn" onClick={() => setShowEditModal(false)}>
+              <Button
+                className="primarybtn"
+                onClick={() => setShowEditModal(false)}
+              >
                 Cancel
               </Button>
               <Button className="secondarybtn" type="submit">
