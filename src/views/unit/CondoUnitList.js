@@ -37,7 +37,7 @@ const CondoUnitList = () => {
   const [data, setData] = useState([]);
 
   // SHOW UNIT DATAs
-  console.log(data);
+  //console.log(data);
 
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
@@ -58,16 +58,16 @@ const CondoUnitList = () => {
 
   const [unNo, setUnitNo] = useState("");
   const [unOwner, setUnitOwner] = useState();
-  const [unTower, setUnitTower] = useState("");
-  const [unFloor, setUnitFloor] = useState("");
-  const [unSize, setUnitSize] = useState("");
-  const [occupiedBy, setOccupiedBy] = useState("");
-  const [unStatus, setUnitStatus] = useState("");
+  const [unTower, setUnitTower] = useState();
+  const [unFloor, setUnitFloor] = useState();
+  const [unSize, setUnitSize] = useState();
+  const [occupiedBy, setOccupiedBy] = useState();
+  const [unStatus, setUnitStatus] = useState();
 
 
   // ADD UNIT
   const handleAddNewUnit = async (e) => {
-    
+    e.preventDefault()
     axios
       .post(UNIT_ADD_URL, {
         unit_no: unNo,
@@ -77,46 +77,24 @@ const CondoUnitList = () => {
         unit_size: unSize,
         occupied_by: occupiedBy,
         status: unStatus,
-      })
-      .then((response) => {
-        console.log(response);
       });
+      setShowAddModal(false);
   };
 
   // UPDATE UNIT
   const handleUpdateUnit = async (e) => {
     e.preventDefault();
-    
-    /*
-    const newData = data.map((item) =>
-      item.unit_no === selectedData.unit_no ? formData : item
-    );
-    //setData(newData);
-    setFormData({
-      unit_no: "",
-      unit_owner: "",
-      unit_tower: "",
-      unit_floor: "",
-      unit_size: "",
-      occupied_by: "",
-      status: "",
-    });
-    console.log("unit no" + formData.unit_no);
-    console.log("unit no" + formData.unit_owner);
-    console.log("DATA" + formData);*/
     const id = formData.unit_no;
     try {
       await axios.put(UNIT_UPDATE_URL + `${id}`, {
         unit_no: formData.unit_no,
-        unit_owner: formData.unit_owner,
-        unit_tower: formData.unit_tower,
-        unit_floor: formData.unit_floor,
-        unit_size: formData.unit_size,
-        occupied_by: formData.occupied_by,
-        status: formData.status,
-      }).then((response) => {
-        console.log(response.data);
-      });
+        unit_owner: unOwner,
+        unit_tower: unTower,
+        unit_floor: unFloor,
+        unit_size: unSize,
+        occupied_by: occupiedBy,
+        status: unStatus,
+      })
     } catch (error) {
       console.log(error)
     }
@@ -128,10 +106,10 @@ const CondoUnitList = () => {
   useEffect(() => {
     axios.post(UNIT_SHOW_URL).then((response) => {
       setData(response.data);
-      console.log(response.data);
+      //console.log(response.data);
     });
-    $("example").DataTable();
-  }, []);
+    //$("example").DataTable();
+  }, [data]);
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.unit_no]: event.target.value });
@@ -336,7 +314,7 @@ const CondoUnitList = () => {
         <br />
         <h1 className="text-divider">Add New Unit</h1>
         <Modal.Body>
-          <Form onSubmit={handleFormSubmit}>
+          <Form>
             <Form.Group controlId="unit_no" className="addForm">
               <Form.Label className="formIcon">
                 <MdNumbers />
@@ -602,8 +580,10 @@ const CondoUnitList = () => {
                 placeholder="Enter unit number"
                 name="unit_no"
                 defaultValue={formData.unit_no}
-                onChange={handleInputChange}
+                onChange={(e) => setUnitNo(e.target.value)}
+                
               />
+              
             </Form.Group>
 
             <Form.Group controlId="unit_owner" className="editForm">
@@ -616,7 +596,7 @@ const CondoUnitList = () => {
                 placeholder="Enter unit owner"
                 name="unit_owner"
                 defaultValue={formData.unit_owner}
-                onChange={handleInputChange}
+                onChange={(e) => setUnitOwner(e.target.value)}
               />
             </Form.Group>
 
@@ -629,7 +609,7 @@ const CondoUnitList = () => {
                 as="select"
                 name="unit_tower"
                 defaultValue={formData.unit_tower}
-                onChange={handleInputChange}
+                onChange={(e) => setUnitTower(e.target.value)}
               >
                 <option value="Tower 1">Tower 1</option>
                 <option value="Tower 2">Tower 2</option>
@@ -645,7 +625,7 @@ const CondoUnitList = () => {
                 as="select"
                 name="unit_floor"
                 defaultValue={formData.unit_floor}
-                onChange={handleInputChange}
+                onChange={(e) => setUnitFloor(e.target.value)}
               >
                 <option value="1st Floor">1st Floor</option>
                 <option value="2nd Floo">2nd Floor</option>
@@ -663,7 +643,7 @@ const CondoUnitList = () => {
                 as="select"
                 name="unit_size"
                 defaultValue={formData.unit_size}
-                onChange={handleInputChange}
+                onChange={(e) => setUnitSize(e.target.value)}
               >
                 <option value="5 sqm">5 sqm</option>
                 <option value="10 sqm">10 sqm</option>
@@ -682,7 +662,7 @@ const CondoUnitList = () => {
                 placeholder="Enter Tenant"
                 name="occupied_by"
                 defaultValue={formData.occupied_by}
-                onChange={handleInputChange}
+                onChange={(e) => setOccupiedBy(e.target.value)}
               />
             </Form.Group>
 
@@ -695,7 +675,7 @@ const CondoUnitList = () => {
                 as="select"
                 name="status"
                 defaultValue={formData.status}
-                onChange={handleInputChange}
+                onChange={(e) => setUnitStatus(e.target.value)}
               >
                 <option value="Owner Occupied">Owner Occupied</option>
                 <option value="Tenant Occupied">Tenant Occupied</option>
