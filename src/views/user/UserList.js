@@ -11,13 +11,13 @@ import { FiRefreshCcw, FiUpload } from 'react-icons/fi';
 import { HiIdentification } from 'react-icons/hi';
 import { CFormSelect } from '@coreui/react';
 import { Modal, Button, Form } from 'react-bootstrap';
+import axios from "src/api/axios";
 
+const USER_ADD_URL = "/users/addUser";
+const USER_SHOW_URL = "/users/getAllUser";
+const USER_UPDATE_URL = "/users/updateUnit/";
 const UserList = () => {
-  const [data, setData] = useState([
-    { unit_id: '1', email: 'jonieber@ecompilotph.com', password: 'daEAFA151', first_name: 'Jonieber', last_name: 'Dela Victoria', contact_no: '09642158124', birthdate: '1999-05-23', role: 'Tenant', status: 'Active' },
-    { unit_id: '2', email: 'jesulenio@ecompilotph.com', password: 'aSFA1255@', first_name: 'Jesulenio', last_name: 'Redera', contact_no: '09655984218', birthdate: '2000-01-12', role: 'Tenant', status: 'Inactive' },
-    { unit_id: '3', email: 'felix@ecompilotph.com', password: 'fffAcd#@358', first_name: 'Felix', last_name: 'Chua', contact_no: '09548223148', birthdate: '1975-05-03', role: 'Owner', status: 'Active' },
-  ]);
+  const [data, setData] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
@@ -35,9 +35,49 @@ const UserList = () => {
     status: '',
   });
 
+  const [userEmail, setUserEmail] = useState();
+  const [userPassword, setUserPassword] = useState();
+  const [userFname, setFname] = useState();
+  const [userLname, setLname] = useState();
+  const [userContactNo, setContactNo] = useState();
+  const [userBirthdate, setBdate] = useState();
+  const [userRole, setRole] = useState();
+  const [userStatus, setStatus] = useState();
+
+  //Add User
+  const handleAddNewUser = async (e) => {
+    e.preventDefault()
+    const fname = userFname + " " + userLname
+    const uStatus = "Active"
+    console.log(fname)
+    try {
+      axios
+      .post(USER_ADD_URL, {
+        email: userEmail,
+        password: userPassword,
+        full_name: fname,
+        contact_no: userContactNo,
+        birthdate: userBirthdate,
+        role: userRole,
+        status: uStatus,
+        
+      }).then((response) => {
+        console.log(response.data)
+      });
+      setShowAddModal(false);
+    } catch (error) {
+      console.log(error)
+    }
+    
+  };
+
   useEffect(() => {
-    $('#example').DataTable();
-  }, []);
+    axios.get(USER_SHOW_URL).then((response) => {
+      setData(response.data);
+      //console.log(response.data);
+    });
+    //$('#example').DataTable();
+  }, [data]);
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.email]: event.target.value });
@@ -161,11 +201,8 @@ const UserList = () => {
       <table id="example" className="table table-striped table-bordered">
         <thead>
           <tr>
-            <th>Unit ID</th>
             <th>Email</th>
-            <th>Password</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
+            <th>Full Name</th>
             <th>Contact Number</th>
             <th>Birthdate</th>
             <th>Role</th>
@@ -175,12 +212,9 @@ const UserList = () => {
         </thead>
         <tbody>
           {data.map((entry) => (
-            <tr key={entry.unit_id}>
-               <td>{entry.unit_id}</td>
+            <tr key={entry.id}>
               <td>{entry.email}</td>
-              <td>{entry.password}</td>
-              <td>{entry.first_name}</td>
-              <td>{entry.last_name}</td>
+              <td>{entry.full_name}</td>
               <td>{entry.contact_no}</td>
               <td>{entry.birthdate}</td>
               <td>{entry.role}</td>
@@ -217,17 +251,6 @@ const UserList = () => {
         <Modal.Body>
           <Form onSubmit={handleFormSubmit}>
 
-            <Form.Group controlId="unit_id" className="addForm">
-              <Form.Label className="formIcon"><HiIdentification /></Form.Label>
-              <Form.Control
-                className="formField"
-                type="text"
-                placeholder="Enter unit ID"
-                name="unit_id"
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-
             <Form.Group controlId="first_name" className="addForm">
               <Form.Label className="formIcon"><MdDriveFileRenameOutline /></Form.Label>
               <Form.Control
@@ -235,7 +258,7 @@ const UserList = () => {
                 type="text"
                 placeholder="Enter firstname"
                 name="first_name"
-                onChange={handleInputChange}
+                onChange={(e) => setFname(e.target.value)}
               />
             </Form.Group>
 
@@ -246,7 +269,7 @@ const UserList = () => {
                 type="text"
                 placeholder="Enter lastname"
                 name="last_name"
-                onChange={handleInputChange}
+                onChange={(e) => setLname(e.target.value)}
               />
             </Form.Group>
 
@@ -257,7 +280,7 @@ const UserList = () => {
                 type="text"
                 placeholder="Enter contact number"
                 name="contact_no"
-                onChange={handleInputChange}
+                onChange={(e) => setContactNo(e.target.value)}
               />
             </Form.Group>
 
@@ -268,7 +291,7 @@ const UserList = () => {
                 type="date"
                 placeholder="yyyy-mm-dd"
                 name="birthdate"
-                onChange={handleInputChange}
+                onChange={(e) => setBdate(e.target.value)}
               />
             </Form.Group>
 
@@ -278,7 +301,7 @@ const UserList = () => {
                 className="formField"
                 as="select"
                 name="role"
-                onChange={handleInputChange}
+                onChange={(e) => setRole(e.target.value)}
               >
                 <option value="">Select Role</option>
                 <option value="Unit Owner">Unit Owner</option>
@@ -293,7 +316,7 @@ const UserList = () => {
                 type="text"
                 placeholder="Enter email"
                 name="email"
-                onChange={handleInputChange}
+                onChange={(e) => setUserEmail(e.target.value)}
               />
             </Form.Group>
 
@@ -304,7 +327,7 @@ const UserList = () => {
                 type="text"
                 placeholder="Enter password"
                 name="password"
-                onChange={handleInputChange}
+                onChange={(e) => setUserPassword(e.target.value)}
               />
             </Form.Group>
            
@@ -313,7 +336,7 @@ const UserList = () => {
               <Button className="primarybtn" onClick={() => setShowAddModal(false)}>
                 Cancel
               </Button>
-              <Button className="secondarybtn" type="submit">
+              <Button className="secondarybtn" type="submit" onClick={handleAddNewUser}>
                 Save
               </Button>
             </Modal.Footer>
