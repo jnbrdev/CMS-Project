@@ -3,7 +3,7 @@ import $ from 'jquery';
 import 'datatables.net';
 import 'datatables.net-bs4';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../all-views-scss/_datatable.scss'
+import '../../../all-views-scss/_datatable.scss'
 import { FaEdit, FaTrash, FaInnosoft, FaFilter, FaMoneyBillAlt } from 'react-icons/fa';
 import { MdMiscellaneousServices } from 'react-icons/md';
 import { BsFiletypeCsv, BsFillPlusSquareFill } from 'react-icons/bs';
@@ -11,7 +11,7 @@ import { FiRefreshCcw, FiUpload } from 'react-icons/fi';
 import { CFormSelect } from '@coreui/react';
 import { Modal, Button, Form } from 'react-bootstrap';
 
-const ServiceList = () => {
+const ServiceList_adminteam = () => {
   const [data, setData] = useState([
     { id: '1', service_name: 'Parking (Night)', service_rate: '200 PHP', status: 'Active' },
     { id: '2', service_name: 'Club House', service_rate: '150 PHP', status: 'Inactive' },
@@ -323,4 +323,4 @@ const ServiceList = () => {
   );
 };
 
-export default ServiceList;
+export default ServiceList_adminteam;

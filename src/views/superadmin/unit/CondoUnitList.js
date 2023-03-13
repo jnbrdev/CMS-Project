@@ -3,7 +3,7 @@ import $ from "jquery";
 import "datatables.net";
 import "datatables.net-bs4";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../all-views-scss/_datatable.scss";
+import "../../../all-views-scss/_datatable.scss";
 import {
   FaEdit,
   FaTrash,

@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
+const Dashboard_adminteam = React.lazy(() => import('./views/dashboard-adminteam/Dashboard_adminteam'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 
@@ -48,40 +49,69 @@ const Badges = React.lazy(() => import('./views/notifications/badges/Badges'))
 const Modals = React.lazy(() => import('./views/notifications/modals/Modals'))
 const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
+// SUPER ADMIN ---------------------------------------------------------------------------------------------------------------------------------------
+
 //Billings
-const WaterBillList = React.lazy(() => import('./views/billings/WaterBillList'))
-const AssocDueList = React.lazy(() => import('./views/billings/AssocDueList'))
-const ManageBilling = React.lazy(() => import('./views/billings/ManageBilling'))
-const AddBilling = React.lazy(() => import('./views/billings/AddBilling'))
+const WaterBillList = React.lazy(() => import('./views/superadmin/billings/WaterBillList'))
+const AssocDueList = React.lazy(() => import('./views/superadmin/billings/AssocDueList'))
+const ManageBilling = React.lazy(() => import('./views/superadmin/billings/ManageBilling'))
+const AddBilling = React.lazy(() => import('./views/superadmin/billings/AddBilling'))
 
 //Unit
-const CondoUnitList = React.lazy(() => import('./views/unit/CondoUnitList'))
+const CondoUnitList = React.lazy(() => import('./views/superadmin/unit/CondoUnitList'))
 
 //User
-const UserList = React.lazy(() => import('./views/user/UserList'))
+const UserList = React.lazy(() => import('./views/superadmin/user/UserList'))
 
 //Security
-const SecurityGuardList = React.lazy(() => import('./views/security/SecurityGuardList'))
+const SecurityGuardList = React.lazy(() => import('./views/superadmin/security/SecurityGuardList'))
 
 //Request
-const RequestList = React.lazy(() => import('./views/request/RequestList'))
+const RequestList = React.lazy(() => import('./views/superadmin/request/RequestList'))
 
 //Guest
-const GuestList = React.lazy(() => import('./views/guest/GuestList'))
+const GuestList = React.lazy(() => import('./views/superadmin/guest/GuestList'))
 
 //Admin
-const AddNewAdminUser = React.lazy(() => import('./views/admin/AddNewAdminUser'))
-const AdminList = React.lazy(() => import('./views/admin/AdminList'))
-const AdminPriv = React.lazy(() => import('./views/admin/AdminPriv'))
+const AddNewAdminUser = React.lazy(() => import('./views/superadmin/admin/AddNewAdminUser'))
+const AdminList = React.lazy(() => import('./views/superadmin/admin/AdminList'))
+const AdminPriv = React.lazy(() => import('./views/superadmin/admin/AdminPriv'))
 
 //Services
-const ServiceList = React.lazy(() => import('./views/services/ServiceList'))
+const ServiceList = React.lazy(() => import('./views/superadmin/services/ServiceList'))
+
+
+// ADMIN TEAM ---------------------------------------------------------------------------------------------------------------------------------------
+
+//Billings
+const WaterBillList_adminteam = React.lazy(() => import('./views/adminteam/billings_adminteam/WaterBillList_adminteam'))
+const AssocDueList_adminteam = React.lazy(() => import('./views/adminteam/billings_adminteam/AssocDueList_adminteam'))
+const ManageBilling_adminteam = React.lazy(() => import('./views/adminteam/billings_adminteam/ManageBilling_adminteam'))
+const AddBilling_adminteam = React.lazy(() => import('./views/adminteam/billings_adminteam/AddBilling_adminteam'))
+
+//Unit
+const CondoUnitList_adminteam = React.lazy(() => import('./views/adminteam/unit_adminteam/CondoUnitList_adminteam'))
+
+//User
+const UserList_adminteam = React.lazy(() => import('./views/adminteam/user_adminteam/UserList_adminteam'))
+
+//Security
+const SecurityGuardList_adminteam = React.lazy(() => import('./views/adminteam/security_adminteam/SecurityGuardList_adminteam'))
+
+//Request
+const RequestList_adminteam = React.lazy(() => import('./views/adminteam/request_adminteam/RequestList_adminteam'))
+
+//Guest
+const GuestList_adminteam = React.lazy(() => import('./views/adminteam/guest_adminteam/GuestList_adminteam'))
+
+//Services
+const ServiceList_adminteam = React.lazy(() => import('./views/adminteam/services_adminteam/ServiceList_adminteam'))
+
+
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 const routes = [
-  { path: '/', exact: true, name: 'Home' },
-  { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
@@ -124,19 +154,37 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
-  { path: '/billings/waterbilllist', name: 'Water Bill List', element: WaterBillList },
-  { path: '/billings/managebill', name: 'Manage Billings', element: ManageBilling },
-  { path: '/billings/associationduelist', name: 'Association Due List', element: AssocDueList },
-  { path: '/billings/addbilling', name: 'Add Billing', element: AddBilling },
-  { path: '/requests/requestlist', name: 'Request List', element: RequestList },
-  { path: '/services/servicelist', name: 'Service List', element: ServiceList },
-  { path: '/units/condounitlist', name: 'View Unit Details', element: CondoUnitList },
-  { path: '/user/userlist', name: 'User List', element: UserList },
-  { path: '/security/securityguardlist', name: 'Security Guard List', element: SecurityGuardList },
-  { path: '/admin/adminlist', name: 'Admin List', element: AdminList },
-  { path: '/admin/addadmin', name: 'Add Admin User', element: AddNewAdminUser },
-  { path: '/admin/adminprivileges', name: 'Admin Privileges', element: AdminPriv },
-  { path: '/guest/guestlist', name: 'Guest List', element: GuestList },
+  
+  // SUPER ADMIN PATHS ---------------------------------------------------------------------------------------------------------------------------------------
+  { path: '/', exact: true, name: 'Home' },
+  { path: '/dashboard', name: 'Dashboard', element: Dashboard },
+  { path: '/superadmin/billings/waterbilllist', name: 'Water Bill List', element: WaterBillList },
+  { path: '/superadmin/billings/managebill', name: 'Manage Billings', element: ManageBilling },
+  { path: '/superadmin/billings/associationduelist', name: 'Association Due List', element: AssocDueList },
+  { path: '/superadmin/billings/addbilling', name: 'Add Billing', element: AddBilling },
+  { path: '/superadmin/requests/requestlist', name: 'Request List', element: RequestList },
+  { path: '/superadmin/services/servicelist', name: 'Service List', element: ServiceList },
+  { path: '/superadmin/units/condounitlist', name: 'View Unit Details', element: CondoUnitList },
+  { path: '/superadmin/user/userlist', name: 'User List', element: UserList },
+  { path: '/superadmin/security/securityguardlist', name: 'Security Guard List', element: SecurityGuardList },
+  { path: '/superadmin/admin/adminlist', name: 'Admin List', element: AdminList },
+  { path: '/superadmin/admin/addadmin', name: 'Add Admin User', element: AddNewAdminUser },
+  { path: '/superadmin/admin/adminprivileges', name: 'Admin Privileges', element: AdminPriv },
+  { path: '/superadmin/guest/guestlist', name: 'Guest List', element: GuestList },
+
+   // ADMIN TEAM PATHS ---------------------------------------------------------------------------------------------------------------------------------------
+  { path: '/', exact: true, name: 'Home' },
+  { path: '/dashboard_adminteam', name: 'Dashboard', element: Dashboard_adminteam },
+  { path: '/adminteam/billings_adminteam/waterbilllist_adminteam', name: 'Water Bill List', element: WaterBillList_adminteam },
+  { path: '/adminteam/billings_adminteam/managebill_adminteam', name: 'Manage Billings', element: ManageBilling_adminteam },
+  { path: '/adminteam/billings_adminteam/associationduelist_adminteam', name: 'Association Due List', element: AssocDueList_adminteam },
+  { path: '/adminteam/billings_adminteam/addbilling_adminteam', name: 'Add Billing', element: AddBilling_adminteam },
+  { path: '/adminteam/requests_adminteam/requestlist_adminteam', name: 'Request List', element: RequestList_adminteam },
+  { path: '/adminteam/services_adminteam/servicelist_adminteam', name: 'Service List', element: ServiceList_adminteam },
+  { path: '/adminteam/units_adminteam/condounitlist_adminteam', name: 'View Unit Details', element: CondoUnitList_adminteam },
+  { path: '/adminteam/user_adminteam/userlist_adminteam', name: 'User List', element: UserList_adminteam },
+  { path: '/adminteam/security_adminteam/securityguardlist_adminteam', name: 'Security Guard List', element: SecurityGuardList_adminteam },
+  { path: '/adminteam/guest_adminteam/guestlist_adminteam', name: 'Guest List', element: GuestList_adminteam },
 ]
 
 export default routes

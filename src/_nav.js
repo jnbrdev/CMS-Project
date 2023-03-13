@@ -60,22 +60,22 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Water Bill List',
-        to: '/billings/waterbilllist',
+        to: '/superadmin/billings/waterbilllist',
       },
       {
         component: CNavItem,
         name: 'Association Due List',
-        to: '/billings/associationduelist',
+        to: '/superadmin/billings/associationduelist',
       },
       {
         component: CNavItem,
         name: 'Manage Billings',
-        to: '/billings/managebill',
+        to: '/superadmin/billings/managebill',
       },
       {
         component: CNavItem,
         name: 'Add Billing',
-        to: '/billings/addbilling',
+        to: '/superadmin/billings/addbilling',
       },
     ],
   },
@@ -83,14 +83,14 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Requests',
-    to: '/requests/requestlist',
+    to: '/superadmin/requests/requestlist',
     icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
   },
 
   {
     component: CNavItem,
     name: 'Services',
-    to: '/services/servicelist',
+    to: '/superadmin/services/servicelist',
     icon: <CIcon icon={cilPool} customClassName="nav-icon" />,
   },
   /*{
@@ -102,21 +102,21 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Units',
-    to: '/units/condounitlist',
+    to: '/superadmin/units/condounitlist',
     icon: <CIcon icon={cilHouse} customClassName="nav-icon" />,
   },
 
   {
     component: CNavItem,
     name: 'Users',
-    to: '/user/userlist',
+    to: '/superadmin/user/userlist',
     icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
   },
 
   {
     component: CNavItem,
     name: 'Security Guards',
-    to: '/security/securityguardlist',
+    to: '/superadmin/security/securityguardlist',
     icon: <CIcon icon={cilShieldAlt} customClassName="nav-icon" />,
   },
 
@@ -128,17 +128,17 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Admin List',
-        to: '/admin/adminlist',
+        to: '/superadmin/admin/adminlist',
       },
       {
         component: CNavItem,
         name: 'Add Admin User',
-        to: '/admin/addadmin',
+        to: '/superadmin/admin/addadmin',
       },
       {
         component: CNavItem,
         name: 'Admin Privileges',
-        to: '/admin/adminprivileges',
+        to: '/superadmin/admin/adminprivileges',
       },
     ],
   },
@@ -146,7 +146,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Guest',
-    to: '/guest/guestlist',
+    to: '/superadmin/guest/guestlist',
     icon: <CIcon icon={cilBell} customClassName="nav-icon" />,
   },
   /*{ // ForReference
@@ -196,6 +196,7 @@ const _nav = [
     href: 'https://coreui.io/react/docs/templates/installation/',
     icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
   },*/
+
 ]
 
 export default _nav

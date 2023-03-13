@@ -3,7 +3,7 @@ import $ from 'jquery';
 import 'datatables.net';
 import 'datatables.net-bs4';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../all-views-scss/_datatable.scss'
+import '../../../all-views-scss/_datatable.scss'
 import { FaEdit, FaTrash, FaEye, FaFilter, FaUsersCog } from 'react-icons/fa';
 import { MdDriveFileRenameOutline, MdContactPhone, MdCake, MdEmail } from 'react-icons/md';
 import { BsFiletypeCsv, BsFillPlusSquareFill, BsFillShieldLockFill } from 'react-icons/bs';
@@ -16,7 +16,7 @@ import axios from "src/api/axios";
 const USER_ADD_URL = "/users/addUser";
 const USER_SHOW_URL = "/users/getAllUser";
 const USER_UPDATE_URL = "/users/updateUnit/";
-const UserList = () => {
+const UserList_adminteam = () => {
   const [data, setData] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
@@ -555,4 +555,4 @@ const UserList = () => {
   );
 };
 
-export default UserList;
+export default UserList_adminteam;

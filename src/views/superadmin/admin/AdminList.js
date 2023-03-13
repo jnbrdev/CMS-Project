@@ -1,5 +1,5 @@
 import React from "react";
-import '../../all-views-scss/_adminliststyle.scss'
+import '../../../all-views-scss/_adminliststyle.scss'
 //for bootstrap styles and scripts
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';

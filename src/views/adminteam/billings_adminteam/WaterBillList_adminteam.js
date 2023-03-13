@@ -3,7 +3,7 @@ import $ from 'jquery';
 import 'datatables.net';
 import 'datatables.net-bs4';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../all-views-scss/_datatable.scss'
+import '../../../all-views-scss/_datatable.scss'
 import { FaEdit, FaTrash, FaFilter } from 'react-icons/fa';
 import { MdNumbers } from 'react-icons/md';
 import { BsFiletypeCsv, BsFillPlusSquareFill } from 'react-icons/bs';
@@ -13,7 +13,7 @@ import { FiRefreshCcw, FiUpload } from 'react-icons/fi';
 import { TbReportMoney } from 'react-icons/tb';
 import { Modal, Button, Form } from 'react-bootstrap';
 
-const WaterBillList = () => {
+const WaterBillList__adminteam = () => {
   const [data, setData] = useState([
     { id: '1', invoice_num: '10044', unit_num: '253', billed_to: 'Jonieber Dela Victoria', bill_cost: '800 PHP', due_date: '2023-05-30', prev_reading: '1,500 PHP', curr_reading: '1,000 PHP', reading_date: '2023-06-01', penalty: '100 PHP' },
     { id: '2', invoice_num: '25203', unit_num: '102', billed_to: 'Jesulenio Redera', bill_cost: '1,000 PHP', due_date: '2023-06-31', prev_reading: '1,000 PHP', curr_reading: '950 PHP', reading_date: '2023-07-01', penalty: '200 PHP' },
@@ -468,4 +468,4 @@ const WaterBillList = () => {
   );
 };
 
-export default WaterBillList;
+export default WaterBillList__adminteam;

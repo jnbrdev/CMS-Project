@@ -3,31 +3,34 @@ import $ from 'jquery';
 import 'datatables.net';
 import 'datatables.net-bs4';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../all-views-scss/_datatable.scss'
-import { FaEdit, FaTrash, FaInnosoft, FaFilter } from 'react-icons/fa';
-import { MdNumbers, MdDriveFileRenameOutline } from 'react-icons/md';
+import '../../../all-views-scss/_datatable.scss'
+import { FaEdit, FaFilter } from 'react-icons/fa';
+import { MdDriveFileRenameOutline, MdContactPhone, MdNumbers } from 'react-icons/md';
 import { BsFiletypeCsv, BsFillPlusSquareFill } from 'react-icons/bs';
 import { FiRefreshCcw, FiUpload } from 'react-icons/fi';
+import { HiIdentification } from 'react-icons/hi';
+import { RiCalendarTodoFill } from 'react-icons/ri';
+import { CgUserList } from 'react-icons/cg';
 import { CFormSelect } from '@coreui/react';
 import { Modal, Button, Form } from 'react-bootstrap';
 
-const SecurityGuardList = () => {
+const GuestList = () => {
   const [data, setData] = useState([
-    { id: '1', guard_num: '0001', first_name: 'Jonieber', last_name: 'Dela Victoria', shit_start: '8:00 AM', shift_end: '5:00 PM', status: 'Inactive' },
-    { id: '2', guard_num: '0002', first_name: 'Jesulenio', last_name: 'Redera', shit_start: '1:00 AM', shift_end: '8:00 AM', status: 'Approved' },
-    { id: '3', guard_num: '0003', first_name: 'James', last_name: 'Sevilla', shit_start: '5:00 PM', shift_end: '12:00 PM', status: 'Approved' },
+    { unit_id: '1', guest_num: '23', unit_num: '253', first_name: 'Jonieber', last_name: 'Dela Victoria', contact_no: '09642158124', date_visit: '2023-05-23', status: 'Approved' },
+    { unit_id: '2', guest_num: '12', unit_num: '103', first_name: 'Jesulenio', last_name: 'Redera', contact_no: '09655984218', date_visit: '2023-01-12', status: 'Declined' },
+    { unit_id: '3', guest_num: '50', unit_num: '101', first_name: 'Felix', last_name: 'Chua', contact_no: '09548223148', date_visit: '2023-05-03', status: 'Approved' },
   ]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [formData, setFormData] = useState({
-    guard_num: '',
+    guest_num: '',
+    unit_num: '',
     first_name: '',
     last_name: '',
-    shit_start: '',
-    shift_end: '',
+    contact_no: '',
+    date_visit: '',
     status: '',
   });
 
@@ -36,7 +39,7 @@ const SecurityGuardList = () => {
   }, []);
 
   const handleInputChange = (event) => {
-    setFormData({ ...formData, [event.target.id]: event.target.value });
+    setFormData({ ...formData, [event.target.guest_num]: event.target.value });
   };
 
   const handleAddNewEntry = () => {
@@ -53,58 +56,67 @@ const SecurityGuardList = () => {
     setShowEditModal(true);
   };
 
-  const handleDeleteButtonClick = (data) => {
-    setSelectedData(data);
-    setShowDeleteModal(true);
-  };
-
   const handleFormSubmit = (event) => {
     event.preventDefault();
     const newId = data.length + 1;
-    const newData = { id: newId, ...formData };
+    const newData = { unit_id: newId, ...formData };
     setData([...data, newData]);
-    setFormData({ guard_num: '', first_name: '', last_name: '', shit_start: '', shift_end: '', status: '' });
+    setFormData({ guest_num: '', unit_num: '', first_name: '', last_name: '', contact_no: '', date_visit: '', status: '' });
     setShowAddModal(false);
   };
 
   const handleUploadFormSubmit = (event) => {
     event.preventDefault();
     const newId = data.length + 1;
-    const newData = { id: newId, ...formData };
+    const newData = { unit_id: newId, ...formData };
     setData([...data, newData]);
-    setFormData({ guard_num: '', first_name: '', last_name: '', shit_start: '', shift_end: '', status: '' });
+    setFormData({ guest_num: '', unit_num: '', first_name: '', last_name: '', contact_no: '', date_visit: '', status: '' });
     setShowUploadModal(false);
   };
+
 
   const handleUpdateSubmit = (event) => {
     event.preventDefault();
     const newData = data.map((item) =>
-      item.id === selectedData.id ? formData : item
+      item.unit_id === selectedData.unit_id ? formData : item
     );
     setData(newData);
-    setFormData({ guard_num: '', first_name: '', last_name: '', shit_start: '', shift_end: '', status: '' });
+    setFormData({ guest_num: '', unit_num: '', first_name: '', last_name: '', contact_no: '', date_visit: '', status: '' });
     setSelectedData({});
     setShowEditModal(false);
-  };
-
-  const handleDeleteConfirm = () => {
-    const newData = data.filter((item) => item.id !== selectedData.id);
-    setData(newData);
-    setSelectedData({});
-    setShowDeleteModal(false);
   };
 
   return (
     <div className="container">
       <br />
       <div className="tbl-title">
-        <h1 className="text-divider">SECURITY GUARD LIST</h1>
+        <h1 className="text-divider">GUEST LIST</h1>
       </div>
       <div className="table-head">
+        <Form.Group controlId="dateFrom" className="filter-date-from">
+          <Form.Label className="filter-date-label">From</Form.Label>
+          <Form.Control
+            className="filter-date-input"
+            type="date"
+            placeholder="yyyy-mm-dd"
+            name="datFrom"
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="dateTo" className="filter-date-to">
+          <Form.Label className="filter-date-label">To</Form.Label>
+          <Form.Control
+            className="filter-date-input"
+            type="date"
+            placeholder="yyyy-mm-dd"
+            name="dateTo"
+            onChange={handleInputChange}
+          />
+        </Form.Group>
         <CFormSelect className="costum-select">
           <option value="">Filter by Status</option>
-          <option value="Acive">Acive</option>
-          <option value="Inactive">Inactive</option>
+          <option value="Approve">Approve</option>
+          <option value="Decline">Decline</option>
         </CFormSelect>
         <div className="thead-btn">
           <Button className="thead-btn-primary" name="filter" type="submit">
@@ -114,10 +126,10 @@ const SecurityGuardList = () => {
             <FiRefreshCcw />
           </Button>
           <Button className="thead-btn-tertiary" onClick={handleAddNewEntry}>
-            <BsFillPlusSquareFill /> Add New
+            <BsFillPlusSquareFill />
           </Button>
           <Button className="thead-btn-quaternary" onClick={handleUploadEntry}>
-            <FiUpload /> Upload
+            <FiUpload />
           </Button>
         </div>
       </div>
@@ -126,28 +138,32 @@ const SecurityGuardList = () => {
       <table id="example" className="table table-striped table-bordered">
         <thead>
           <tr>
-            <th>Security Guard No.</th>
+            <th>Unit ID</th>
+            <th>Gues Number</th>
+            <th>Unit Number</th>
             <th>Firstname</th>
             <th>Lastname</th>
-            <th>Shift Start</th>
-            <th>Shift End</th>
+            <th>Contact Number</th>
+            <th>Date of Visit</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {data.map((entry) => (
-            <tr key={entry.id}>
-              <td>{entry.guard_num}</td>
+            <tr key={entry.unit_id}>
+              <td>{entry.unit_id}</td>
+              <td>{entry.guest_num}</td>
+              <td>{entry.unit_num}</td>
               <td>{entry.first_name}</td>
               <td>{entry.last_name}</td>
-              <td>{entry.shit_start}</td>
-              <td>{entry.shift_end}</td>
+              <td>{entry.contact_no}</td>
+              <td>{entry.date_visit}</td>
               <td>
                 <Form.Label className="toggle">
                   <Form.Control type="checkbox" />
                   <span className="slider"></span>
-                  <span className="labels" data-on="Active" data-off="Inactive"></span>
+                  <span className="labels" data-on="Approved" data-off="Declined"></span>
                 </Form.Label>
               </td>
               <td>
@@ -158,32 +174,45 @@ const SecurityGuardList = () => {
                 >
                   <FaEdit />
                 </Button>
-                {' '}
-                <Button
-                  className="delete"
-                  onClick={() => handleDeleteButtonClick(entry)}
-                >
-                  <FaTrash />
-                </Button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      
+
       {/* ADD MODAL START */}
       <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
         <br/>
-        <h1 className="text-divider">Add New Sec. Guard</h1>
+        <h1 className="text-divider">Add New Guest</h1>
         <Modal.Body>
           <Form onSubmit={handleFormSubmit}>
-            <Form.Group controlId="guard_num" className="addForm">
+            <Form.Group controlId="unit_id" className="addForm">
+              <Form.Label className="formIcon"><HiIdentification /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Enter unit ID"
+                name="unit_id"
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="guest_num" className="addForm">
+            <Form.Label className="formIcon"><CgUserList /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Enter guest number"
+                name="guest_num"
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="unit_num" className="addForm">
               <Form.Label className="formIcon"><MdNumbers /></Form.Label>
               <Form.Control
                 className="formField"
                 type="text"
-                placeholder="Enter security guard number"
-                name="guard_num"
+                placeholder="Enter unit number"
+                name="unit_num"
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -207,18 +236,25 @@ const SecurityGuardList = () => {
                 onChange={handleInputChange}
               />
             </Form.Group>
-            <Form.Group controlId="status" className="addForm">
-              <Form.Label className="formIcon"><FaInnosoft /></Form.Label>
+            <Form.Group controlId="contact_no" className="addForm">
+              <Form.Label className="formIcon"><MdContactPhone /></Form.Label>
               <Form.Control
                 className="formField"
-                as="select"
-                name="status"
+                type="text"
+                placeholder="Enter contact number"
+                name="contact_no"
                 onChange={handleInputChange}
-              >
-                <option value="">Select Status</option>
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
-              </Form.Control>
+              />
+            </Form.Group>
+            <Form.Group controlId="date_visit" className="addForm">
+              <Form.Label className="formIcon"><RiCalendarTodoFill /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="date"
+                placeholder="yyyy-mm-dd"
+                name="date_visit"
+                onChange={handleInputChange}
+              />
             </Form.Group>
             <br />
             <Modal.Footer className="modalbtn">
@@ -240,13 +276,14 @@ const SecurityGuardList = () => {
         <h1 className="text-divider">Upload CSV</h1>
         <Modal.Body>
           <Form onSubmit={handleUploadFormSubmit}>
-            <Form.Group controlId="unit_upload" className="addForm">
+
+            <Form.Group controlId="guest_upload" className="addForm">
               <Form.Label className="formIcon"><BsFiletypeCsv /></Form.Label>
               <Form.Control
                 className="formField"
                 type="file"
                 placeholder="Upload CSV"
-                name="guard_upload"
+                name="guest_upload"
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -267,17 +304,39 @@ const SecurityGuardList = () => {
       {/* EDIT MODAL START */}
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
         <br/>
-        <h1 className="text-divider">Edit Sec. Guard</h1>
+        <h1 className="text-divider">Edit Guest</h1>
         <Modal.Body>
           <Form onSubmit={handleUpdateSubmit}>
-            <Form.Group controlId="guard_num" className="addForm">
+          <Form.Group controlId="unit_id" className="addForm">
+              <Form.Label className="formIcon"><HiIdentification /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Enter unit ID"
+                name="unit_id"
+                value={formData.unit_id}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="guest_num" className="addForm">
+            <Form.Label className="formIcon"><CgUserList /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Enter guest number"
+                name="guest_num"
+                value={formData.guest_num}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="unit_num" className="addForm">
               <Form.Label className="formIcon"><MdNumbers /></Form.Label>
               <Form.Control
                 className="formField"
                 type="text"
-                placeholder="Enter security guard number"
-                name="guard_num"
-                value={formData.guard_num}
+                placeholder="Enter unit number"
+                name="unit_num"
+                value={formData.unit_num}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -303,19 +362,27 @@ const SecurityGuardList = () => {
                 onChange={handleInputChange}
               />
             </Form.Group>
-            <Form.Group controlId="status" className="addForm">
-              <Form.Label className="formIcon"><FaInnosoft /></Form.Label>
+            <Form.Group controlId="contact_no" className="addForm">
+              <Form.Label className="formIcon"><MdContactPhone /></Form.Label>
               <Form.Control
                 className="formField"
-                as="select"
-                name="status"
-                value={formData.status}
+                type="text"
+                placeholder="Enter contact number"
+                name="contact_no"
+                value={formData.contact_no}
                 onChange={handleInputChange}
-              >
-                <option value="">Select Status</option>
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
-              </Form.Control>
+              />
+            </Form.Group>
+            <Form.Group controlId="date_visit" className="addForm">
+              <Form.Label className="formIcon"><RiCalendarTodoFill /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="date"
+                placeholder="yyyy-mm-dd"
+                name="date_visit"
+                value={formData.date_visit}
+                onChange={handleInputChange}
+              />
             </Form.Group>
             <br />
             <Modal.Footer className="modalbtn">
@@ -329,27 +396,9 @@ const SecurityGuardList = () => {
           </Form>
         </Modal.Body>
       </Modal>
-      {/* EDIT MODAL END */}
-
-      {/* DELETE MODAL START */}
-      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} className="deleteModal">
-        <br/>
-        <h1 className="text-divider">Delete Sec. Guard</h1>
-        <Modal.Body>
-          <p className="confirmation">Are you sure you want to delete this security guard?</p>
-        </Modal.Body>
-        <Modal.Footer className="modalbtn">
-          <Button className="primarybtn" onClick={() => setShowDeleteModal(false)}>
-            Cancel
-          </Button>
-          <Button className="secondarybtn" onClick={handleDeleteConfirm}>
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      {/* DELETE MODAL END */}
+      {/* EDIT MODAL ENDS */}
     </div>
   );
 };
 
-export default SecurityGuardList;
+export default GuestList;
