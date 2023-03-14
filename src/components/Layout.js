@@ -1,10 +1,10 @@
-import React from 'react'
 import { Outlet } from "react-router-dom";
 import { AppContent, AppSidebar, AppFooter, AppHeader } from '../components/index'
-
-const DefaultLayout = () => {
+const Layout = () => {
   return (
-    <div>
+    <main className="App">
+      
+      <div>
       <AppSidebar />
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader />
@@ -15,7 +15,8 @@ const DefaultLayout = () => {
         <AppFooter />
       </div>
     </div>
-  )
-}
+    </main>
+  );
+};
 
-export default DefaultLayout
+export default Layout;

@@ -60,7 +60,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Water Bill List',
-        to: '/superadmin/billings/waterbilllist',
+        to: '/waterbilllist',
       },
       {
         component: CNavItem,
