@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "src/authentication/authProvider";
-import { Link, redirect} from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FaUserCircle, FaUserAlt, FaLock } from "react-icons/fa";
 import "../../../all-views-scss/_loginstyle.scss";
 import {
@@ -17,12 +17,17 @@ import {
   CRow,
 } from "@coreui/react";
 import axios from "src/api/axios";
+import useAuth from "src/hooks/useAuth";
 //import { axios } from "axios";
 const LOGIN_URL = "/login/loginUser";
 
 const Login = () => {
   //const history = useHistory();
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const userRef = useRef();
   const errRef = useRef();
 
@@ -40,17 +45,39 @@ const Login = () => {
   }, [email, password]);
 
   const login = async (e) => {
-    axios
-      .post(LOGIN_URL, {
-        email: email,
-        password: password,
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.data.role === "Super Admin" && response.data.status === "Active") {
-          window.location.href = '/dashboard';
-        }
-      });
+    e.preventDefault();
+    try {
+      axios
+        .post(LOGIN_URL, {
+          email: email,
+          password: password,
+        })
+        .then((response) => {
+          console.log(response);
+          const accessToken = response?.data?.accessToken;
+          const roles = response?.data?.role;
+          setAuth({ email, password, roles, accessToken });
+          navigate(from, {replace: true})
+          
+          if (response.data.message === "Login Successfully!") {
+            setErrMsg("Login Succesfully");
+          } else if (
+            response.data.message === "Email or Password does not match!"
+          ) {
+            setErrMsg("Email and Password Doesn't Match");
+          } else if (response.data.message === "Wrong Password") {
+            setErrMsg("Email and Password Doesn't Match");
+          } else {
+            setErrMsg("Login Failed");
+          }
+          errRef.current.focus();
+        });
+    } catch (error) {
+      console.log(error);
+      if (!error.response) {
+        setErrMsg("No Server Response");
+      }
+    }
   };
 
   {
@@ -81,6 +108,14 @@ const Login = () => {
                   </CCol>
                   <p className="text-medium-emphasis">
                     Sign In to your account
+                  </p>
+
+                  <p
+                    ref={errRef}
+                    className={errMsg ? "errmsg" : "offscreen"}
+                    aria-live="assertive"
+                  >
+                    {errMsg}{" "}
                   </p>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
