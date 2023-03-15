@@ -16,7 +16,7 @@ const adminteam_nav = [
   {
     component: CNavItem,
     name: 'Dashboard',
-    to: '/dashboard',
+    to: '/admin',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
     badge: {
       color: 'info',
@@ -35,22 +35,22 @@ const adminteam_nav = [
       {
         component: CNavItem,
         name: 'Water Bill List',
-        to: '/adminteam/billings_adminteam/waterbilllist_adminteam',
+        to: '/admin/waterbilllist',
       },
       {
         component: CNavItem,
         name: 'Association Due List',
-        to: '/adminteam/billings_adminteam/associationduelist_adminteam',
+        to: '/admin/assocduelist',
       },
       {
         component: CNavItem,
         name: 'Manage Billings',
-        to: '/adminteam/billings_adminteam/managebill_adminteam',
+        to: '/admin/managebilling',
       },
       {
         component: CNavItem,
         name: 'Add Billing',
-        to: '/adminteam/billings_adminteam/addbilling_adminteam',
+        to: '/admin/addbilling',
       },
     ],
   },
@@ -58,42 +58,42 @@ const adminteam_nav = [
   {
     component: CNavItem,
     name: 'Requests',
-    to: '/adminteam/requests_adminteam/requestlist_adminteam',
+    to: '/admin/requestlist',
     icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
   },
 
   {
     component: CNavItem,
     name: 'Services',
-    to: '/adminteam/services_adminteam/servicelist_adminteam',
+    to: '/admin/servicelist',
     icon: <CIcon icon={cilPool} customClassName="nav-icon" />,
   },
   
   {
     component: CNavItem,
     name: 'Units',
-    to: '/adminteam/units_adminteam/condounitlist_adminteam',
+    to: '/admin/unitlist',
     icon: <CIcon icon={cilHouse} customClassName="nav-icon" />,
   },
 
   {
     component: CNavItem,
     name: 'Users',
-    to: '/adminteam/user_adminteam/userlist_adminteam',
+    to: '/admin/userlist',
     icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
   },
 
   {
     component: CNavItem,
     name: 'Security Guards',
-    to: '/adminteam/security_adminteam/securityguardlist_adminteam',
+    to: '/admin/securitylist',
     icon: <CIcon icon={cilShieldAlt} customClassName="nav-icon" />,
   },
 
   {
     component: CNavItem,
     name: 'Guest',
-    to: '/adminteam/guest_adminteam/guestlist_adminteam',
+    to: '/admin/guestlist',
     icon: <CIcon icon={cilBell} customClassName="nav-icon" />,
   },
 ]

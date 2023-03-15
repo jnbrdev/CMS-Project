@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "src/authentication/authProvider";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation, Navigate } from "react-router-dom";
 import { FaUserCircle, FaUserAlt, FaLock } from "react-icons/fa";
 import "../../../all-views-scss/_loginstyle.scss";
 import {
@@ -18,11 +18,11 @@ import {
 } from "@coreui/react";
 import axios from "src/api/axios";
 import useAuth from "src/hooks/useAuth";
+
 //import { axios } from "axios";
 const LOGIN_URL = "/login/loginUser";
 
 const Login = () => {
-  //const history = useHistory();
   const { setAuth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -37,7 +37,7 @@ const Login = () => {
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    //userRef.current.focus();
+    userRef.current.focus();
   }, []);
 
   useEffect(() => {
@@ -53,12 +53,6 @@ const Login = () => {
           password: password,
         })
         .then((response) => {
-          console.log(response);
-          const accessToken = response?.data?.accessToken;
-          const roles = response?.data?.role;
-          setAuth({ email, password, roles, accessToken });
-          navigate(from, {replace: true})
-          
           if (response.data.message === "Login Successfully!") {
             setErrMsg("Login Succesfully");
           } else if (
@@ -70,6 +64,22 @@ const Login = () => {
           } else {
             setErrMsg("Login Failed");
           }
+          const roles = response?.data?.role;
+          if(roles[0] === '1'){
+            const accessToken = response?.data?.accessToken;
+            setAuth({ email, password, roles, accessToken });
+            navigate('/dashboard')
+          }else if(roles[0] === '2'){
+            const accessToken = response?.data?.accessToken;
+            setAuth({ email, password, roles, accessToken });
+            navigate('/admin')
+          }
+          
+          console.log(response.data);
+          
+          
+          
+          console.log(roles[0])
           errRef.current.focus();
         });
     } catch (error) {
@@ -115,7 +125,7 @@ const Login = () => {
                     className={errMsg ? "errmsg" : "offscreen"}
                     aria-live="assertive"
                   >
-                    {errMsg}{" "}
+                    {errMsg}
                   </p>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
