@@ -19,14 +19,46 @@ const Login = React.lazy(() => import("./views/pages/login/Login"));
 const Register = React.lazy(() => import("./views/pages/register/Register"));
 const Page404 = React.lazy(() => import("./views/pages/page404/Page404"));
 const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));
+
+// SUPER ADMIN ----------------------------------------------------------
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
+
+//Billings
+const WaterBillList = React.lazy(() => import('./views/superadmin/billings/WaterBillList'))
+const AssocDueList = React.lazy(() => import('./views/superadmin/billings/AssocDueList'))
+const ManageBilling = React.lazy(() => import('./views/superadmin/billings/ManageBilling'))
+const AddBilling = React.lazy(() => import('./views/superadmin/billings/AddBilling'))
+
+//Unit
+const CondoUnitList = React.lazy(() => import('./views/superadmin/unit/CondoUnitList'))
+
+//User
+const UserList = React.lazy(() => import('./views/superadmin/user/UserList'))
+
+//Security
+const SecurityGuardList = React.lazy(() => import('./views/superadmin/security/SecurityGuardList'))
+
+//Request
+const RequestList = React.lazy(() => import('./views/superadmin/request/RequestList'))
+
+//Guest
+const GuestList = React.lazy(() => import('./views/superadmin/guest/GuestList'))
+
+//Admin
+const AddNewAdminUser = React.lazy(() => import('./views/superadmin/admin/AddNewAdminUser'))
+const AdminList = React.lazy(() => import('./views/superadmin/admin/AdminList'))
+const AdminPriv = React.lazy(() => import('./views/superadmin/admin/AdminPriv'))
+
+//Services
+const ServiceList = React.lazy(() => import('./views/superadmin/services/ServiceList'))
+
+
+
+
+// ADMIN TEAM --------------------------------------------------------------------------
 const Dashboard_adminteam = React.lazy(() =>
   import("./views/dashboard-adminteam/Dashboard_adminteam")
 );
-const WaterBillList = React.lazy(() =>
-  import("./views/superadmin/billings/WaterBillList")
-);
-// ADMIN TEAM --------------------------------------------------------------------------
 //Billings
 const WaterBillList_adminteam = React.lazy(() => import('./views/adminteam/billings_adminteam/WaterBillList_adminteam'))
 const AssocDueList_adminteam = React.lazy(() => import('./views/adminteam/billings_adminteam/AssocDueList_adminteam'))
@@ -74,6 +106,18 @@ class App extends Component {
               <Route element={<RequireAuth allowedRoles={['1']} />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/waterbilllist" element={<WaterBillList />} />
+              <Route path="/assocduelist" element={<AssocDueList />} />
+              <Route path="/managebilling" element={<ManageBilling />} />
+              <Route path="/addbilling" element={<AddBilling />} />
+              <Route path="/unitlist" element={<CondoUnitList />} />
+              <Route path="/userlist" element={<UserList />} />
+              <Route path="/securitylist" element={<SecurityGuardList />} />
+              <Route path="/requestlist" element={<RequestList />} />
+              <Route path="/guestlist" element={<GuestList />} />
+              <Route path="/servicelist" element={<ServiceList />} />
+              <Route path="/adminlist" element={<AdminList />} />
+              <Route path="/addadmin" element={<AddNewAdminUser />} />
+              <Route path="/adminprivileges" element={<AdminPriv />} />
             </Route>
           </Route>
           <Route element={<AdminLayout />}>
