@@ -92,7 +92,8 @@ const ROLES = {
   'Tenant': 5,
   'SecurityGuard': 6,
 }
-
+//<Route element={<RequireAuth allowedRoles={['1']} />}> </Route>
+// <Route element={<RequireAuth allowedRoles={['2']} />}> </Route>
 class App extends Component {
   render() {
     return (
@@ -103,7 +104,7 @@ class App extends Component {
           {/*Protected Routes*/}
           
           <Route element={<DefaultLayout />}>
-              <Route element={<RequireAuth allowedRoles={['1']} />}>
+              
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/waterbilllist" element={<WaterBillList />} />
               <Route path="/assocduelist" element={<AssocDueList />} />
@@ -119,9 +120,9 @@ class App extends Component {
               <Route path="/addadmin" element={<AddNewAdminUser />} />
               <Route path="/adminprivileges" element={<AdminPriv />} />
             </Route>
-          </Route>
+          
           <Route element={<AdminLayout />}>
-              <Route element={<RequireAuth allowedRoles={['2']} />}>
+              
               <Route path="/admin" element={<Dashboard_adminteam />} />
               <Route path="/admin/waterbilllist" element={<WaterBillList_adminteam />} />
               <Route path="/admin/assocduelist" element={<AssocDueList_adminteam />} />
@@ -134,7 +135,7 @@ class App extends Component {
               <Route path="/admin/guestlist" element={<GuestList_adminteam />} />
               <Route path="/admin/servicelist" element={<ServiceList_adminteam />} />
             </Route>
-          </Route>
+          
         </Routes>
       </Suspense>
     );
