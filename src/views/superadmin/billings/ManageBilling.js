@@ -18,7 +18,7 @@ const ManageBilling = () => {
 
   return (
     <div className="wrap">
-      <div className="container">
+      <div className="bill-container">
         <br />
         <div className="tbl-title">
           <h1 className="text-divider">ASSOCIATION DUES</h1>
@@ -46,7 +46,7 @@ const ManageBilling = () => {
           </Form.Group>
         </div>
       </div>
-      <div className="container">
+      <div className="bill-container">
         <br />
         <div className="tbl-title">
           <h1 className="text-divider">WATER BILLS</h1>

@@ -223,7 +223,6 @@ const WaterBillList = () => {
                   type="text"
                   name="billed_to"
                   value={formData.billed_to}
-                  onChange={handleInputChange}
                 />
               </Form.Group>
               <Form.Group controlId="invoice_num" className="waterbillDetails">
@@ -233,7 +232,6 @@ const WaterBillList = () => {
                   type="text"
                   name="invoice_num"
                   value={formData.invoice_num}
-                  onChange={handleInputChange}
                 />
               </Form.Group>
               <Form.Group controlId="unit_num" className="waterbillDetails">
@@ -243,7 +241,6 @@ const WaterBillList = () => {
                   type="text"
                   name="unit_num"
                   value={formData.unit_num}
-                  onChange={handleInputChange}
                 />
               </Form.Group>
               <Form.Group controlId="meter" className="waterbillDetails">
@@ -253,7 +250,6 @@ const WaterBillList = () => {
                   type="text"
                   name="meter"
                   value={formData.meter}
-                  onChange={handleInputChange}
                 />
               </Form.Group>
                 <Form.Group controlId="prev_reading" className="waterbillDetails">
@@ -263,7 +259,6 @@ const WaterBillList = () => {
                   type="text"
                   name="prev_reading"
                   value={formData.prev_reading}
-                  onChange={handleInputChange}
                 />
               </Form.Group>
               <div className="readinginputField">
@@ -274,7 +269,6 @@ const WaterBillList = () => {
                     type="text"
                     placeholder="Enter curent reading"
                     name="current_reading"
-                    onChange={handleInputChange}
                   />
                 </Form.Group>
                 <Form.Group controlId="reading_date" className="addnewbillForm">
@@ -284,7 +278,6 @@ const WaterBillList = () => {
                     type="text"
                     placeholder="Enter reading date"
                     name="reading_date"
-                    onChange={handleInputChange}
                   />
                 </Form.Group>
               </div>
@@ -300,7 +293,6 @@ const WaterBillList = () => {
                   type="text"
                   name="billed_to"
                   value={formData.billed_to}
-                  onChange={handleInputChange}
                 />
               </Form.Group>
               <Form.Group controlId="invoice_num" className="assocdueDetails">
@@ -310,7 +302,6 @@ const WaterBillList = () => {
                   type="text"
                   name="invoice_num"
                   value={formData.invoice_num}
-                  onChange={handleInputChange}
                 />
               </Form.Group>
               <Form.Group controlId="unit_num" className="assocdueDetails">
@@ -320,7 +311,6 @@ const WaterBillList = () => {
                   type="text"
                   name="unit_num"
                   value={formData.unit_num}
-                  onChange={handleInputChange}
                 />
               </Form.Group>
               <Form.Group controlId="rate" className="assocdueDetails">
@@ -330,7 +320,6 @@ const WaterBillList = () => {
                   type="text"
                   name="rate"
                   value={formData.rate}
-                  onChange={handleInputChange}
                 />
               </Form.Group>
                 <Form.Group controlId="unit_size" className="assocdueDetails">
@@ -340,7 +329,6 @@ const WaterBillList = () => {
                   type="text"
                   name="unit_size"
                   value={formData.unit_size}
-                  onChange={handleInputChange}
                 />
               </Form.Group>
             </div>

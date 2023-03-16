@@ -156,7 +156,7 @@ const routes = [
   { path: '/widgets', name: 'Widgets', element: Widgets },
   
   // SUPER ADMIN PATHS ---------------------------------------------------------------------------------------------------------------------------------------
-  { path: '/', exact: true, name: 'Home' },
+  { path: '/homepage', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/superadmin/billings/waterbilllist', name: 'Water Bill List', element: WaterBillList },
   { path: '/superadmin/billings/managebill', name: 'Manage Billings', element: ManageBilling },
@@ -173,7 +173,7 @@ const routes = [
   { path: '/superadmin/guest/guestlist', name: 'Guest List', element: GuestList },
 
    // ADMIN TEAM PATHS ---------------------------------------------------------------------------------------------------------------------------------------
-  { path: '/', exact: true, name: 'Home' },
+  { path: '/homepage', exact: true, name: 'Home' },
   { path: '/dashboard_adminteam', name: 'Dashboard', element: Dashboard_adminteam },
   { path: '/adminteam/billings_adminteam/waterbilllist_adminteam', name: 'Water Bill List', element: WaterBillList_adminteam },
   { path: '/adminteam/billings_adminteam/managebill_adminteam', name: 'Manage Billings', element: ManageBilling_adminteam },

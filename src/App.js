@@ -15,6 +15,7 @@ const loading = (
 const DefaultLayout = React.lazy(() => import("./layout/DefaultLayout"));
 
 // Pages
+const Homepage = React.lazy(() => import("./views/pages/homepage/Homepage"));
 const Login = React.lazy(() => import("./views/pages/login/Login"));
 const Register = React.lazy(() => import("./views/pages/register/Register"));
 const Page404 = React.lazy(() => import("./views/pages/page404/Page404"));
@@ -99,6 +100,7 @@ class App extends Component {
     return (
       <Suspense fallback={loading}>
         <Routes>
+          <Route path="/homepage" element={<Homepage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           {/*Protected Routes*/}

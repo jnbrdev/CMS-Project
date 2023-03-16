@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 import {
   CAvatar,
   CBadge,
@@ -15,7 +16,7 @@ import {
   cilCommentSquare,
   cilEnvelopeOpen,
   cilFile,
-  cilLockLocked,
+  cilAccountLogout,
   cilSettings,
   cilTask,
   cilUser,
@@ -84,10 +85,12 @@ const AppHeaderDropdown = () => {
           </CBadge>
         </CDropdownItem>
         <CDropdownDivider />
-        <CDropdownItem href="#">
-          <CIcon icon={cilLockLocked} className="me-2" />
-          Lock Account
-        </CDropdownItem>
+        <Link to="/homepage" style={ { textDecoration: 'none' }}>
+          <CDropdownItem href="#">
+            <CIcon icon={cilAccountLogout} className="me-2" />
+              Sign Out
+          </CDropdownItem>
+        </Link>
       </CDropdownMenu>
     </CDropdown>
   )
