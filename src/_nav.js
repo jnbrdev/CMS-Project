@@ -65,17 +65,17 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Association Due List',
-        to: '/superadmin/billings/associationduelist',
+        to: '/assocduelist',
       },
       {
         component: CNavItem,
         name: 'Manage Billings',
-        to: '/superadmin/billings/managebill',
+        to: '/managebilling',
       },
       {
         component: CNavItem,
         name: 'Add Billing',
-        to: '/superadmin/billings/addbilling',
+        to: '/addbilling',
       },
     ],
   },
@@ -83,14 +83,14 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Requests',
-    to: '/superadmin/requests/requestlist',
+    to: '/requestlist',
     icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
   },
 
   {
     component: CNavItem,
     name: 'Services',
-    to: '/superadmin/services/servicelist',
+    to: '/servicelist',
     icon: <CIcon icon={cilPool} customClassName="nav-icon" />,
   },
   /*{
@@ -102,21 +102,21 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Units',
-    to: '/superadmin/units/condounitlist',
+    to: '/unitlist',
     icon: <CIcon icon={cilHouse} customClassName="nav-icon" />,
   },
 
   {
     component: CNavItem,
     name: 'Users',
-    to: '/superadmin/user/userlist',
+    to: '/userlist',
     icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
   },
 
   {
     component: CNavItem,
     name: 'Security Guards',
-    to: '/superadmin/security/securityguardlist',
+    to: '/securitylist',
     icon: <CIcon icon={cilShieldAlt} customClassName="nav-icon" />,
   },
 
@@ -128,17 +128,17 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Admin List',
-        to: '/superadmin/admin/adminlist',
+        to: '/adminlist',
       },
       {
         component: CNavItem,
         name: 'Add Admin User',
-        to: '/superadmin/admin/addadmin',
+        to: '/addadmin',
       },
       {
         component: CNavItem,
         name: 'Admin Privileges',
-        to: '/superadmin/admin/adminprivileges',
+        to: '/adminprivileges',
       },
     ],
   },
@@ -146,7 +146,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Guest',
-    to: '/superadmin/guest/guestlist',
+    to: '/guestlist',
     icon: <CIcon icon={cilBell} customClassName="nav-icon" />,
   },
   /*{ // ForReference
