@@ -107,6 +107,7 @@ const Login = () => {
 
   return (
     <CContainer className="logincontainer">
+      <homepage/>
       <CRow className="wrapper">
         <CCol>
           <CCardGroup>

@@ -13,25 +13,33 @@ function Homepage() {
 	};
 
 	return (
-		<header>
-			<h3><a class="header-logo" href="#"><img src="./images/com-logo2.png"></img></a></h3>
-			<nav ref={navRef}>
-				<Link href="/#">Home</Link>
-				<Link href="/#">About</Link>
-				<Link href="/#">Contact</Link>
-				<Link to="/login">Sign In</Link>
+		<div classsName="container">
+			<div className="header-menu">
+				<h3><a class="header-menu-logo" href="#"><img src="./images/com-logo2.png"></img></a></h3>
+				<nav ref={navRef}>
+					<Link href="/#">HOME</Link>
+					<Link href="/#">ABOUT</Link>
+					<Link href="/#">CONTACT</Link>
+					<Link to="/login">SIGN IN</Link>
+					<button
+						className="nav-btn nav-close-btn"
+						onClick={showNavbar}>
+						<FaTimes />
+					</button>
+				</nav>
 				<button
-					className="nav-btn nav-close-btn"
+					className="nav-btn"
 					onClick={showNavbar}>
-					<FaTimes />
+					<FaBars />
 				</button>
-			</nav>
-			<button
-				className="nav-btn"
-				onClick={showNavbar}>
-				<FaBars />
-			</button>
-		</header>
+			</div>
+			<div className="home-body">
+				<h1>The condominium <br/> that awaits!</h1>
+			</div>
+			{/* <footer className="footer">
+				<h4>Hello Word</h4>
+			</footer> */}
+		</div>
 	);
 }
 
