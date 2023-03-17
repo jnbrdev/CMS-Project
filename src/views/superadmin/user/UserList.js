@@ -45,29 +45,151 @@ const UserList = () => {
   const [userStatus, setStatus] = useState();
 
   //Add User
+
+  const postUser = () =>{
+    
+  }
   const handleAddNewUser = async (e) => {
     e.preventDefault()
     const fname = userFname + " " + userLname
     const uStatus = "Active"
-    console.log(fname)
-    try {
-      axios
-      .post(USER_ADD_URL, {
-        email: userEmail,
-        password: userPassword,
-        full_name: fname,
-        contact_no: userContactNo,
-        birthdate: userBirthdate,
-        role: userRole,
-        status: uStatus,
-        
-      }).then((response) => {
-        console.log(response.data)
-      });
-      setShowAddModal(false);
-    } catch (error) {
-      console.log(error)
+    
+    if (userRole === "Super Admin"){
+      const roles = 1
+      setRole(roles)
+
+      try {
+        axios
+        .post(USER_ADD_URL, {
+          email: userEmail,
+          password: userPassword,
+          full_name: fname,
+          contact_no: userContactNo,
+          birthdate: userBirthdate,
+          role: roles,
+          status: uStatus,
+          
+        }).then((response) => {
+          console.log(response.data)
+        });
+        setShowAddModal(false);
+      } catch (error) {
+        console.log(error)
+      }
+
+
+    }else if (userRole === "Admin"){
+      const roles = 2
+      setRole(roles)
+      try {
+        axios
+        .post(USER_ADD_URL, {
+          email: userEmail,
+          password: userPassword,
+          full_name: fname,
+          contact_no: userContactNo,
+          birthdate: userBirthdate,
+          role: roles,
+          status: uStatus,
+          
+        }).then((response) => {
+          console.log(response.data)
+        });
+        setShowAddModal(false);
+      } catch (error) {
+        console.log(error)
+      }
+
+
+    }else if (userRole === "Accounting"){
+      const roles = 3
+      setRole(roles)
+      try {
+        axios
+        .post(USER_ADD_URL, {
+          email: userEmail,
+          password: userPassword,
+          full_name: fname,
+          contact_no: userContactNo,
+          birthdate: userBirthdate,
+          role: roles,
+          status: uStatus,
+          
+        }).then((response) => {
+          console.log(response.data)
+        });
+        setShowAddModal(false);
+      } catch (error) {
+        console.log(error)
+      }
+    }else if (userRole === "Unit Owner"){
+      const roles = 4
+      setRole(roles)
+      try {
+        axios
+        .post(USER_ADD_URL, {
+          email: userEmail,
+          password: userPassword,
+          full_name: fname,
+          contact_no: userContactNo,
+          birthdate: userBirthdate,
+          role: roles,
+          status: uStatus,
+          
+        }).then((response) => {
+          console.log(response.data)
+        });
+        setShowAddModal(false);
+      } catch (error) {
+        console.log(error)
+      }
+    }else if (userRole === "Tenant"){
+      const roles = 5
+      setRole(roles)
+      try {
+        axios
+        .post(USER_ADD_URL, {
+          email: userEmail,
+          password: userPassword,
+          full_name: fname,
+          contact_no: userContactNo,
+          birthdate: userBirthdate,
+          role: roles,
+          status: uStatus,
+          
+        }).then((response) => {
+          console.log(response.data)
+        });
+        setShowAddModal(false);
+      } catch (error) {
+        console.log(error)
+      }
+    }else if (userRole === "Security Guard"){
+      const roles = 6
+      setRole(roles)
+      try {
+        axios
+        .post(USER_ADD_URL, {
+          email: userEmail,
+          password: userPassword,
+          full_name: fname,
+          contact_no: userContactNo,
+          birthdate: userBirthdate,
+          role: roles,
+          status: uStatus,
+          
+        }).then((response) => {
+          console.log(response.data)
+        });
+        setShowAddModal(false);
+      } catch (error) {
+        console.log(error)
+      }
     }
+
+    
+    console.log(fname)
+    
     
   };
 
