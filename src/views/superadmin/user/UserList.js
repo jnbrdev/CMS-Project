@@ -46,9 +46,6 @@ const UserList = () => {
 
   //Add User
 
-  const postUser = () =>{
-    
-  }
   const handleAddNewUser = async (e) => {
     e.preventDefault()
     const fname = userFname + " " + userLname
@@ -199,7 +196,7 @@ const UserList = () => {
       //console.log(response.data);
     });
     //$('#example').DataTable();
-  }, [data]);
+  }, []);
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.email]: event.target.value });
