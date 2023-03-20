@@ -72,11 +72,6 @@ const _nav = [
         name: 'Manage Billings',
         to: '/managebilling',
       },
-      {
-        component: CNavItem,
-        name: 'Add Billing',
-        to: '/addbilling',
-      },
     ],
   },
 

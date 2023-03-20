@@ -28,7 +28,6 @@ const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 const WaterBillList = React.lazy(() => import('./views/superadmin/billings/WaterBillList'))
 const AssocDueList = React.lazy(() => import('./views/superadmin/billings/AssocDueList'))
 const ManageBilling = React.lazy(() => import('./views/superadmin/billings/ManageBilling'))
-const AddBilling = React.lazy(() => import('./views/superadmin/billings/AddBilling'))
 
 //Unit
 const CondoUnitList = React.lazy(() => import('./views/superadmin/unit/CondoUnitList'))
@@ -64,7 +63,6 @@ const Dashboard_adminteam = React.lazy(() =>
 const WaterBillList_adminteam = React.lazy(() => import('./views/adminteam/billings_adminteam/WaterBillList_adminteam'))
 const AssocDueList_adminteam = React.lazy(() => import('./views/adminteam/billings_adminteam/AssocDueList_adminteam'))
 const ManageBilling_adminteam = React.lazy(() => import('./views/adminteam/billings_adminteam/ManageBilling_adminteam'))
-const AddBilling_adminteam = React.lazy(() => import('./views/adminteam/billings_adminteam/AddBilling_adminteam'))
 
 //Unit
 const CondoUnitList_adminteam = React.lazy(() => import('./views/adminteam/unit_adminteam/CondoUnitList_adminteam'))
@@ -111,7 +109,6 @@ class App extends Component {
               <Route path="/waterbilllist" element={<WaterBillList />} />
               <Route path="/assocduelist" element={<AssocDueList />} />
               <Route path="/managebilling" element={<ManageBilling />} />
-              <Route path="/addbilling" element={<AddBilling />} />
               <Route path="/unitlist" element={<CondoUnitList />} />
               <Route path="/userlist" element={<UserList />} />
               <Route path="/securitylist" element={<SecurityGuardList />} />
@@ -129,7 +126,6 @@ class App extends Component {
               <Route path="/admin/waterbilllist" element={<WaterBillList_adminteam />} />
               <Route path="/admin/assocduelist" element={<AssocDueList_adminteam />} />
               <Route path="/admin/managebilling" element={<ManageBilling_adminteam />} />
-              <Route path="/admin/addbilling" element={<AddBilling_adminteam />} />
               <Route path="/admin/unitlist" element={<CondoUnitList_adminteam />} />
               <Route path="/admin/userlist" element={<UserList_adminteam />} />
               <Route path="/admin/securitylist" element={<SecurityGuardList_adminteam />} />

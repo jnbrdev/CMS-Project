@@ -12,11 +12,6 @@
 	--mainColorLight: #5767aa;
 	--secondaryColor: #303C54;
 	--textColor: #eee;
-    background-image: url(../all-views-images/bglog.jpg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    min-height: -webkit-fill-available;
 }
 
 .header-menu-logo>img {
@@ -37,17 +32,11 @@
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19);
 }
 
-// .footer {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     height: 50px;
-//     padding: 0 2rem;
-//     background-color: #303C54;
-//     margin-top: 527px;
-//     position: absolute;
-//     min-width: -webkit-fill-available;
-// }
+.footer {
+   text-align: center;
+   background-color: #303C54;
+   border: none;
+}
 
 // .footer h4 {
 //   font-size: 35px;
@@ -85,16 +74,22 @@ nav {
 	align-items: center;
 }
 
-.home-body h1 {
-	font-size: 75px;
-    background: transparent;
-    display: flex;
-    position: absolute;
-    color: white;
-    font-family: fantasy;
-    padding: 50px;
-    margin-top: 110px;
+.home-body {
+    min-height: 528px;
+	background-image: url(../all-views-images/bglog.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
+
+// .home-body h1 {
+// 	font-size: 75px;
+//     background: transparent;
+//     display: flex;
+//     position: absolute;
+//     color: white;
+//     font-family: fantasy;
+// }
 
 @media only screen and (max-width: 1024px) {
 	.header-menu .nav-btn {

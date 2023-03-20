@@ -4,6 +4,7 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
 }
 .logincontainer {
     display: flex;
@@ -80,4 +81,85 @@
     background: transparent;
     border: none;
     font-size: 150px;
+}
+
+// footer & header
+:root {
+	--mainColor: #fff;
+	--mainColorLight: #5767aa;
+	--secondaryColor: #303C54;
+	--textColor: #eee;
+}
+
+.header-menu-logo>img {
+    display: flex;
+    height: 78px;
+    margin-top: 14px;
+    margin-right: 530px;
+}
+
+.header-menu {
+	display: flex;
+	align-items: center;
+	justify-content: right;
+	height: 80px;
+	padding: 0 2rem;
+	background-color: var(--mainColor);
+	color: var(--textColor);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19);
+    position: absolute;
+    margin-top: -99px;
+}
+
+.footer {
+    text-align: center;
+    background-color: #303C54;
+    border: none;
+    position: absolute;
+    display: flex;
+    margin-top: 510px;
+}
+
+// .footer h4 {
+//   font-size: 35px;
+//   text-align: center;
+// }
+
+
+nav a {
+    margin: 0 1rem;
+    color: #009FE9;
+    text-decoration: none;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+nav a:hover {
+	color: var(--secondaryColor);
+}
+
+.header-menu .nav-btn {
+	padding: 5px;
+	cursor: pointer;
+	background: transparent;
+	border: none;
+	outline: none;
+	color: var(--textColor);
+	visibility: hidden;
+	opacity: 0;
+	font-size: 1.8rem;
+}
+
+.header-menu div,
+nav {
+	display: flex;
+	align-items: center;
+}
+
+.home-body {
+    min-height: 528px;
+	background-image: url(../all-views-images/bglog.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

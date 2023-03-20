@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "src/authentication/authProvider";
 import { Link, useNavigate, useLocation, Navigate } from "react-router-dom";
-import { FaUserCircle, FaUserAlt, FaLock } from "react-icons/fa";
+import { FaUserCircle, FaUserAlt, FaLock, FaTimes, FaBars } from "react-icons/fa";
 import "../../../all-views-scss/_loginstyle.scss";
 import {
   CButton,
@@ -30,6 +30,13 @@ const Login = () => {
 
   const userRef = useRef();
   const errRef = useRef();
+  const navRef = useRef();
+
+	const showNavbar = () => {
+		navRef.current.classList.toggle(
+			"responsive_nav"
+		);
+	};
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -65,20 +72,20 @@ const Login = () => {
             setErrMsg("Login Failed");
           }
           const roles = response?.data?.role;
-          if(roles[0] === '1'){
+          if (roles[0] === '1') {
             const accessToken = response?.data?.accessToken;
             setAuth({ email, password, roles, accessToken });
             navigate('/dashboard')
-          }else if(roles[0] === '2'){
+          } else if (roles[0] === '2') {
             const accessToken = response?.data?.accessToken;
             setAuth({ email, password, roles, accessToken });
             navigate('/admin')
           }
-          
+
           console.log(response.data);
-          
-          
-          
+
+
+
           console.log(roles[0])
           errRef.current.focus();
         });
@@ -107,8 +114,27 @@ const Login = () => {
 
   return (
     <CContainer className="logincontainer">
-      <homepage/>
+      <homepage />
       <CRow className="wrapper">
+        <header className="header-menu">
+          <h3><a class="header-menu-logo" href="#"><img src="./images/com-logo2.png"></img></a></h3>
+          <nav ref={navRef}>
+            <Link to="/homepage">HOME</Link>
+            <Link href="/#">ABOUT</Link>
+            <Link href="/#">CONTACT</Link>
+            <Link to="/login">SIGN IN</Link>
+            <button
+              className="nav-btn nav-close-btn"
+              onClick={showNavbar}>
+              <FaTimes />
+            </button>
+          </nav>
+          <button
+            className="nav-btn"
+            onClick={showNavbar}>
+            <FaBars />
+          </button>
+        </header>
         <CCol>
           <CCardGroup>
             <CCard className="loginform">
@@ -177,6 +203,9 @@ const Login = () => {
             </CCard>
           </CCardGroup>
         </CCol>
+        <footer className="footer">
+          {/* <h4>Hello Word</h4> */}
+        </footer>
       </CRow>
     </CContainer>
   );

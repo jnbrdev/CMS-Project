@@ -47,11 +47,6 @@ const adminteam_nav = [
         name: 'Manage Billings',
         to: '/admin/managebilling',
       },
-      {
-        component: CNavItem,
-        name: 'Add Billing',
-        to: '/admin/addbilling',
-      },
     ],
   },
 

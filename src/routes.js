@@ -55,7 +55,6 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 const WaterBillList = React.lazy(() => import('./views/superadmin/billings/WaterBillList'))
 const AssocDueList = React.lazy(() => import('./views/superadmin/billings/AssocDueList'))
 const ManageBilling = React.lazy(() => import('./views/superadmin/billings/ManageBilling'))
-const AddBilling = React.lazy(() => import('./views/superadmin/billings/AddBilling'))
 
 //Unit
 const CondoUnitList = React.lazy(() => import('./views/superadmin/unit/CondoUnitList'))
@@ -87,7 +86,6 @@ const ServiceList = React.lazy(() => import('./views/superadmin/services/Service
 const WaterBillList_adminteam = React.lazy(() => import('./views/adminteam/billings_adminteam/WaterBillList_adminteam'))
 const AssocDueList_adminteam = React.lazy(() => import('./views/adminteam/billings_adminteam/AssocDueList_adminteam'))
 const ManageBilling_adminteam = React.lazy(() => import('./views/adminteam/billings_adminteam/ManageBilling_adminteam'))
-const AddBilling_adminteam = React.lazy(() => import('./views/adminteam/billings_adminteam/AddBilling_adminteam'))
 
 //Unit
 const CondoUnitList_adminteam = React.lazy(() => import('./views/adminteam/unit_adminteam/CondoUnitList_adminteam'))
@@ -161,7 +159,6 @@ const routes = [
   { path: '/superadmin/billings/waterbilllist', name: 'Water Bill List', element: WaterBillList },
   { path: '/superadmin/billings/managebill', name: 'Manage Billings', element: ManageBilling },
   { path: '/superadmin/billings/associationduelist', name: 'Association Due List', element: AssocDueList },
-  { path: '/superadmin/billings/addbilling', name: 'Add Billing', element: AddBilling },
   { path: '/superadmin/requests/requestlist', name: 'Request List', element: RequestList },
   { path: '/superadmin/services/servicelist', name: 'Service List', element: ServiceList },
   { path: '/superadmin/units/condounitlist', name: 'View Unit Details', element: CondoUnitList },
@@ -178,7 +175,6 @@ const routes = [
   { path: '/adminteam/billings_adminteam/waterbilllist_adminteam', name: 'Water Bill List', element: WaterBillList_adminteam },
   { path: '/adminteam/billings_adminteam/managebill_adminteam', name: 'Manage Billings', element: ManageBilling_adminteam },
   { path: '/adminteam/billings_adminteam/associationduelist_adminteam', name: 'Association Due List', element: AssocDueList_adminteam },
-  { path: '/adminteam/billings_adminteam/addbilling_adminteam', name: 'Add Billing', element: AddBilling_adminteam },
   { path: '/adminteam/requests_adminteam/requestlist_adminteam', name: 'Request List', element: RequestList_adminteam },
   { path: '/adminteam/services_adminteam/servicelist_adminteam', name: 'Service List', element: ServiceList_adminteam },
   { path: '/adminteam/units_adminteam/condounitlist_adminteam', name: 'View Unit Details', element: CondoUnitList_adminteam },

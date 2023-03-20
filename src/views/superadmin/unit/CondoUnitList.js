@@ -19,8 +19,10 @@ import {
   BsFillBuildingsFill,
   BsFiletypeCsv,
   BsFillPlusSquareFill,
+  BsSpeedometer,
 } from "react-icons/bs";
-import { RiCalendarTodoFill } from "react-icons/ri";
+import { GiPayMoney } from "react-icons/gi";
+import { TbReportMoney } from "react-icons/tb";
 import { FiRefreshCcw, FiUpload } from "react-icons/fi";
 import { CFormSelect } from "@coreui/react";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -108,7 +110,7 @@ const CondoUnitList = () => {
       setData(response.data);
       //console.log(response.data);
     });
-    //$("example").DataTable();
+    $("example").DataTable();
   }, [data]);
 
   const handleInputChange = (event) => {
@@ -423,6 +425,58 @@ const CondoUnitList = () => {
               </Form.Control>
             </Form.Group>
             <br />
+
+            <h1 className="bill-info">Add Billing Info.</h1>
+            <Form.Group controlId="billed_to" className="addForm">
+              <Form.Label className="formIcon">
+                <GiPayMoney />
+              </Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Association Dues Billed To"
+                name="unit_owner"
+                onChange={(e) => setOccupiedBy(e.target.value)}
+              />
+            </Form.Group>
+             <Form.Group controlId="billed_to" className="addForm">
+              <Form.Label className="formIcon">
+                <GiPayMoney />
+              </Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Water Bills Billed To"
+                name="unit_owner"
+                onChange={(e) => setOccupiedBy(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="meter" className="addForm">
+              <Form.Label className="formIcon">
+                <BsSpeedometer />
+              </Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Enter meter #"
+                name="meter"
+                onChange={(e) => setOccupiedBy(e.target.value)}
+              />
+            </Form.Group>
+             <Form.Group controlId="current_reading" className="addForm">
+              <Form.Label className="formIcon">
+                <TbReportMoney />
+              </Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Enter curent reading"
+                name="current_reading"
+                onChange={(e) => setOccupiedBy(e.target.value)}
+              />
+            </Form.Group>
+
             <Modal.Footer className="modalbtn">
               <Button
                 className="primarybtn"
