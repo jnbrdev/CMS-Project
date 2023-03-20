@@ -10,13 +10,13 @@ import { BsFiletypeCsv, BsFillPlusSquareFill } from 'react-icons/bs';
 import { FiRefreshCcw, FiUpload } from 'react-icons/fi';
 import { CFormSelect } from '@coreui/react';
 import { Modal, Button, Form } from 'react-bootstrap';
+import axios from "src/api/axios";
+const SERVICE_ADD_URL = "/service/addService";
+const SERVICE_GET_URL = "/service/getAllService";
+const SERVICE_UPDATE_URL = "/service/";
 
 const ServiceList = () => {
-  const [data, setData] = useState([
-    { id: '1', service_name: 'Parking (Night)', service_rate: '200 PHP', status: 'Active' },
-    { id: '2', service_name: 'Club House', service_rate: '150 PHP', status: 'Inactive' },
-    { id: '3', service_name: 'Gym', service_rate: '80 PHP', status: 'Active' },
-  ]);
+  const [data, setData] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -28,9 +28,29 @@ const ServiceList = () => {
     status: '',
   });
 
+  //Get Data Service
   useEffect(() => {
-    $('#example').DataTable();
-  }, []);
+    axios.post(SERVICE_GET_URL).then((response) => {
+      setData(response.data);
+      //console.log(response.data);
+    });
+    //$('#example').DataTable();
+  }, [data]);
+
+  //Add Data Service
+  const [serviceName, setServiceName] = useState();
+  const [serviceRate, setServiceRate] = useState();
+  const [serviceStatus, setServiceStatus] = useState();
+  const handleAddNewUnit = async (e) => {
+    e.preventDefault()
+    axios
+      .post(SERVICE_ADD_URL, {
+        service_name: serviceName,
+        rate: serviceRate,
+        status: serviceStatus,
+      });
+      setShowAddModal(false);
+  };
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.service_name]: event.target.value });
@@ -134,7 +154,7 @@ const ServiceList = () => {
           {data.map((entry) => (
             <tr key={entry.id}>
               <td>{entry.service_name}</td>
-              <td>{entry.service_rate}</td>
+              <td>{entry.rate}</td>
               <td>
                 <Form.Label className="toggle">
                   <Form.Control type="checkbox" />
@@ -176,7 +196,7 @@ const ServiceList = () => {
                 type="text"
                 placeholder="Enter service name"
                 name="service_name"
-                onChange={handleInputChange}
+                onChange={(e) => setServiceName(e.target.value)}
               />
             </Form.Group>
             <Form.Group controlId="service_rate" className="addForm">
@@ -185,8 +205,8 @@ const ServiceList = () => {
                 className="formField"
                 type="text"
                 placeholder="Enter service rate"
-                name="service_rate"
-                onChange={handleInputChange}
+                name="rate"
+                onChange={(e) => setServiceRate(e.target.value)}
               />
             </Form.Group>
             <Form.Group controlId="status" className="addForm">
@@ -195,7 +215,7 @@ const ServiceList = () => {
                 className="formField"
                 as="select"
                 name="status"
-                onChange={handleInputChange}
+                onChange={(e) => setServiceStatus(e.target.value)}
               >
                 <option value="">Select Status</option>
                 <option value="Active">Active</option>
@@ -207,7 +227,7 @@ const ServiceList = () => {
               <Button className="primarybtn" onClick={() => setShowAddModal(false)}>
                 Cancel
               </Button>
-              <Button className="secondarybtn" type="submit">
+              <Button className="secondarybtn" type="submit" onClick={handleAddNewUnit}> 
                 Save
               </Button>
             </Modal.Footer>
@@ -270,7 +290,7 @@ const ServiceList = () => {
                 className="formField"
                 type="text"
                 placeholder="Enter service rate"
-                name="service_rate"
+                name="rate"
                 value={formData.service_rate}
                 onChange={handleInputChange}
               />
