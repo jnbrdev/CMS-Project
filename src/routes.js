@@ -1,7 +1,12 @@
 import React from 'react'
 
+// Dashboard
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Dashboard_adminteam = React.lazy(() => import('./views/dashboard-adminteam/Dashboard_adminteam'))
+const Dashboard_tenants = React.lazy(() => import('./views/dashboard-tenants/Dashboard_tenants'))
+const Dashboard_unitowner = React.lazy(() => import('./views/dashboard-unitowner/Dashboard_unitowner'))
+const Dashboard_secguard = React.lazy(() => import('./views/dashboard-secguard/Dashboard_secguard'))
+
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 
@@ -106,6 +111,46 @@ const GuestList_adminteam = React.lazy(() => import('./views/adminteam/guest_adm
 const ServiceList_adminteam = React.lazy(() => import('./views/adminteam/services_adminteam/ServiceList_adminteam'))
 
 
+// TENANTS ---------------------------------------------------------------------------------------------------------------------------------------
+
+//Billings
+const WaterBills_tenants = React.lazy(() => import('./views/tenants/billings_tenants/WaterBills_tenants'))
+const AssocDues_tenants = React.lazy(() => import('./views/tenants/billings_tenants/AssocDues_tenants'))
+
+//Calendar Reminders
+const CalendarReminders_tenants = React.lazy(() => import('./views/tenants/calendar_tenants/CalendarReminders_tenants'))
+
+//FAQ
+const FAQ_tenants = React.lazy(() => import('./views/tenants/faq_tenants/FAQ_tenants'))
+
+
+// UNIT OWNER ---------------------------------------------------------------------------------------------------------------------------------------
+
+// Tenants List
+const TenantsList = React.lazy(() => import('./views/unitowner/tenantslist/TenantsList'))
+
+//Billings
+const WaterBills_unitowner = React.lazy(() => import('./views/unitowner/billings_unitowner/WaterBills_unitowner'))
+const AssocDues_unitowner = React.lazy(() => import('./views/unitowner/billings_unitowner/AssocDues_unitowner'))
+
+//Calendar Reminders
+const CalendarReminders_unitowner = React.lazy(() => import('./views/unitowner/calendar_unitowner/CalendarReminders_unitowner'))
+
+//FAQ
+const FAQ_unitowner = React.lazy(() => import('./views/unitowner/faq_unitowner/FAQ_unitowner'))
+
+// SECURITY GUARD ----------------------------------------------------------------------------------------------------------------------------------
+
+// Reservation List
+const ReservationList = React.lazy(() => import('./views/secguard/reservationlist/ReservationList'))
+
+//Calendar Reminders
+const CalendarReminders_secguard = React.lazy(() => import('./views/secguard/calendar_secguard/CalendarReminders_secguard'))
+
+//FAQ
+const FAQ_secguard = React.lazy(() => import('./views/secguard/faq_secguard/FAQ_secguard'))
+
+
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
@@ -181,6 +226,30 @@ const routes = [
   { path: '/adminteam/user_adminteam/userlist_adminteam', name: 'User List', element: UserList_adminteam },
   { path: '/adminteam/security_adminteam/securityguardlist_adminteam', name: 'Security Guard List', element: SecurityGuardList_adminteam },
   { path: '/adminteam/guest_adminteam/guestlist_adminteam', name: 'Guest List', element: GuestList_adminteam },
+
+  // TENANTS PATHS ---------------------------------------------------------------------------------------------------------------------------------------
+  { path: '/homepage', exact: true, name: 'Home' },
+  { path: '/dashboard_tenants', name: 'Dashboard', element: Dashboard_tenants },
+  { path: '/tenants/billings_tenants/waterbills_tenants', name: 'Water Bills', element: WaterBills_tenants },
+  { path: '/tenants/billings_tenants/assocdues_tenants', name: 'Association Dues', element: AssocDues_tenants },
+  { path: '/tenants/calendar_tenants/calendarreminders_tenants', name: 'Calendar Reminders', element: CalendarReminders_tenants },
+  { path: '/tenants/faq_tenants/faq_tenants', name: 'FAQ', element: FAQ_tenants },
+
+  // UNIT OWNER PATHS ---------------------------------------------------------------------------------------------------------------------------------------
+  { path: '/homepage', exact: true, name: 'Home' },
+  { path: '/dashboard_unitowner', name: 'Dashboard', element: Dashboard_unitowner },
+  { path: '/unitowner/tenantslist/tenantslist', name: 'Water Bills', element: TenantsList },
+  { path: '/unitowner/billings_unitowner/waterbills_unitowner', name: 'Water Bills', element: WaterBills_unitowner },
+  { path: '/unitowner/billings_unitowner/assocdues_unitowner', name: 'Association Dues', element: AssocDues_unitowner },
+  { path: '/unitowner/calendar_unitowner/calendarreminders_unitowner', name: 'Calendar Reminders', element: CalendarReminders_unitowner },
+  { path: '/unitowner/faq_unitowner/faq_unitowner', name: 'FAQ', element: FAQ_unitowner },
+
+   // SECURITY GUARD PATHS ---------------------------------------------------------------------------------------------------------------------------------------
+   { path: '/homepage', exact: true, name: 'Home' },
+   { path: '/dashboard_secguard', name: 'Dashboard', element: Dashboard_secguard },
+   { path: '/secguard/reservationlist/reservationlist', name: 'Reservation List', element: ReservationList },
+   { path: '/secguard/calendar_secguard/calendarreminders_secguard', name: 'Calendar Reminders', element: CalendarReminders_secguard },
+   { path: '/secguard/faq_secguard/faq_secguard', name: 'FAQ', element: FAQ_secguard },
 ]
 
 export default routes

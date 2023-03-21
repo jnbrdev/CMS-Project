@@ -207,6 +207,8 @@ const CondoUnitList = () => {
       <div className="tbl-title">
         <h1 className="text-divider">UNIT LIST</h1>
       </div>
+
+      {/* FILTERING START */}
       <div className="table-head">
         <Form.Group controlId="dateFrom" className="filter-date-from">
           <Form.Label className="filter-date-label">From</Form.Label>
@@ -246,21 +248,25 @@ const CondoUnitList = () => {
           <option value="Tenant Occupied">Tenant Occupied</option>
           <option value="Vacant">Vacant</option>
         </CFormSelect>
-        <div className="thead-btn">
-          <Button className="thead-btn-primary" name="filter" type="submit">
-            <FaFilter />
-          </Button>
-          <Button className="thead-btn-secondary">
-            <FiRefreshCcw />
-          </Button>
-          <Button className="thead-btn-tertiary" onClick={handleAddNewEntry}>
-            <BsFillPlusSquareFill />
-          </Button>
-          <Button className="thead-btn-quaternary" onClick={handleUploadEntry}>
-            <FiUpload />
-          </Button>
-        </div>
       </div>
+      {/* FILTERING END */}
+
+      {/* BUTTONS START */}
+      <div className="thead-btn">
+        <Button className="thead-btn-primary" name="filter" type="submit">
+          <FaFilter />
+        </Button>
+        <Button className="thead-btn-secondary">
+          <FiRefreshCcw />
+        </Button>
+        <Button className="thead-btn-tertiary" onClick={handleAddNewEntry}>
+          <BsFillPlusSquareFill />
+        </Button>
+        <Button className="thead-btn-quaternary" onClick={handleUploadEntry}>
+          <FiUpload />
+        </Button>
+      </div>
+      {/* BUTTONS END */}
 
       <div className="divider"></div>
       <hr />
@@ -312,6 +318,8 @@ const CondoUnitList = () => {
           ))}
         </tbody>
       </table>
+
+      {/* ADD MODAL START */}
       <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
         <br />
         <h1 className="text-divider">Add New Unit</h1>
@@ -329,7 +337,6 @@ const CondoUnitList = () => {
                 onChange={(e) => setUnitNo(e.target.value)}
               />
             </Form.Group>
-
             <Form.Group controlId="unit_owner" className="addForm">
               <Form.Label className="formIcon">
                 <FaHospitalUser />
@@ -342,7 +349,6 @@ const CondoUnitList = () => {
                 onChange={(e) => setUnitOwner(e.target.value)}
               />
             </Form.Group>
-
             <Form.Group controlId="unit_tower" className="addForm">
               <Form.Label className="formIcon">
                 <FaBuilding />
@@ -358,7 +364,6 @@ const CondoUnitList = () => {
                 <option value="Tower 2">Tower 2</option>
               </Form.Control>
             </Form.Group>
-
             <Form.Group controlId="unit_floor" className="addForm">
               <Form.Label className="formIcon">
                 <FaLayerGroup />
@@ -376,7 +381,6 @@ const CondoUnitList = () => {
                 <option value="4th Floor">4th Floor</option>
               </Form.Control>
             </Form.Group>
-
             <Form.Group controlId="unit_size" className="addForm">
               <Form.Label className="formIcon">
                 <BsFillBuildingsFill />
@@ -394,7 +398,6 @@ const CondoUnitList = () => {
                 <option value="20 sqm">20 sqm</option>
               </Form.Control>
             </Form.Group>
-
             <Form.Group controlId="" className="addForm">
               <Form.Label className="formIcon">
                 <FaHospitalUser />
@@ -407,7 +410,6 @@ const CondoUnitList = () => {
                 onChange={(e) => setOccupiedBy(e.target.value)}
               />
             </Form.Group>
-
             <Form.Group controlId="status" className="addForm">
               <Form.Label className="formIcon">
                 <FaInnosoft />
@@ -425,7 +427,6 @@ const CondoUnitList = () => {
               </Form.Control>
             </Form.Group>
             <br />
-
             <h1 className="bill-info">Add Billing Info.</h1>
             <Form.Group controlId="billed_to" className="addForm">
               <Form.Label className="formIcon">
@@ -451,7 +452,6 @@ const CondoUnitList = () => {
                 onChange={(e) => setOccupiedBy(e.target.value)}
               />
             </Form.Group>
-
             <Form.Group controlId="meter" className="addForm">
               <Form.Label className="formIcon">
                 <BsSpeedometer />
@@ -476,7 +476,6 @@ const CondoUnitList = () => {
                 onChange={(e) => setOccupiedBy(e.target.value)}
               />
             </Form.Group>
-
             <Modal.Footer className="modalbtn">
               <Button
                 className="primarybtn"
@@ -495,6 +494,9 @@ const CondoUnitList = () => {
           </Form>
         </Modal.Body>
       </Modal>
+      {/* ADD MODAL END */}
+
+      {/* UPLOAD MODAL START */}
       <Modal show={showUploadModal} onHide={() => setShowUploadModal(false)}>
         <br />
         <h1 className="text-divider">Upload CSV</h1>
@@ -512,7 +514,6 @@ const CondoUnitList = () => {
                 onChange={handleInputChange}
               />
             </Form.Group>
-
             <br />
             <Modal.Footer className="modalbtn">
               <Button
@@ -528,7 +529,9 @@ const CondoUnitList = () => {
           </Form>
         </Modal.Body>
       </Modal>
+      {/* ADD MODAL END */}
 
+      {/* VIEW MODAL START */}
       <Modal show={showViewModal} onHide={() => setShowViewModal(false)}>
         <Modal.Header closeButton />
         <Modal.Body>
@@ -545,7 +548,6 @@ const CondoUnitList = () => {
               </p>
             </div>
           </div>
-
           <div className="viewModal">
             <div className="col-md-6">
               <p>
@@ -558,7 +560,6 @@ const CondoUnitList = () => {
               </p>
             </div>
           </div>
-
           <div className="viewModal">
             <div className="col-md-6">
               <p>
@@ -572,7 +573,6 @@ const CondoUnitList = () => {
             </div>
           </div>
           <br />
-
           <h1 className="modal-divider">Tenant Details</h1>
           <div className="viewModal">
             <div className="col-md-6">
@@ -587,7 +587,6 @@ const CondoUnitList = () => {
               </p>
             </div>
           </div>
-
           <div className="viewModal">
             <div className="col-md-6">
               <p>
@@ -602,7 +601,6 @@ const CondoUnitList = () => {
               </p>
             </div>
           </div>
-
           <div className="viewModal">
             <div className="col-md-6">
               <p>
@@ -618,7 +616,9 @@ const CondoUnitList = () => {
           </div>
         </Modal.Body>
       </Modal>
+      {/* VIEW MODAL START */}
 
+      {/* EDIT MODAL START */}
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
         <br />
         <h1 className="text-divider">Edit Unit</h1>
@@ -637,9 +637,7 @@ const CondoUnitList = () => {
                 onChange={(e) => setUnitNo(e.target.value)}
                 
               />
-              
             </Form.Group>
-
             <Form.Group controlId="unit_owner" className="editForm">
               <Form.Label className="formIcon">
                 <FaHospitalUser />
@@ -653,7 +651,6 @@ const CondoUnitList = () => {
                 onChange={(e) => setUnitOwner(e.target.value)}
               />
             </Form.Group>
-
             <Form.Group controlId="unit_tower" className="editForm">
               <Form.Label className="formIcon">
                 <FaBuilding />
@@ -669,7 +666,6 @@ const CondoUnitList = () => {
                 <option value="Tower 2">Tower 2</option>
               </Form.Control>
             </Form.Group>
-
             <Form.Group controlId="unit_floor" className="editForm">
               <Form.Label className="formIcon">
                 <FaLayerGroup />
@@ -687,7 +683,6 @@ const CondoUnitList = () => {
                 <option value="4th Floor">4th Floor</option>
               </Form.Control>
             </Form.Group>
-
             <Form.Group controlId="unit_size" className="editForm">
               <Form.Label className="formIcon">
                 <BsFillBuildingsFill />
@@ -705,7 +700,6 @@ const CondoUnitList = () => {
                 <option value="20 sqm">20 sqm</option>
               </Form.Control>
             </Form.Group>
-
             <Form.Group controlId="occupied_by" className="editForm">
               <Form.Label className="formIcon">
                 <MdNumbers />
@@ -719,7 +713,6 @@ const CondoUnitList = () => {
                 onChange={(e) => setOccupiedBy(e.target.value)}
               />
             </Form.Group>
-
             <Form.Group controlId="status" className="editForm">
               <Form.Label className="formIcon">
                 <FaInnosoft />
@@ -737,6 +730,59 @@ const CondoUnitList = () => {
               </Form.Control>
             </Form.Group>
             <br />
+            <h1 className="bill-info">Edit Billing Info.</h1>
+            <Form.Group controlId="billed_to" className="addForm">
+              <Form.Label className="formIcon">
+                <GiPayMoney />
+              </Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Association Dues Billed To"
+                name="billed_to"
+                defaultValue={formData.billed_to}
+                onChange={(e) => setOccupiedBy(e.target.value)}
+              />
+            </Form.Group>
+             <Form.Group controlId="billed_to" className="addForm">
+              <Form.Label className="formIcon">
+                <GiPayMoney />
+              </Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Water Bills Billed To"
+                name="billed_to"
+                defaultValue={formData.billed_to}
+                onChange={(e) => setOccupiedBy(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="meter" className="addForm">
+              <Form.Label className="formIcon">
+                <BsSpeedometer />
+              </Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Enter meter #"
+                name="meter"
+                defaultValue={formData.meter}
+                onChange={(e) => setOccupiedBy(e.target.value)}
+              />
+            </Form.Group>
+             <Form.Group controlId="current_reading" className="addForm">
+              <Form.Label className="formIcon">
+                <TbReportMoney />
+              </Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Enter curent reading"
+                name="current_reading"
+                defaultValue={formData.current_reading}
+                onChange={(e) => setOccupiedBy(e.target.value)}
+              />
+            </Form.Group>
             <Modal.Footer className="modalbtn">
               <Button
                 className="primarybtn"
@@ -751,6 +797,7 @@ const CondoUnitList = () => {
           </Form>
         </Modal.Body>
       </Modal>
+      {/* EDIT MODAL START */}
 
       {/* <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} className="deleteModal">
         <br/>
