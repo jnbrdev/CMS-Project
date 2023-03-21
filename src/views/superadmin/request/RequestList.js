@@ -8,13 +8,14 @@ import { FaTrash, FaEye, FaFilter } from 'react-icons/fa';
 import { FiRefreshCcw } from 'react-icons/fi';
 import { CFormSelect } from '@coreui/react';
 import { Modal, Button, Form } from 'react-bootstrap';
+import axios from "src/api/axios";
 
+
+const REQUEST_ADD_URL = "/req/";
+const REQUEST_GET_URL = "/req/getAllRequest";
+const REQUEST_UPDATE_URL = "/req/";
 const RequestList = () => {
-  const [data, setData] = useState([
-    { id: '1', request_num: '0001', requester_name: 'Jonieber Dela Victoria', request: 'Move Out', status: 'Pending', date_requested: '2023-03-07' },
-    { id: '2', request_num: '0002', requester_name: 'Jesulenio Redera', request: 'Move In', status: 'Approved', date_requested: '2023-03-05' },
-    { id: '3', request_num: '0003', requester_name: 'James Sevilla', request: 'Repair', status: 'Approved', date_requested: '2023-03-09' },
-  ]);
+  const [data, setData] = useState([]);
   const [showViewModal, setShowViewModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedData, setSelectedData] = useState({});
@@ -26,9 +27,16 @@ const RequestList = () => {
     date_requested: '',
   });
 
+  //Get Data
   useEffect(() => {
-    $('#example').DataTable();
+    axios.post(REQUEST_GET_URL).then((response) => {
+      setData(response.data);
+      //console.log(response.data);
+    });
   }, []);
+
+  
+  
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.id]: event.target.value });
@@ -97,9 +105,9 @@ const RequestList = () => {
       <table id="example" className="table table-striped table-bordered">
         <thead>
           <tr>
-            <th>Request Number</th>
-            <th>Name</th>
+            <th>Unit #</th>
             <th>Request</th>
+            <th>Name</th>
             <th>Status</th>
             <th>Date Requested</th>
             <th>Actions</th>
@@ -108,9 +116,9 @@ const RequestList = () => {
         <tbody>
           {data.map((entry) => (
             <tr key={entry.id}>
-              <td>{entry.request_num}</td>
-              <td>{entry.requester_name}</td>
-               <td>{entry.request}</td>
+              <td>{entry.unit_no}</td>
+              <td>{entry.req_by}</td>
+               <td>{entry.req_title}</td>
               <td>
                 <Form.Label className="toggle">
                   <Form.Control type="checkbox" />
@@ -118,7 +126,7 @@ const RequestList = () => {
                   <span className="labels" data-on="Approved" data-off="Pending"></span>
                 </Form.Label>
               </td>
-              <td>{entry.date_requested}</td>
+              <td>{entry.req_date}</td>
               <td>
                 <Button
                   className="request-view"
@@ -146,22 +154,25 @@ const RequestList = () => {
           <h1 className="modal-divider">Request Details</h1>
           <div className="viewModal">
             <div className="col-md-6">
-              <p><strong>Request Number</strong> <br /> {selectedData.request_num}</p>
+              <p><strong>Unit #</strong> <br /> {selectedData.unit_no}</p>
             </div>
             <div className="col-md-6">
-              <p><strong>Name</strong> <br /> {selectedData.requester_name}</p>
+              <p><strong>Name</strong> <br /> {selectedData.req_by}</p>
             </div>
           </div>
           <div className="viewModal">
             <div className="col-md-6">
-              <p><strong>Request</strong> <br /> {selectedData.request}</p>
+              <p><strong>Request Title</strong> <br /> {selectedData.req_title}</p>
             </div>
             <div className="col-md-6">
-              <p><strong>Date Requested</strong> <br /> {selectedData.date_requested}</p>
+              <p><strong>Request</strong> <br /> {selectedData.req_body}</p>
+            </div>
+            <div className="col-md-6">
+              <p><strong>Date Requested</strong> <br /> {selectedData.req_date}</p>
             </div>
           </div>
         </Modal.Body>
-      </Modal>
+      </Modal>  
       {/* VIEW MODAL END */}
 
       {/* DELETE MODAL START */}

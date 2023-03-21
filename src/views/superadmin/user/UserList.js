@@ -45,7 +45,6 @@ const UserList = () => {
   const [userStatus, setStatus] = useState();
 
   //Add User
-
   const handleAddNewUser = async (e) => {
     e.preventDefault()
     const fname = userFname + " " + userLname
