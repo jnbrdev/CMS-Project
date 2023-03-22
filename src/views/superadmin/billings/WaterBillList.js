@@ -3,7 +3,7 @@ import $ from "jquery";
 import "datatables.net";
 import "datatables.net-bs4";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../../all-views-scss/_datatable.scss";
+import "../../../all-views-scss/_billingdatatable.scss";
 import { FaEdit, FaTrash, FaFilter } from "react-icons/fa";
 import { MdNumbers } from "react-icons/md";
 import { BsFiletypeCsv, BsFillPlusSquareFill } from "react-icons/bs";
@@ -309,7 +309,7 @@ const WaterBillList = () => {
       <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
         <br />
         <h1 className="text-divider">Add New Bill</h1>
-        <Modal.Body waterbillModal>
+        <Modal.Body>
           <Form onSubmit={handleFormSubmit}>
             <div className="unitinputField">
               <Form.Group controlId="unit_num" className="addnewbillForm">
