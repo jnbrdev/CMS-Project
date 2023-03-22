@@ -14,57 +14,11 @@ import { TbReportMoney } from "react-icons/tb";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "src/api/axios";
 
-const INVOICE_ADD_URL = "/invoice/";
+const INVOICE_ADD_URL = "/invoice/addBill";
 const INVOICE_GET_URL = "/invoice/getUnitRateData/";
-const INVOICE_UPDATE_URL = "/invoice/updateRate/";
+const WATERBILL_GET_URL = "/invoice/getAllWaterBill/";
 const WaterBillList = () => {
-  const [data, setData] = useState([
-    {
-      id: "1",
-      invoice_num: "10044",
-      unit_num: "253",
-      unit_size: "20 sqm",
-      billed_to: "Jonieber Dela Victoria",
-      bill_cost: "800 PHP",
-      due_date: "2023-05-30",
-      prev_reading: "1,500 PHP",
-      curr_reading: "1,000 PHP",
-      reading_date: "2023-06-01",
-      penalty: "100 PHP",
-      meter: "1-253",
-      rate: "10",
-    },
-    {
-      id: "2",
-      invoice_num: "25203",
-      unit_num: "102",
-      unit_size: "10 sqm",
-      billed_to: "Jesulenio Redera",
-      bill_cost: "1,000 PHP",
-      due_date: "2023-06-31",
-      prev_reading: "1,000 PHP",
-      curr_reading: "950 PHP",
-      reading_date: "2023-07-01",
-      penalty: "200 PHP",
-      meter: "1-253",
-      rate: "10",
-    },
-    {
-      id: "3",
-      invoice_num: "30253",
-      unit_num: "301",
-      unit_size: "15 sqm",
-      billed_to: "James Sevilla",
-      bill_cost: "1,300 PHP",
-      due_date: "2023-02-28",
-      prev_reading: "800 PHP",
-      curr_reading: "500 PHP",
-      reading_date: "2023-04-01",
-      penalty: "0 PHP",
-      meter: "1-253",
-      rate: "10",
-    },
-  ]);
+  const [data, setData] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -88,6 +42,7 @@ const WaterBillList = () => {
 
   //Get Unit and Rate data
   const [unitRateData, setUnitRateData] = useState([]);
+  const [assocDueTotal, setAssocDueTotal] = useState();
   const handleUnitNumberChange = async (event) => {
     const newUnitNumber = event.target.value;
     formData.unit_num = newUnitNumber;
@@ -99,16 +54,101 @@ const WaterBillList = () => {
         `${INVOICE_GET_URL}${newUnitNumber}`
       );
       const invoiceData = invoiceResponse.data;
+      
+      const assocDueNum = Number(invoiceData.assocDueRate);
+      const unitSizeNum = Number(invoiceData.unit_size);
+      const ratePerSqmNum = Number(invoiceData.ratePerSqm);
+      const total = unitSizeNum * ratePerSqmNum;
       setUnitRateData(invoiceData);
       setFormData(invoiceData)
-      console.log(invoiceData);
+      setAssocDueTotal(total)
+      console.log(total)
       // Do something with the invoice data, e.g. store it in state
     } catch (error) {
       console.error(error);
     }
   };
+  
+  // Current Reading Input Calculations
+  const [curReading, setCurReading] = useState();
+  const [waterBillTotal, setWaterBillTotal] = useState();
+  const handleCurrentReading = async (event) => {
+    const currentReading = Number(event.target.value); // convert input to number
+    setCurReading(currentReading); // set current reading in state
+    try {
+      const previousReading = Number(formData.previous_reading); // convert previous reading to number
+      const ratePerCubic = Number(formData.ratePerCubic); // convert rate per cubic to number
+      const difference = currentReading - previousReading; // calculate difference between current and previous readings
+      const amountDue = difference * ratePerCubic; // calculate amount due
+      setWaterBillTotal(amountDue)
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  useEffect(() => {}, []);
+  //Reading Date
+  const [readingDate, setReadingDate] = useState();
+  const handleReadingDate = async (event) => {
+    const readDate = event.target.value; 
+    setReadingDate(readDate); // set current reading in state
+    
+  };
+  //Add Bill for WaterBill and Association Due
+  const handleAddNewBill = async (e) => {
+    e.preventDefault()
+    try {
+      axios
+      .post(INVOICE_ADD_URL, {
+        unit_num: formData.unit_num,
+        waterBillTo: formData.waterBillTo,
+        invoiceWaterBillTo: formData.invoiceWaterBillTo,
+        assocBillTo: formData.assocBillTo,
+        invoiceAssocBillTo: formData.invoiceAssocBillTo,
+        unit_size: formData.unit_size,
+        meter_no: formData.meter_no,
+        previous_reading: formData.previous_reading,
+        cur_read: curReading,
+        ratePerSqm: formData.ratePerSqm,
+        discountRate: formData.discountRate,
+        ratePerCubic: formData.ratePerCubic,
+        penaltyRate: formData.penaltyRate,
+        assocDueRate: formData.assocDueRate,
+        waterBillTotal: waterBillTotal,
+        assocDueTotal: assocDueTotal,
+        reading_date: readingDate,
+      });
+      setFormData({
+        unit_num: '',
+        waterBillTo: '',
+        invoiceWaterBillTo: '',
+        assocBillTo: '',
+        invoiceAssocBillTo: '',
+        unit_size: '',
+        meter_no: '',
+        previous_reading: '',
+        ratePerSqm: '',
+        discountRate: '',
+        ratePerCubic: '',
+        penaltyRate: '',
+        assocDueRate: '',
+      });
+        setWaterBillTotal('')
+        setAssocDueTotal('')
+        setReadingDate('')
+        setCurReading('')
+        setShowAddModal(false);
+    } catch (error) {
+      console.error(error)
+    }
+   
+  };
+
+  useEffect(() => {
+    axios.post(WATERBILL_GET_URL).then((response) => {
+      setData(response.data);
+      //console.log(response.data);
+    });
+  }, []);
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.id]: event.target.value });
@@ -207,6 +247,28 @@ const WaterBillList = () => {
     setSelectedData({});
     setShowDeleteModal(false);
   };
+  const handleAddModalCancel = () => {
+    setFormData({
+      unit_num: '',
+      waterBillTo: '',
+      invoiceWaterBillTo: '',
+      assocBillTo: '',
+      invoiceAssocBillTo: '',
+      unit_size: '',
+      meter_no: '',
+      previous_reading: '',
+      ratePerSqm: '',
+      discountRate: '',
+      ratePerCubic: '',
+      penaltyRate: '',
+      assocDueRate: '',
+    });
+      setWaterBillTotal('')
+      setAssocDueTotal('')
+      setReadingDate('')
+      setCurReading('')
+      setShowAddModal(false);
+  };
 
   return (
     <div className="container">
@@ -264,26 +326,24 @@ const WaterBillList = () => {
             <th>Unit No.</th>
             <th>Billed To</th>
             <th>Billing Cost</th>
-            <th>Due Date</th>
             <th>Prev. Reading</th>
             <th>Curr. Reading</th>
             <th>Reading Date</th>
-            <th>Penalty</th>
+            <th>Due Date</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {data.map((entry) => (
             <tr key={entry.id}>
-              <td>{entry.invoice_num}</td>
-              <td>{entry.unit_num}</td>
+              <td>{entry.invoice_no}</td>
+              <td>{entry.unit_no}</td>
               <td>{entry.billed_to}</td>
-              <td>{entry.bill_cost}</td>
-              <td>{entry.due_date}</td>
-              <td>{entry.prev_reading}</td>
-              <td>{entry.curr_reading}</td>
+              <td>{entry.amount}</td>
+              <td>{entry.prev_read}</td>
+              <td>{entry.cur_read}</td>
               <td>{entry.reading_date}</td>
-              <td>{entry.penalty}</td>
+              <td>{entry.due_date}</td>
               <td>
                 {" "}
                 <Button
@@ -390,7 +450,7 @@ const WaterBillList = () => {
                   className="waterbillformField"
                   type="text"
                   name="bill_total"
-                  value={formData.previous_reading}
+                  value={waterBillTotal}
                 />
               </Form.Group>
               <div className="readinginputField">
@@ -406,6 +466,7 @@ const WaterBillList = () => {
                     type="text"
                     placeholder="Enter curent reading"
                     name="current_reading"
+                    onChange={handleCurrentReading}
                   />
                 </Form.Group>
                 <Form.Group controlId="reading_date" className="addnewbillForm">
@@ -417,6 +478,7 @@ const WaterBillList = () => {
                     type="text"
                     placeholder="Enter reading date"
                     name="reading_date"
+                    onChange={handleReadingDate}
                   />
                 </Form.Group>
                 
@@ -483,7 +545,7 @@ const WaterBillList = () => {
                   className="waterbillformField"
                   type="text"
                   name="bill_total"
-                  value={formData.previous_reading}
+                  value={assocDueTotal}
                 />
               </Form.Group>
             </div>
@@ -491,11 +553,11 @@ const WaterBillList = () => {
             <Modal.Footer className="modalbtn">
               <Button
                 className="primarybtn"
-                onClick={() => setShowAddModal(false)}
+                onClick={handleAddModalCancel}
               >
                 Cancel
               </Button>
-              <Button className="secondarybtn" type="submit">
+              <Button className="secondarybtn" type="submit" onClick={handleAddNewBill}>
                 Save
               </Button>
             </Modal.Footer>
@@ -664,7 +726,7 @@ const WaterBillList = () => {
             <Modal.Footer className="modalbtn">
               <Button
                 className="primarybtn"
-                onClick={() => setShowEditModal(false)}
+                onClick={handleAddModalCancel}
               >
                 Cancel
               </Button>

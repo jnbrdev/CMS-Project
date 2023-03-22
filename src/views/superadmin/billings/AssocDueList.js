@@ -11,13 +11,12 @@ import { RiCalendarTodoFill } from 'react-icons/ri';
 import { GiReceiveMoney, GiMoneyStack, GiPayMoney } from 'react-icons/gi';
 import { FiRefreshCcw, FiUpload } from 'react-icons/fi';
 import { Modal, Button, Form } from 'react-bootstrap';
+import axios from "src/api/axios";
 
+
+const ASSOCDUE_GET_URL = "/invoice/getAllAssocDue";
 const AssocDueList = () => {
-  const [data, setData] = useState([
-    { id: '1', invoice_num: '10044', unit_num: '253', billed_to: 'Jonieber Dela Victoria', bill_cost: '800 PHP', discount: '500 PHP', penalty: '100 PHP', due_date: '2023-05-30' },
-    { id: '2', invoice_num: '25203', unit_num: '102', billed_to: 'Jesulenio Redera', bill_cost: '1,000 PHP', discount: '500 PHP', penalty: '200 PHP', due_date: '2023-06-31' },
-    { id: '3', invoice_num: '30253', unit_num: '301', billed_to: 'James Sevilla', bill_cost: '1,300 PHP', discount: '500 PHP', penalty: '0 PHP', due_date: '2023-02-28' },
-  ]);
+  const [data, setData] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -34,7 +33,9 @@ const AssocDueList = () => {
   });
 
   useEffect(() => {
-    $('#example').DataTable();
+    axios.post(ASSOCDUE_GET_URL).then((response) => {
+      setData(response.data);
+    });
   }, []);
 
   const handleInputChange = (event) => {
@@ -149,21 +150,17 @@ const AssocDueList = () => {
             <th>Billed To</th>
             <th>Billing Cost</th>
             <th>Due Date</th>
-            <th>Discount</th>
-            <th>Penalty</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {data.map((entry) => (
             <tr key={entry.id}>
-              <td>{entry.invoice_num}</td>
-              <td>{entry.unit_num}</td>
+              <td>{entry.invoice_no}</td>
+              <td>{entry.unit_no}</td>
               <td>{entry.billed_to}</td>
-              <td>{entry.bill_cost}</td>
+              <td>{entry.amount}</td>
               <td>{entry.due_date}</td>
-              <td>{entry.discount}</td>
-              <td>{entry.penalty}</td>
               <td>
                 {' '}
                 <Button

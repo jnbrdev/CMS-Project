@@ -38,8 +38,8 @@ const CondoUnitList = () => {
 
   const [data, setData] = useState([]);
 
-  // SHOW UNIT DATAs
-  //console.log(data);
+  
+  
 
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
@@ -104,7 +104,8 @@ const CondoUnitList = () => {
     setSelectedData({});
     setShowEditModal(false);
   };
-
+  
+  // SHOW UNIT DATAs
   useEffect(() => {
     axios.post(UNIT_SHOW_URL).then((response) => {
       setData(response.data);
@@ -277,7 +278,7 @@ const CondoUnitList = () => {
             <th>Unit Owner</th>
             <th>Unit Tower</th>
             <th>Unit Floor</th>
-            <th>Unit Size</th>
+            <th>Unit Size (sqm)</th>
             <th>Occupied By</th>
             <th>Status</th>
             <th>Actions</th>
@@ -290,7 +291,7 @@ const CondoUnitList = () => {
               <td>{entry.unit_owner}</td>
               <td>{entry.unit_tower}</td>
               <td>{entry.unit_floor}</td>
-              <td>{entry.unit_size}</td>
+              <td>{entry.unit_size + " sqm"}</td>
               <td>{entry.occupied_by}</td>
               <td>{entry.status}</td>
               <td>
@@ -391,11 +392,11 @@ const CondoUnitList = () => {
                 name="unit_size"
                 onChange={(e) => setUnitSize(e.target.value)}
               >
-                <option value="">Select Unit Size</option>
-                <option value="5 sqm">5 sqm</option>
-                <option value="10 sqm">10 sqm</option>
-                <option value="15 sqm">15 sqm</option>
-                <option value="20 sqm">20 sqm</option>
+                <option value="">Select Unit Size (sqm)</option>
+                <option value="5">5 sqm</option>
+                <option value="10">10 sqm</option>
+                <option value="15">15 sqm</option>
+                <option value="20">20 sqm</option>
               </Form.Control>
             </Form.Group>
             <Form.Group controlId="" className="addForm">
@@ -694,10 +695,10 @@ const CondoUnitList = () => {
                 defaultValue={formData.unit_size}
                 onChange={(e) => setUnitSize(e.target.value)}
               >
-                <option value="5 sqm">5 sqm</option>
-                <option value="10 sqm">10 sqm</option>
-                <option value="15 sqm">15 sqm</option>
-                <option value="20 sqm">20 sqm</option>
+                <option value="5">5 sqm</option>
+                <option value="10">10 sqm</option>
+                <option value="15">15 sqm</option>
+                <option value="20">20 sqm</option>
               </Form.Control>
             </Form.Group>
             <Form.Group controlId="occupied_by" className="editForm">
