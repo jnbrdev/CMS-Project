@@ -214,6 +214,8 @@ const WaterBillList = () => {
       <div className="tbl-title">
         <h1 className="text-divider">WATER BILL LIST</h1>
       </div>
+
+      {/* DATE PICKER START */}
       <div className="table-head">
         <Form.Group controlId="dateFrom" className="filter-date-from">
           <Form.Label className="filter-date-label">From</Form.Label>
@@ -235,6 +237,8 @@ const WaterBillList = () => {
             onChange={handleInputChange}
           />
         </Form.Group>
+        {/* DATE PICKER END */}
+
         <div className="thead-btn">
           <Button className="thead-btn-primary" name="filter" type="submit">
             <FaFilter />
@@ -379,6 +383,16 @@ const WaterBillList = () => {
                   value={formData.previous_reading}
                 />
               </Form.Group>
+              <Form.Group controlId="bill_total" className="waterbillDetails">
+                <Form.Label>Total</Form.Label>
+                <br />
+                <Form.Control
+                  className="waterbillformField"
+                  type="text"
+                  name="bill_total"
+                  value={formData.previous_reading}
+                />
+              </Form.Group>
               <div className="readinginputField">
                 <Form.Group
                   controlId="current_reading"
@@ -392,7 +406,6 @@ const WaterBillList = () => {
                     type="text"
                     placeholder="Enter curent reading"
                     name="current_reading"
-                    
                   />
                 </Form.Group>
                 <Form.Group controlId="reading_date" className="addnewbillForm">
@@ -406,6 +419,7 @@ const WaterBillList = () => {
                     name="reading_date"
                   />
                 </Form.Group>
+                
               </div>
             </div>
 
@@ -462,8 +476,17 @@ const WaterBillList = () => {
                   value={formData.unit_size}
                 />
               </Form.Group>
+              <Form.Group controlId="bill_total" className="waterbillDetails">
+                <Form.Label>Total</Form.Label>
+                <br />
+                <Form.Control
+                  className="waterbillformField"
+                  type="text"
+                  name="bill_total"
+                  value={formData.previous_reading}
+                />
+              </Form.Group>
             </div>
-
             <br />
             <Modal.Footer className="modalbtn">
               <Button
