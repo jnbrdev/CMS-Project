@@ -95,7 +95,6 @@ const WaterBillList = () => {
     // Fetch data based on unit number using Axios
     try {
       // Get additional data based on the fetched unit data
-      const id = data.id; // Assuming the ID field is available in the fetched unit data
       const invoiceResponse = await axios.post(
         `${INVOICE_GET_URL}${newUnitNumber}`
       );
