@@ -444,7 +444,7 @@ const WaterBillList = () => {
                 />
               </Form.Group>
               <Form.Group controlId="bill_total" className="waterbillDetails">
-                <Form.Label>Total</Form.Label>
+                <Form.Label>Amount</Form.Label>
                 <br />
                 <Form.Control
                   className="waterbillformField"
@@ -539,7 +539,7 @@ const WaterBillList = () => {
                 />
               </Form.Group>
               <Form.Group controlId="bill_total" className="waterbillDetails">
-                <Form.Label>Total</Form.Label>
+                <Form.Label>Amount</Form.Label>
                 <br />
                 <Form.Control
                   className="waterbillformField"
