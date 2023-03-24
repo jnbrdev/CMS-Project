@@ -13,30 +13,61 @@ import { RiCalendarTodoFill } from 'react-icons/ri';
 import { CgUserList } from 'react-icons/cg';
 import { CFormSelect } from '@coreui/react';
 import { Modal, Button, Form } from 'react-bootstrap';
+import axios from "src/api/axios";
 
+const GUEST_GET_URL = "/guest/getAllGuest";
+const GUEST_ADD_URL = "/guest/addGuest";
 const GuestList = () => {
-  const [data, setData] = useState([
-    { unit_id: '1', guest_num: '23', unit_num: '253', first_name: 'Jonieber', last_name: 'Dela Victoria', contact_no: '09642158124', date_visit: '2023-05-23', status: 'Approved' },
-    { unit_id: '2', guest_num: '12', unit_num: '103', first_name: 'Jesulenio', last_name: 'Redera', contact_no: '09655984218', date_visit: '2023-01-12', status: 'Declined' },
-    { unit_id: '3', guest_num: '50', unit_num: '101', first_name: 'Felix', last_name: 'Chua', contact_no: '09548223148', date_visit: '2023-05-03', status: 'Approved' },
-  ]);
+  const [data, setData] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [formData, setFormData] = useState({
-    guest_num: '',
-    unit_num: '',
+    unit_no: '',
     first_name: '',
     last_name: '',
     contact_no: '',
-    date_visit: '',
-    status: '',
+    date_from: '',
+    date_to: '',
   });
 
+  //Display Guest 
   useEffect(() => {
-    $('#example').DataTable();
+    axios.post(GUEST_GET_URL).then((response) => {
+      setData(response.data);
+      console.log(response)
+    });
   }, []);
+  // Add Guest
+  const [unitNo, setUnitNo] = useState();
+  const [userFname, setFname] = useState();
+  const [userLname, setLname] = useState();
+  const [userContactNo, setContactNo] = useState();
+  const [dateFrom, setDateFrom] = useState();
+  const [dateTo, setDateTo] = useState();
+  const handleAddNewGuest = async (event) => {
+    event.preventDefault()
+    // Combine first_name and last_name to create full_name
+    const full_name = userFname + " " + userLname;
+    console.log(full_name);
+    try {
+      axios
+      .post(GUEST_ADD_URL, {
+        unit_no: unitNo,
+        full_name: full_name,
+        contact_no: userContactNo,
+        date_from: dateFrom,
+        date_to: dateTo,
+        
+      }).then((response) => {
+        console.log(response.data)
+      });
+      
+    } catch (error) {
+      console.log(error)
+    }
+  };
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.guest_num]: event.target.value });
@@ -138,27 +169,25 @@ const GuestList = () => {
       <table id="example" className="table table-striped table-bordered">
         <thead>
           <tr>
-            <th>Unit ID</th>
-            <th>Gues Number</th>
+            <th>Guest Number</th>
             <th>Unit Number</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
+            <th>Full Name</th>
             <th>Contact Number</th>
-            <th>Date of Visit</th>
+            <th>Expected Date From</th>
+            <th>Expected Date To</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {data.map((entry) => (
-            <tr key={entry.unit_id}>
-              <td>{entry.unit_id}</td>
-              <td>{entry.guest_num}</td>
-              <td>{entry.unit_num}</td>
-              <td>{entry.first_name}</td>
-              <td>{entry.last_name}</td>
+            <tr key={entry.id}>
+              <td>{entry.guest_no}</td>
+              <td>{entry.unit_no}</td>
+              <td>{entry.full_name}</td>
               <td>{entry.contact_no}</td>
-              <td>{entry.date_visit}</td>
+              <td>{entry.date_from}</td>
+              <td>{entry.date_to}</td>
               <td>
                 <Form.Label className="toggle">
                   <Form.Control type="checkbox" />
@@ -186,34 +215,15 @@ const GuestList = () => {
         <h1 className="text-divider">Add New Guest</h1>
         <Modal.Body>
           <Form onSubmit={handleFormSubmit}>
-            <Form.Group controlId="unit_id" className="addForm">
-              <Form.Label className="formIcon"><HiIdentification /></Form.Label>
-              <Form.Control
-                className="formField"
-                type="text"
-                placeholder="Enter unit ID"
-                name="unit_id"
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="guest_num" className="addForm">
-            <Form.Label className="formIcon"><CgUserList /></Form.Label>
-              <Form.Control
-                className="formField"
-                type="text"
-                placeholder="Enter guest number"
-                name="guest_num"
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="unit_num" className="addForm">
+            
+            <Form.Group controlId="unit_no" className="addForm">
               <Form.Label className="formIcon"><MdNumbers /></Form.Label>
               <Form.Control
                 className="formField"
                 type="text"
                 placeholder="Enter unit number"
-                name="unit_num"
-                onChange={handleInputChange}
+                name="unit_no"
+                onChange={(e) => setUnitNo(e.target.value)}
               />
             </Form.Group>
             <Form.Group controlId="first_name" className="addForm">
@@ -223,7 +233,7 @@ const GuestList = () => {
                 type="text"
                 placeholder="Enter firstname"
                 name="first_name"
-                onChange={handleInputChange}
+                onChange={(e) => setFname(e.target.value)}
               />
             </Form.Group>
             <Form.Group controlId="last_name" className="addForm">
@@ -233,7 +243,7 @@ const GuestList = () => {
                 type="text"
                 placeholder="Enter lastname"
                 name="last_name"
-                onChange={handleInputChange}
+                onChange={(e) => setLname(e.target.value)}
               />
             </Form.Group>
             <Form.Group controlId="contact_no" className="addForm">
@@ -243,17 +253,27 @@ const GuestList = () => {
                 type="text"
                 placeholder="Enter contact number"
                 name="contact_no"
-                onChange={handleInputChange}
+                onChange={(e) => setContactNo(e.target.value)}
               />
             </Form.Group>
-            <Form.Group controlId="date_visit" className="addForm">
+            <Form.Group controlId="date_from" className="addForm">
               <Form.Label className="formIcon"><RiCalendarTodoFill /></Form.Label>
               <Form.Control
                 className="formField"
                 type="date"
                 placeholder="yyyy-mm-dd"
-                name="date_visit"
-                onChange={handleInputChange}
+                name="date_to"
+                onChange={(e) => setDateFrom(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="date_to" className="addForm">
+              <Form.Label className="formIcon"><RiCalendarTodoFill /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="date"
+                placeholder="yyyy-mm-dd"
+                name="date_to"
+                onChange={(e) => setDateTo(e.target.value)}
               />
             </Form.Group>
             <br />
@@ -261,7 +281,7 @@ const GuestList = () => {
               <Button className="primarybtn" onClick={() => setShowAddModal(false)}>
                 Cancel
               </Button>
-              <Button className="secondarybtn" type="submit">
+              <Button className="secondarybtn" type="submit" onClick={handleAddNewGuest}>
                 Save
               </Button>
             </Modal.Footer>
