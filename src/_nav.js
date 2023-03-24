@@ -2,17 +2,10 @@ import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
   cilBell,
-  //cilCalculator,
-  //cilChartPie,
-  //cilCursor,
   cilShieldAlt,
   cilDescription,
-  //cilDrop,
-  // cilNotes,
-  //cilPencil,
-  //cilPuzzle,
   cilSpeedometer,
-  //cilStar,
+  cilCalendarCheck,
   cilMoney,
   cilPool,
   cilHouse,
@@ -144,6 +137,14 @@ const _nav = [
     to: '/guestlist',
     icon: <CIcon icon={cilBell} customClassName="nav-icon" />,
   },
+
+  {
+    component: CNavItem,
+    name: 'Calendar Reminders',
+    to: '/calendarreminders',
+    icon: <CIcon icon={cilCalendarCheck} customClassName="nav-icon" />,
+  },
+
   /*{ // ForReference
     component: CNavItem,
     name: 'Widgets',

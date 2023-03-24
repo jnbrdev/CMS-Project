@@ -84,6 +84,9 @@ const AdminPriv = React.lazy(() => import('./views/superadmin/admin/AdminPriv'))
 //Services
 const ServiceList = React.lazy(() => import('./views/superadmin/services/ServiceList'))
 
+//Calendar Reminders
+const CalendarReminders = React.lazy(() => import('./views/superadmin/calendar/CalendarReminders'))
+
 
 // ADMIN TEAM ---------------------------------------------------------------------------------------------------------------------------------------
 
@@ -213,6 +216,7 @@ const routes = [
   { path: '/superadmin/admin/addadmin', name: 'Add Admin User', element: AddNewAdminUser },
   { path: '/superadmin/admin/adminprivileges', name: 'Admin Privileges', element: AdminPriv },
   { path: '/superadmin/guest/guestlist', name: 'Guest List', element: GuestList },
+  { path: '/superadmin/calendar/calendarreminders', name: 'Calendar Reminders', element: CalendarReminders },
 
    // ADMIN TEAM PATHS ---------------------------------------------------------------------------------------------------------------------------------------
   { path: '/homepage', exact: true, name: 'Home' },

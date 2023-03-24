@@ -56,6 +56,9 @@ const AdminPriv = React.lazy(() => import('./views/superadmin/admin/AdminPriv'))
 //Services
 const ServiceList = React.lazy(() => import('./views/superadmin/services/ServiceList'))
 
+//Calendar Reminders
+const CalendarReminders = React.lazy(() => import('./views/superadmin/calendar/CalendarReminders'))
+
 
 // ADMIN TEAM -------------------------------------------------------------------------------------------------------------------------------------------
 const Dashboard_adminteam = React.lazy(() =>
@@ -171,6 +174,7 @@ class App extends Component {
             <Route path="/adminlist" element={<AdminList />} />
             <Route path="/addadmin" element={<AddNewAdminUser />} />
             <Route path="/adminprivileges" element={<AdminPriv />} />
+            <Route path="/calendarreminders" element={<CalendarReminders />} />
 
           </Route>
           
