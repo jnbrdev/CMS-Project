@@ -1,0 +1,96 @@
+.company {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.com-image {
+    height: 65px;
+    width: 130px;
+}
+
+.com-address {
+    font-size: 12px;
+    font-weight: 500;
+    font-family: sans-serif;
+    padding-right: 8px;
+    margin-top: -10px;
+}
+
+.invoice-row {
+    display: flex;
+}
+
+.invoice-label {
+    font-size: 40px;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: -10px;
+}
+
+.invoice-field-label {
+    width: 200px;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.invoice-input {
+    width: 200px;
+    height: 25px;
+    padding-left: 60px;
+    font-size: 12px;
+    border: none;
+}
+
+.invoice-input-date {
+    width: 200px;
+    height: 25px;
+    padding-left: 30px;
+    font-size: 12px;
+    border: none;
+}
+
+
+.invoice-form-label {
+    position: absolute;
+    padding-top: 3px;
+}
+
+// INVOICE BODY
+.table thead>tr>th {
+    font-size: 10px;
+}
+
+// .newbillModal {
+//     width: 120%;
+// }
+
+.invoice-divider {
+    --invoice-divider-gap: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    text-transform: capitalize;
+    letter-spacing: 0.1em;
+    font-weight: bolder;
+    font-family: sans-serif;
+    margin-bottom: 5px;
+    padding-left: 4px
+}
+  
+.invoice-divider::after {
+    content: '';
+    height: 2px;
+    background-color: #009DFF;
+    flex-grow: 1;
+}
+
+.invoice-divider::after {
+    margin-left: var(--invoice-divider-gap);
+}
+
+.invoice-total {
+    display: flex;
+    justify-content: end;
+}

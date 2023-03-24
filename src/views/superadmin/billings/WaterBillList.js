@@ -4,6 +4,7 @@ import "datatables.net";
 import "datatables.net-bs4";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../../all-views-scss/_billingdatatable.scss";
+import "../../../all-views-scss/_invoice.scss";
 import { FaEdit, FaTrash, FaFilter } from "react-icons/fa";
 import { MdNumbers } from "react-icons/md";
 import { BsFiletypeCsv, BsFillPlusSquareFill } from "react-icons/bs";
@@ -54,7 +55,7 @@ const WaterBillList = () => {
         `${INVOICE_GET_URL}${newUnitNumber}`
       );
       const invoiceData = invoiceResponse.data;
-      
+
       const assocDueNum = Number(invoiceData.assocDueRate);
       const unitSizeNum = Number(invoiceData.unit_size);
       const ratePerSqmNum = Number(invoiceData.ratePerSqm);
@@ -68,7 +69,7 @@ const WaterBillList = () => {
       console.error(error);
     }
   };
-  
+
   // Current Reading Input Calculations
   const [curReading, setCurReading] = useState();
   const [waterBillTotal, setWaterBillTotal] = useState();
@@ -89,34 +90,34 @@ const WaterBillList = () => {
   //Reading Date
   const [readingDate, setReadingDate] = useState();
   const handleReadingDate = async (event) => {
-    const readDate = event.target.value; 
+    const readDate = event.target.value;
     setReadingDate(readDate); // set current reading in state
-    
+
   };
   //Add Bill for WaterBill and Association Due
   const handleAddNewBill = async (e) => {
     e.preventDefault()
     try {
       axios
-      .post(INVOICE_ADD_URL, {
-        unit_num: formData.unit_num,
-        waterBillTo: formData.waterBillTo,
-        invoiceWaterBillTo: formData.invoiceWaterBillTo,
-        assocBillTo: formData.assocBillTo,
-        invoiceAssocBillTo: formData.invoiceAssocBillTo,
-        unit_size: formData.unit_size,
-        meter_no: formData.meter_no,
-        previous_reading: formData.previous_reading,
-        cur_read: curReading,
-        ratePerSqm: formData.ratePerSqm,
-        discountRate: formData.discountRate,
-        ratePerCubic: formData.ratePerCubic,
-        penaltyRate: formData.penaltyRate,
-        assocDueRate: formData.assocDueRate,
-        waterBillTotal: waterBillTotal,
-        assocDueTotal: assocDueTotal,
-        reading_date: readingDate,
-      });
+        .post(INVOICE_ADD_URL, {
+          unit_num: formData.unit_num,
+          waterBillTo: formData.waterBillTo,
+          invoiceWaterBillTo: formData.invoiceWaterBillTo,
+          assocBillTo: formData.assocBillTo,
+          invoiceAssocBillTo: formData.invoiceAssocBillTo,
+          unit_size: formData.unit_size,
+          meter_no: formData.meter_no,
+          previous_reading: formData.previous_reading,
+          cur_read: curReading,
+          ratePerSqm: formData.ratePerSqm,
+          discountRate: formData.discountRate,
+          ratePerCubic: formData.ratePerCubic,
+          penaltyRate: formData.penaltyRate,
+          assocDueRate: formData.assocDueRate,
+          waterBillTotal: waterBillTotal,
+          assocDueTotal: assocDueTotal,
+          reading_date: readingDate,
+        });
       setFormData({
         unit_num: '',
         waterBillTo: '',
@@ -132,15 +133,15 @@ const WaterBillList = () => {
         penaltyRate: '',
         assocDueRate: '',
       });
-        setWaterBillTotal('')
-        setAssocDueTotal('')
-        setReadingDate('')
-        setCurReading('')
-        setShowAddModal(false);
+      setWaterBillTotal('')
+      setAssocDueTotal('')
+      setReadingDate('')
+      setCurReading('')
+      setShowAddModal(false);
     } catch (error) {
       console.error(error)
     }
-   
+
   };
 
   useEffect(() => {
@@ -263,11 +264,11 @@ const WaterBillList = () => {
       penaltyRate: '',
       assocDueRate: '',
     });
-      setWaterBillTotal('')
-      setAssocDueTotal('')
-      setReadingDate('')
-      setCurReading('')
-      setShowAddModal(false);
+    setWaterBillTotal('')
+    setAssocDueTotal('')
+    setReadingDate('')
+    setCurReading('')
+    setShowAddModal(false);
   };
 
   return (
@@ -365,191 +366,116 @@ const WaterBillList = () => {
       </table>
 
       {/* ADD MODAL START */}
-      <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
+      <Modal show={showAddModal} onHide={() => setShowAddModal(false)} className="newbillModal">
         <br />
-        <h1 className="text-divider">Add New Bill</h1>
         <Modal.Body>
           <Form onSubmit={handleFormSubmit}>
-            <div className="unitinputField">
-              <Form.Group controlId="unit_num" className="addnewbillForm">
-                <Form.Label className="formIcon">
-                  <MdNumbers />
-                </Form.Label>
-                <Form.Control
-                  className="addnewbillformField"
-                  type="text"
-                  placeholder="Enter unit number"
-                  name="unit_num"
-                  onChange={handleUnitNumberChange}
-                />
-              </Form.Group>
-            </div>
             {/* WATER BILL DETAILS */}
-            <div className="waterbillBox">
-              <h1 className="waterbill-text-divider">Water Bill</h1>
-              <Form.Group
-                controlId="waterBillTo"
-                className="waterbilletdoDetails"
-              >
-                <Form.Label>Billed To</Form.Label>
-                <br />
-                <Form.Control
-                  className="waterbilledtoformField"
-                  type="text"
-                  name="billed_to"
-                  value={formData.waterBillTo}
-                />
-              </Form.Group>
-              <Form.Group
-                controlId="invoiceWaterBillTo"
-                className="waterbillDetails"
-              >
-                <Form.Label>Invoice #</Form.Label>
-                <br />
-                <Form.Control
-                  className="waterbillformField"
-                  type="text"
-                  name="invoice_num"
-                  value={formData.invoiceWaterBillTo}
-                />
-              </Form.Group>
-              <Form.Group controlId="unit_num" className="waterbillDetails">
-                <Form.Label>Unit #</Form.Label>
-                <br />
-                <Form.Control
-                  className="waterbillformField"
-                  type="text"
-                  name="unit_num"
-                  value={formData.unit_num}
-                />
-              </Form.Group>
-              <Form.Group controlId="meter" className="waterbillDetails">
-                <Form.Label>Meter #</Form.Label>
-                <br />
-                <Form.Control
-                  className="waterbillformField"
-                  type="text"
-                  name="meter"
-                  value={formData.meter_no}
-                />
-              </Form.Group>
-              <Form.Group controlId="prev_reading" className="waterbillDetails">
-                <Form.Label>Prev. Reading</Form.Label>
-                <br />
-                <Form.Control
-                  className="waterbillformField"
-                  type="text"
-                  name="prev_reading"
-                  value={formData.previous_reading}
-                />
-              </Form.Group>
-              <Form.Group controlId="bill_total" className="waterbillDetails">
-                <Form.Label>Amount</Form.Label>
-                <br />
-                <Form.Control
-                  className="waterbillformField"
-                  type="text"
-                  name="bill_total"
-                  value={waterBillTotal}
-                />
-              </Form.Group>
-              <div className="readinginputField">
-                <Form.Group
-                  controlId="current_reading"
-                  className="addnewbillForm"
-                >
-                  <Form.Label className="formIcon">
-                    <TbReportMoney />
-                  </Form.Label>
-                  <Form.Control
-                    className="billdetailsformField"
-                    type="text"
-                    placeholder="Enter curent reading"
-                    name="current_reading"
-                    onChange={handleCurrentReading}
-                  />
-                </Form.Group>
-                <Form.Group controlId="reading_date" className="addnewbillForm">
-                  <Form.Label className="formIcon">
-                    <TbReportMoney />
-                  </Form.Label>
-                  <Form.Control
-                    className="billdetailsformField"
-                    type="text"
-                    placeholder="Enter reading date"
-                    name="reading_date"
-                    onChange={handleReadingDate}
-                  />
-                </Form.Group>
-                
-              </div>
-            </div>
-
-            {/* ASSOCIATION DUE DETAILS */}
-            <div className="assocdueBox">
-              <h1 className="assocdue-text-divider">Association Dues</h1>
-              <Form.Group controlId="billed_to" className="assocduedtoDetails">
-                <Form.Label>Billed To</Form.Label>
-                <br />
-                <Form.Control
-                  className="assocduedtoformField"
-                  type="text"
-                  name="billed_to"
-                  value={formData.assocBillTo}
-                />
-              </Form.Group>
-              <Form.Group controlId="invoice_num" className="assocdueDetails">
-                <Form.Label>Invoice #</Form.Label>
-                <br />
-                <Form.Control
-                  className="assocdueformField"
-                  type="text"
-                  name="invoice_num"
-                  value={formData.invoiceAssocBillTo}
-                />
-              </Form.Group>
-              <Form.Group controlId="unit_num" className="assocdueDetails">
-                <Form.Label>Unit #</Form.Label>
-                <br />
-                <Form.Control
-                  className="assocdueformField"
-                  type="text"
-                  name="unit_num"
-                  value={formData.unit_num}
-                />
-              </Form.Group>
-              <Form.Group controlId="rate" className="assocdueDetails">
-                <Form.Label>Rate</Form.Label>
-                <br />
-                <Form.Control
-                  className="assocdueformField"
-                  type="text"
-                  name="rate"
-                  value={formData.ratePerSqm}
-                />
-              </Form.Group>
-              <Form.Group controlId="unit_size" className="assocdueDetails">
-                <Form.Label>Unit Size</Form.Label>
-                <br />
-                <Form.Control
-                  className="assocdueformField"
-                  type="text"
-                  name="unit_size"
-                  value={formData.unit_size}
-                />
-              </Form.Group>
-              <Form.Group controlId="bill_total" className="waterbillDetails">
-                <Form.Label>Amount</Form.Label>
-                <br />
-                <Form.Control
-                  className="waterbillformField"
-                  type="text"
-                  name="bill_total"
-                  value={assocDueTotal}
-                />
-              </Form.Group>
+            <div className="company">
+              <img src="./images/com-logo2.png" className="com-image"></img>
+              <p className="com-address">Gold Coast, Austrilia</p>
             </div>
             <br />
+            <div className="waterbillBox">
+              <h1 className="invoice-label">Invoice</h1>
+
+              <div className="invoice-row">
+                <div className="col-md-6">
+                  <Form.Group controlId="invoiceWaterBillTo" className="invoice-field-label">
+                    <Form.Label className="invoice-form-label">Invoice No:</Form.Label>
+                    <Form.Control
+                      className="invoice-input"
+                      type="text"
+                      name="invoice_num"
+                      value={formData.invoiceWaterBillTo}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="unit_num" className="invoice-field-label">
+                    <Form.Label className="invoice-form-label">Unit No:</Form.Label>
+                    <Form.Control
+                      className="invoice-input"
+                      type="text"
+                      name="unit_num"
+                      value={formData.unit_num}
+                      onChange={handleInputChange}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col-md-6">
+                  <Form.Group controlId="invoice_date" className="invoice-field-label">
+                    <Form.Label className="invoice-form-label">Date:</Form.Label>
+                    <Form.Control
+                      className="invoice-input-date"
+                      type="text"
+                      name="invoice_date"
+                      value={formData.invoice_date}
+                    />
+                  </Form.Group>
+                </div>
+              </div>
+              <br/>
+              <h1 className="invoice-divider">Water bills</h1>
+              <table className="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Bill to</th>
+                        <th>Meter No.</th>
+                        <th>Prev. Reading</th>
+                        <th>Curr. Reading</th>
+                        <th>Reading Date</th>
+                        <th>Due Date</th>
+                        <th>Penalty</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{formData.invoiceWaterBillTo}</td>
+                        <td>{formData.meter_no}</td>
+                        <td>{formData.prev_read}</td>
+                        <td>{formData.cur_read}</td>
+                        <td>{formData.reading_date}</td>
+                        <td>{formData.due_date}</td>
+                        <td>{formData.penalty}</td>
+                        <td>{formData.waterBillTotal}</td>
+                    </tr>
+                </tbody>
+              </table>
+
+              <h1 className="invoice-divider">Association Due</h1>
+              <table className="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Bill to</th>
+                        <th>Unit Size</th>
+                        <th>Rate</th>
+                        <th>Penalty</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{formData.invoiceAssocBillTo}</td>
+                        <td>{formData.unit_size}</td>
+                        <td>{formData.ratePerSqm}</td>
+                        <td>{formData.penalty}</td>
+                        <td>{formData.assocDueTotal}</td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <br />
+            <div className="invoice-total"> 
+              <Form.Group controlId="total" className="invoice-field-label">
+                <Form.Label className="invoice-form-label">Total</Form.Label>
+                <Form.Control
+                  className="invoice-input"
+                  type="text"
+                  name="total"
+                  value={formData.total}
+                />
+              </Form.Group>
+            </div>
             <Modal.Footer className="modalbtn">
               <Button
                 className="primarybtn"
