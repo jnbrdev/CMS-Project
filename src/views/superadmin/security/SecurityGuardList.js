@@ -5,7 +5,7 @@ import 'datatables.net-bs4';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../../all-views-scss/_datatable.scss'
 import { FaEdit, FaTrash, FaInnosoft, FaFilter } from 'react-icons/fa';
-import { MdNumbers, MdDriveFileRenameOutline } from 'react-icons/md';
+import { MdNumbers, MdDriveFileRenameOutline, MdCake } from 'react-icons/md';
 import { BsFiletypeCsv, BsFillPlusSquareFill } from 'react-icons/bs';
 import { FiRefreshCcw, FiUpload } from 'react-icons/fi';
 import { CFormSelect } from '@coreui/react';
@@ -13,6 +13,7 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import axios from "src/api/axios";
 
 const SECURITY_GET_URL = "/security/getAllSecurity";
+const SECURITY_ADD_URL = "/security/addSecurity";
 const SecurityGuardList = () => {
   const [data, setData] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -21,20 +22,58 @@ const SecurityGuardList = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [formData, setFormData] = useState({
-    guard_num: '',
+    email: '',
+    password: '',
     first_name: '',
     last_name: '',
+    contact_no: '',
+    birthdate: '',
+    role: '',
+    status: '',
+    tower_no: '',
+    security_no: '',
     shit_start: '',
     shift_end: '',
-    status: '',
   });
-
+  // Display Data
   useEffect(() => {
     axios.post(SECURITY_GET_URL).then((response) => {
       setData(response.data);
       console.log(response)
     });
   }, []);
+
+  //Add Security Guard
+  const [userEmail, setUserEmail] = useState();
+  const [userPassword, setUserPassword] = useState();
+  const [userFname, setFname] = useState();
+  const [userLname, setLname] = useState();
+  const [userContactNo, setContactNo] = useState();
+  const [userBirthdate, setBdate] = useState();
+  const [secTower, setTower] = useState();
+  const handleAddNewSecurity = async (event) => {
+    event.preventDefault()
+  // Combine first_name and last_name to create full_name
+  const full_name = userFname + " " + userLname;
+  console.log(full_name);
+    try {
+      axios
+      .post(SECURITY_ADD_URL, {
+        email: userEmail,
+        password: userPassword,
+        full_name: full_name,
+        contact_no: userContactNo,
+        birthdate: userBirthdate,
+        tower_no: secTower,
+        
+      }).then((response) => {
+        console.log(response.data)
+      });
+      
+    } catch (error) {
+      console.log(error)
+    }
+  };
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.id]: event.target.value });
@@ -136,11 +175,11 @@ const SecurityGuardList = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((entry) => (
+          { data.map((entry) => (
             <tr key={entry.id}>
-              <td>{entry.guard_num}</td>
-              <td>{entry.full_name}</td>
-              <td>{entry.shit_start}</td>
+              <td>{entry.security_no}</td>
+              <td>{entry.User?.full_name}</td>
+              <td>{entry.shift_start}</td>
               <td>{entry.shift_end}</td>
               <td>
                 <Form.Label className="toggle">
@@ -176,14 +215,24 @@ const SecurityGuardList = () => {
         <h1 className="text-divider">Add New Sec. Guard</h1>
         <Modal.Body>
           <Form onSubmit={handleFormSubmit}>
-            <Form.Group controlId="guard_num" className="addForm">
-              <Form.Label className="formIcon"><MdNumbers /></Form.Label>
+            <Form.Group controlId="email" className="addForm">
+              <Form.Label className="formIcon"><MdDriveFileRenameOutline /></Form.Label>
               <Form.Control
                 className="formField"
                 type="text"
-                placeholder="Enter security guard number"
-                name="guard_num"
-                onChange={handleInputChange}
+                placeholder="Enter Email"
+                name="email"
+                onChange={(e) => setUserEmail(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="password" className="addForm">
+              <Form.Label className="formIcon"><MdDriveFileRenameOutline /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="password"
+                placeholder="Enter Password"
+                name="password"
+                onChange={(e) => setUserPassword(e.target.value)}
               />
             </Form.Group>
             <Form.Group controlId="first_name" className="addForm">
@@ -193,7 +242,7 @@ const SecurityGuardList = () => {
                 type="text"
                 placeholder="Enter firstname"
                 name="first_name"
-                onChange={handleInputChange}
+                onChange={(e) => setFname(e.target.value)}
               />
             </Form.Group>
             <Form.Group controlId="last_name" className="addForm">
@@ -203,20 +252,41 @@ const SecurityGuardList = () => {
                 type="text"
                 placeholder="Enter lastname"
                 name="last_name"
-                onChange={handleInputChange}
+                onChange={(e) => setLname(e.target.value)}
               />
             </Form.Group>
-            <Form.Group controlId="status" className="addForm">
+            <Form.Group controlId="contact_no" className="addForm">
+              <Form.Label className="formIcon"><MdDriveFileRenameOutline /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Enter Contact Number"
+                name="contact_no"
+                onChange={(e) => setContactNo(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="birthdate" className="addForm">
+              <Form.Label className="formIcon"><MdCake /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="date"
+                placeholder="yyyy-mm-dd"
+                name="birthdate"
+                onChange={(e) => setBdate(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="tower" className="addForm">
               <Form.Label className="formIcon"><FaInnosoft /></Form.Label>
               <Form.Control
                 className="formField"
                 as="select"
-                name="status"
-                onChange={handleInputChange}
+                name="tower"
+                onChange={(e) => setTower(e.target.value)}
               >
-                <option value="">Select Status</option>
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
+                <option value="">Select Tower</option>
+                <option value="1">Tower 1</option>
+                <option value="1">Tower 2</option>
+                <option value="1">Tower 3</option>
               </Form.Control>
             </Form.Group>
             <br />
@@ -224,7 +294,7 @@ const SecurityGuardList = () => {
               <Button className="primarybtn" onClick={() => setShowAddModal(false)}>
                 Cancel
               </Button>
-              <Button className="secondarybtn" type="submit">
+              <Button className="secondarybtn" type="submit" onClick={handleAddNewSecurity}>
                 Save
               </Button>
             </Modal.Footer>
