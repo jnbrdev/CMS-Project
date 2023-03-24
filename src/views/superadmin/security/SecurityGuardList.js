@@ -10,13 +10,11 @@ import { BsFiletypeCsv, BsFillPlusSquareFill } from 'react-icons/bs';
 import { FiRefreshCcw, FiUpload } from 'react-icons/fi';
 import { CFormSelect } from '@coreui/react';
 import { Modal, Button, Form } from 'react-bootstrap';
+import axios from "src/api/axios";
 
+const SECURITY_GET_URL = "/security/getAllSecurity";
 const SecurityGuardList = () => {
-  const [data, setData] = useState([
-    { id: '1', guard_num: '0001', first_name: 'Jonieber', last_name: 'Dela Victoria', shit_start: '8:00 AM', shift_end: '5:00 PM', status: 'Inactive' },
-    { id: '2', guard_num: '0002', first_name: 'Jesulenio', last_name: 'Redera', shit_start: '1:00 AM', shift_end: '8:00 AM', status: 'Approved' },
-    { id: '3', guard_num: '0003', first_name: 'James', last_name: 'Sevilla', shit_start: '5:00 PM', shift_end: '12:00 PM', status: 'Approved' },
-  ]);
+  const [data, setData] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -32,7 +30,10 @@ const SecurityGuardList = () => {
   });
 
   useEffect(() => {
-    $('#example').DataTable();
+    axios.post(SECURITY_GET_URL).then((response) => {
+      setData(response.data);
+      console.log(response)
+    });
   }, []);
 
   const handleInputChange = (event) => {
@@ -127,8 +128,7 @@ const SecurityGuardList = () => {
         <thead>
           <tr>
             <th>Security Guard No.</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
+            <th>Full Name</th>
             <th>Shift Start</th>
             <th>Shift End</th>
             <th>Status</th>
@@ -139,8 +139,7 @@ const SecurityGuardList = () => {
           {data.map((entry) => (
             <tr key={entry.id}>
               <td>{entry.guard_num}</td>
-              <td>{entry.first_name}</td>
-              <td>{entry.last_name}</td>
+              <td>{entry.full_name}</td>
               <td>{entry.shit_start}</td>
               <td>{entry.shift_end}</td>
               <td>
