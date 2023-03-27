@@ -65,6 +65,11 @@ const _nav = [
         name: 'Manage Billings',
         to: '/managebilling',
       },
+      {
+        component: CNavItem,
+        name: 'Add Bill',
+        to: '/addbill',
+      },
     ],
   },
 
@@ -99,13 +104,6 @@ const _nav = [
     name: 'Users',
     to: '/userlist',
     icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
-  },
-
-  {
-    component: CNavItem,
-    name: 'Security Guards',
-    to: '/securitylist',
-    icon: <CIcon icon={cilShieldAlt} customClassName="nav-icon" />,
   },
 
   {

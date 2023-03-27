@@ -60,15 +60,13 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 const WaterBillList = React.lazy(() => import('./views/superadmin/billings/WaterBillList'))
 const AssocDueList = React.lazy(() => import('./views/superadmin/billings/AssocDueList'))
 const ManageBilling = React.lazy(() => import('./views/superadmin/billings/ManageBilling'))
+const AddBill = React.lazy(() => import('./views/superadmin/billings/AddBill'))
 
 //Unit
 const CondoUnitList = React.lazy(() => import('./views/superadmin/unit/CondoUnitList'))
 
 //User
 const UserList = React.lazy(() => import('./views/superadmin/user/UserList'))
-
-//Security
-const SecurityGuardList = React.lazy(() => import('./views/superadmin/security/SecurityGuardList'))
 
 //Request
 const RequestList = React.lazy(() => import('./views/superadmin/request/RequestList'))
@@ -206,12 +204,12 @@ const routes = [
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/superadmin/billings/waterbilllist', name: 'Water Bill List', element: WaterBillList },
   { path: '/superadmin/billings/managebill', name: 'Manage Billings', element: ManageBilling },
+  { path: '/superadmin/billings/addbill', name: 'Add Bill', element: AddBill },
   { path: '/superadmin/billings/associationduelist', name: 'Association Due List', element: AssocDueList },
   { path: '/superadmin/requests/requestlist', name: 'Request List', element: RequestList },
   { path: '/superadmin/services/servicelist', name: 'Service List', element: ServiceList },
   { path: '/superadmin/units/condounitlist', name: 'View Unit Details', element: CondoUnitList },
   { path: '/superadmin/user/userlist', name: 'User List', element: UserList },
-  { path: '/superadmin/security/securityguardlist', name: 'Security Guard List', element: SecurityGuardList },
   { path: '/superadmin/admin/adminlist', name: 'Admin List', element: AdminList },
   { path: '/superadmin/admin/addadmin', name: 'Add Admin User', element: AddNewAdminUser },
   { path: '/superadmin/admin/adminprivileges', name: 'Admin Privileges', element: AdminPriv },

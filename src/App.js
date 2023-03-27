@@ -32,15 +32,13 @@ const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 const WaterBillList = React.lazy(() => import('./views/superadmin/billings/WaterBillList'))
 const AssocDueList = React.lazy(() => import('./views/superadmin/billings/AssocDueList'))
 const ManageBilling = React.lazy(() => import('./views/superadmin/billings/ManageBilling'))
+const AddBill = React.lazy(() => import('./views/superadmin/billings/AddBill'))
 
 //Unit
 const CondoUnitList = React.lazy(() => import('./views/superadmin/unit/CondoUnitList'))
 
 //User
 const UserList = React.lazy(() => import('./views/superadmin/user/UserList'))
-
-//Security
-const SecurityGuardList = React.lazy(() => import('./views/superadmin/security/SecurityGuardList'))
 
 //Request
 const RequestList = React.lazy(() => import('./views/superadmin/request/RequestList'))
@@ -165,9 +163,9 @@ class App extends Component {
             <Route path="/waterbilllist" element={<WaterBillList />} />
             <Route path="/assocduelist" element={<AssocDueList />} />
             <Route path="/managebilling" element={<ManageBilling />} />
+            <Route path="/addbill" element={<AddBill />} />
             <Route path="/unitlist" element={<CondoUnitList />} />
             <Route path="/userlist" element={<UserList />} />
-            <Route path="/securitylist" element={<SecurityGuardList />} />
             <Route path="/requestlist" element={<RequestList />} />
             <Route path="/guestlist" element={<GuestList />} />
             <Route path="/servicelist" element={<ServiceList />} />
