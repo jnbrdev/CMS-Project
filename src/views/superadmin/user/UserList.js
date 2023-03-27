@@ -192,7 +192,7 @@ const UserList = () => {
   useEffect(() => {
     axios.get(USER_SHOW_URL).then((response) => {
       setData(response.data);
-      //console.log(response.data);
+      console.log(response.data);
     });
     //$('#example').DataTable();
   }, []);
@@ -423,7 +423,10 @@ const UserList = () => {
               >
                 <option value="">Select Role</option>
                 <option value="Unit Owner">Unit Owner</option>
-                <option value="Tenant">Tenantr</option>
+                <option value="Tenant">Tenant</option>
+                <option value="Accounting">Tenant</option>
+                <option value="Security Guard">Security Guard</option>
+                <option value="Agent">Agent</option>
               </Form.Control>
             </Form.Group>
 
