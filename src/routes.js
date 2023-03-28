@@ -70,6 +70,8 @@ const UserList = React.lazy(() => import('./views/superadmin/user/UserList'))
 
 //Request
 const RequestList = React.lazy(() => import('./views/superadmin/request/RequestList'))
+const PullOut = React.lazy(() => import('./views/superadmin/request/PullOut'))
+const Delivery = React.lazy(() => import('./views/superadmin/request/Delivery'))
 
 //Guest
 const GuestList = React.lazy(() => import('./views/superadmin/guest/GuestList'))
@@ -120,6 +122,10 @@ const AssocDues_tenants = React.lazy(() => import('./views/tenants/billings_tena
 
 //Calendar Reminders
 const CalendarReminders_tenants = React.lazy(() => import('./views/tenants/calendar_tenants/CalendarReminders_tenants'))
+
+//Request
+const RequestVisit_tenants = React.lazy(() => import('./views/tenants/request_tenants/RequestVisit_tenants'))
+const PullOut_tenants = React.lazy(() => import('./views/tenants/request_tenants/PullOut_tenants'))
 
 //FAQ
 const FAQ_tenants = React.lazy(() => import('./views/tenants/faq_tenants/FAQ_tenants'))
@@ -207,6 +213,8 @@ const routes = [
   { path: '/superadmin/billings/addbill', name: 'Add Bill', element: AddBill },
   { path: '/superadmin/billings/associationduelist', name: 'Association Due List', element: AssocDueList },
   { path: '/superadmin/requests/requestlist', name: 'Request List', element: RequestList },
+  { path: '/superadmin/requests/pullout', name: 'Pull Out Request', element: PullOut },
+  { path: '/superadmin/requests/delivery', name: 'Delivery Request', element: Delivery },
   { path: '/superadmin/services/servicelist', name: 'Service List', element: ServiceList },
   { path: '/superadmin/units/condounitlist', name: 'View Unit Details', element: CondoUnitList },
   { path: '/superadmin/user/userlist', name: 'User List', element: UserList },
@@ -234,6 +242,8 @@ const routes = [
   { path: '/dashboard_tenants', name: 'Dashboard', element: Dashboard_tenants },
   { path: '/tenants/billings_tenants/waterbills_tenants', name: 'Water Bills', element: WaterBills_tenants },
   { path: '/tenants/billings_tenants/assocdues_tenants', name: 'Association Dues', element: AssocDues_tenants },
+  { path: '/tenants/request_tenants/requestvisit_tenants', name: 'Request Visit', element: RequestVisit_tenants },
+  { path: '/tenants/request_tenants/pullout_tenants', name: 'Pull Out', element: PullOut_tenants },
   { path: '/tenants/calendar_tenants/calendarreminders_tenants', name: 'Calendar Reminders', element: CalendarReminders_tenants },
   { path: '/tenants/faq_tenants/faq_tenants', name: 'FAQ', element: FAQ_tenants },
 

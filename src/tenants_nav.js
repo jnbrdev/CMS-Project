@@ -23,6 +23,7 @@ const tenants_nav = [
     component: CNavTitle,
     name: 'Features',
   },
+
   {
     component: CNavGroup,
     name: 'Billings',
@@ -37,6 +38,29 @@ const tenants_nav = [
         component: CNavItem,
         name: 'Association Dues',
         to: '/tenants/assocdues_tenants',
+      },
+      // {
+      //   component: CNavItem,
+      //   name: 'Manage Billings',
+      //   to: '/tenants/managebilling',
+      // },
+    ],
+  },
+
+  {
+    component: CNavGroup,
+    name: 'Request',
+    icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Request Visit Form',
+        to: '/tenants/requestvisit_tenants',
+      },
+      {
+        component: CNavItem,
+        name: 'Pull Out Form',
+        to: '/tenants/pullout_tenants',
       },
       // {
       //   component: CNavItem,

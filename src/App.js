@@ -42,6 +42,8 @@ const UserList = React.lazy(() => import('./views/superadmin/user/UserList'))
 
 //Request
 const RequestList = React.lazy(() => import('./views/superadmin/request/RequestList'))
+const PullOut = React.lazy(() => import('./views/superadmin/request/PullOut'))
+const Delivery = React.lazy(() => import('./views/superadmin/request/Delivery'))
 
 //Guest
 const GuestList = React.lazy(() => import('./views/superadmin/guest/GuestList'))
@@ -97,6 +99,10 @@ const AssocDues_tenants = React.lazy(() => import('./views/tenants/billings_tena
 
 //Calendar Reminders
 const CalendarReminders_tenants = React.lazy(() => import('./views/tenants/calendar_tenants/CalendarReminders_tenants'))
+
+//Request
+const RequestVisit_tenants = React.lazy(() => import('./views/tenants/request_tenants/RequestVisit_tenants'))
+const PullOut_tenants = React.lazy(() => import('./views/tenants/request_tenants/PullOut_tenants'))
 
 //FAQ
 const FAQ_tenants = React.lazy(() => import('./views/tenants/faq_tenants/FAQ_tenants'))
@@ -167,6 +173,8 @@ class App extends Component {
             <Route path="/unitlist" element={<CondoUnitList />} />
             <Route path="/userlist" element={<UserList />} />
             <Route path="/requestlist" element={<RequestList />} />
+            <Route path="/pullout" element={<PullOut />} />
+            <Route path="/delivery" element={<Delivery />} />
             <Route path="/guestlist" element={<GuestList />} />
             <Route path="/servicelist" element={<ServiceList />} />
             <Route path="/adminlist" element={<AdminList />} />
@@ -198,6 +206,8 @@ class App extends Component {
             <Route path="/tenants" element={<Dashboard_tenants />} />
             <Route path="/tenants/waterbills_tenants" element={<WaterBills_tenants />} />
             <Route path="/tenants/assocdues_tenants" element={<AssocDues_tenants />} />
+            <Route path="/tenants/requestvisit_tenants" element={<RequestVisit_tenants />} />
+            <Route path="/tenants/pullout_tenants" element={<PullOut_tenants />} />
             <Route path="/tenants/calendarreminders_tenants" element={<CalendarReminders_tenants />} />
             <Route path="/tenants/faq_tenants" element={<FAQ_tenants />} />
 

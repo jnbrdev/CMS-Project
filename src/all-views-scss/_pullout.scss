@@ -5,31 +5,8 @@
     position: relative;
 }
 
-.company {
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-}
-
-.com-image {
-    height: 65px;
-    width: 130px;
-}
-
-.com-logo {
-    position: absolute;
-    height: 299px;
-    margin-top: -193px;
-    margin-left: -60px;
-    opacity: 0.50;
-}
-
-.com-address {
-    font-size: 12px;
-    font-weight: 500;
-    font-family: sans-serif;
-    padding-right: 8px;
-    margin-top: -10px;
+.waterbillBox {
+    border:none;
 }
 
 .invoice-row {
@@ -43,6 +20,17 @@
     font-weight: bolder;
     margin-top: -10px;
     position: relative;
+    text-align: center;
+}
+
+.invoice-sub-label {
+    text-align: center;
+}
+
+.invoice-sub2-label {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 25px;
 }
 
 .underline {
@@ -110,44 +98,31 @@
 // INVOICE BODY
 .table thead > tr > th {
     font-size: 12px;
+    text-transform: uppercase;
+    background: #eff1f3;
+    text-align: center;
+    border: 1px solid;
 }
 
-// .newbillModal {
-//     width: 120%;
-// }
-
-.invoice-divider {
-    --invoice-divider-gap: 1rem;
-    display: flex;
-    align-items: center;
-    font-size: 15px;
-    text-transform: capitalize;
-    letter-spacing: 0.1em;
-    font-weight: bolder;
-    font-family: sans-serif;
-    margin-bottom: 5px;
-    padding-left: 4px
-}
-  
-.invoice-divider::after {
-    content: '';
-    height: 1px;
-    background-color: #009DFF;
-    flex-grow: 1;
-}
-
-.invoice-divider::after {
-    margin-left: var(--invoice-divider-gap);
-}
-
-.invoice-total {
-    display: flex;
-    margin-top: -34px;
-    flex-direction: column;
-    align-items: end;
+.table td {
+    border: 1px solid;
 }
 
 button.secondarybtn.btn.btn-primary {
     text-transform: uppercase;
     font-weight: 700;
 }
+
+table {
+    height: 100%;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px;
+    font-size: 0.8em;
+  }
+  
+  thead {
+    position: sticky;
+    top: 0;
+    background: #eee;
+  }

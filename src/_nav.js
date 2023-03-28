@@ -45,6 +45,7 @@ const _nav = [
     component: CNavTitle,
     name: 'Features',
   },
+
   {
     component: CNavGroup,
     name: 'Billings',
@@ -74,10 +75,26 @@ const _nav = [
   },
 
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: 'Requests',
-    to: '/requestlist',
     icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Request Visit',
+        to: '/requestlist'
+      },
+      {
+        component: CNavItem,
+        name: 'Pull Out Form',
+        to: '/pullout',
+      },
+      {
+        component: CNavItem,
+        name: 'Delivery',
+        to: '/delivery',
+      },
+    ],
   },
 
   {
