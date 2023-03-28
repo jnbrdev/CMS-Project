@@ -33,6 +33,7 @@ import Axios from "axios";
 const UNIT_ADD_URL = "/unit/addUnit";
 const UNIT_SHOW_URL = "/unit/getAllUnit";
 const UNIT_UPDATE_URL = "/unit/updateUnit/";
+const USER_SHOW_URL = "/users/getUnitOwnerDetails";
 const CondoUnitList = () => {
   const [listOfUnit, setListOfUnit] = useState([]);
 
@@ -106,6 +107,7 @@ const CondoUnitList = () => {
   };
   
   // SHOW UNIT DATAs
+  
   useEffect(() => {
     axios.post(UNIT_SHOW_URL).then((response) => {
       setData(response.data);
@@ -113,6 +115,22 @@ const CondoUnitList = () => {
     });
     $("example").DataTable();
   }, [data]);
+
+  //SHOW USER FULL NAME
+  const [unitOwner, setUOwner] = useState([]);
+  const handleUnitOwnerChange = async (e) => {
+    const value = e.target.value;
+    setUnitOwner(value);
+    try {
+      const response = await axios.get(`${USER_SHOW_URL}?search=${value}`);
+      setUnitOwner(response.data);
+      setUOwner(response.data);
+      console.log(response.data)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.unit_no]: event.target.value });
@@ -342,14 +360,22 @@ const CondoUnitList = () => {
               <Form.Label className="formIcon">
                 <FaHospitalUser />
               </Form.Label>
-              <Form.Control
-                className="formField"
-                type="text"
-                placeholder="Enter unit owner"
-                name="unit_owner"
-                onChange={(e) => setUnitOwner(e.target.value)}
-              />
+              <div className="search-results">
+                {unitOwner.map((owner) => (
+                  <div key={owner.id} className="search-result-item">
+                    {owner.full_name}
+                  </div>
+                ))}
+              </div>
+                <Form.Control
+                  className="formField"
+                  type="text"
+                  placeholder="Enter unit owner"
+                  name="unit_owner"
+                  onChange={handleUnitOwnerChange}
+                />
             </Form.Group>
+
             <Form.Group controlId="unit_tower" className="addForm">
               <Form.Label className="formIcon">
                 <FaBuilding />
