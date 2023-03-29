@@ -63,7 +63,7 @@ const RequestList = () => {
     <div className="container">
       <br />
       <div className="tbl-title">
-        <h1 className="text-divider">REQUEST LIST</h1>
+        <h1 className="text-divider">VISIT REQUEST</h1>
       </div>
       <div className="table-head">
         <Form.Group controlId="dateFrom" className="filter-date-from">

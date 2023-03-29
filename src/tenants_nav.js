@@ -5,6 +5,7 @@ import {
   cilMoney,
   cilCalendarCheck,
   cilItalic,
+  cilDescription,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -50,7 +51,7 @@ const tenants_nav = [
   {
     component: CNavGroup,
     name: 'Request',
-    icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,

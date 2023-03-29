@@ -81,12 +81,12 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'Request Visit',
+        name: 'Visit Request',
         to: '/requestlist'
       },
       {
         component: CNavItem,
-        name: 'Pull Out Form',
+        name: 'Pull-Out Request',
         to: '/pullout',
       },
       {

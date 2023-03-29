@@ -1,336 +1,227 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
+import $ from "jquery";
 import "datatables.net";
 import "datatables.net-bs4";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../../all-views-scss/_pullout.scss";
-import { Button, Form } from "react-bootstrap";
+import "../../../all-views-scss/_pullout_tenants.scss";
+import { RiCalendarTodoFill } from 'react-icons/ri';
+import {
+  FaEdit,
+  FaTrash,
+  FaEye,
+  FaHospitalUser,
+  FaBuilding,
+  FaLayerGroup,
+  FaInnosoft,
+  FaFilter,
+  FaFileImport,
+} from "react-icons/fa";
+import { MdNumbers } from "react-icons/md";
+import {
+  BsFillBuildingsFill,
+  BsSpeedometer,
+} from "react-icons/bs";
+import { GiPayMoney } from "react-icons/gi";
+import { TbReportMoney } from "react-icons/tb";
+import { FiRefreshCcw, FiUpload, FiDownload } from "react-icons/fi";
+import { CFormSelect } from "@coreui/react";
+import { Modal, Button, Form } from "react-bootstrap";
+import AuthContext from "src/authentication/authProvider";
 import axios from "src/api/axios";
+import Axios from "axios";
 
-const INVOICE_ADD_URL = "/invoice/addBill";
-const INVOICE_GET_URL = "/invoice/getUnitRateData/";
-const WATERBILL_GET_URL = "/invoice/getAllWaterBill/";
+const UNIT_ADD_URL = "/unit/addUnit";
+const UNIT_SHOW_URL = "/unit/getAllUnit";
+const UNIT_UPDATE_URL = "/unit/updateUnit/";
+const USER_SHOW_URL = "/users/getUnitOwnerDetails";
 const PullOut = () => {
-    const [data, setData] = useState([]);
-    const [showAddModal, setShowAddModal] = useState(false);
-    const [showUploadModal, setShowUploadModal] = useState(false);
-    const [showEditModal, setShowEditModal] = useState(false);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [selectedData, setSelectedData] = useState({});
-    const [formData, setFormData] = useState({
-        unit_num: '',
-        waterBillTo: '',
-        invoiceWaterBillTo: '',
-        assocBillTo: '',
-        invoiceAssocBillTo: '',
-        unit_size: '',
-        meter_no: '',
-        previous_reading: '',
-        ratePerSqm: '',
-        discountRate: '',
-        ratePerCubic: '',
-        penaltyRate: '',
-        assocDueRate: '',
+  const [listOfUnit, setListOfUnit] = useState([]);
+
+  const [data, setData] = useState([]);
+
+  
+  const [showViewModal, setShowViewModal] = useState(false);
+  const [selectedData, setSelectedData] = useState({});
+  const [formData, setFormData] = useState({
+    unit_id: null,
+    unit_no: null,
+    unit_owner: null,
+    unit_tower: null,
+    unit_floor: null,
+    unit_size: null,
+    occupied_by: null,
+    status: null,
+  });
+
+  const [unNo, setUnitNo] = useState("");
+  const [unOwner, setUnitOwner] = useState();
+  const [unTower, setUnitTower] = useState();
+  const [unFloor, setUnitFloor] = useState();
+  const [unSize, setUnitSize] = useState();
+  const [occupiedBy, setOccupiedBy] = useState();
+  const [unStatus, setUnitStatus] = useState();
+
+
+  // SHOW UNIT DATAs
+  
+  useEffect(() => {
+    axios.post(UNIT_SHOW_URL).then((response) => {
+      setData(response.data);
+      //console.log(response.data);
     });
+    $("example").DataTable();
+  }, [data]);
 
-    //Get Unit and Rate data
-    const [unitRateData, setUnitRateData] = useState([]);
-    const [assocDueTotal, setAssocDueTotal] = useState();
-    const handleUnitNumberChange = async (event) => {
-        const newUnitNumber = event.target.value;
-        formData.unit_num = newUnitNumber;
+  //SHOW USER FULL NAME
+  const [unitOwner, setUOwner] = useState([]);
+  const handleUnitOwnerChange = async (e) => {
+    const value = e.target.value;
+    setUnitOwner(value);
+    try {
+      const response = await axios.get(`${USER_SHOW_URL}?search=${value}`);
+      setUnitOwner(response.data);
+      setUOwner(response.data);
+      console.log(response.data)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
 
-        // Fetch data based on unit number using Axios
-        try {
-            // Get additional data based on the fetched unit data
-            const invoiceResponse = await axios.post(
-                `${INVOICE_GET_URL}${newUnitNumber}`
-            );
-            const invoiceData = invoiceResponse.data;
+  const handleInputChange = (event) => {
+    setFormData({ ...formData, [event.target.unit_no]: event.target.value });
+  };
 
-            const assocDueNum = Number(invoiceData.assocDueRate);
-            const unitSizeNum = Number(invoiceData.unit_size);
-            const ratePerSqmNum = Number(invoiceData.ratePerSqm);
-            const total = unitSizeNum * ratePerSqmNum;
-            setUnitRateData(invoiceData);
-            setFormData(invoiceData)
-            setAssocDueTotal(total)
-            console.log(total)
-            // Do something with the invoice data, e.g. store it in state
-        } catch (error) {
-            console.error(error);
-        }
-    };
+  const handleViewButtonClick = (data) => {
+    setSelectedData(data);
+    setShowViewModal(true);
+  };
 
-    // Current Reading Input Calculations
-    const [curReading, setCurReading] = useState();
-    const [waterBillTotal, setWaterBillTotal] = useState();
-    const handleCurrentReading = async (event) => {
-        const currentReading = Number(event.target.value); // convert input to number
-        setCurReading(currentReading); // set current reading in state
-        try {
-            const previousReading = Number(formData.previous_reading); // convert previous reading to number
-            const ratePerCubic = Number(formData.ratePerCubic); // convert rate per cubic to number
-            const difference = currentReading - previousReading; // calculate difference between current and previous readings
-            const amountDue = difference * ratePerCubic; // calculate amount due
-            setWaterBillTotal(amountDue)
-        } catch (error) {
-            console.error(error);
-        }
-    };
+  return (
+    <div className="container">
+      <br />
+      <div className="tbl-title">
+        <h1 className="text-divider">PULL-OUT REQUEST</h1>
+      </div>
+      <div className="divider"></div>
+      <hr />
+      <table id="example" className="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Requesting Unit</th>
+            <th>Date of Pull-out</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((entry) => (
+            <tr key={entry.id}>
+              <td>{entry.unit_no}</td>
+              <td>{entry.unit_owner}</td>
+              <td>{entry.status}</td>
+              <td>
+                <Button
+                  className="view"
+                  onClick={() => handleViewButtonClick(entry)}
+                >
+                  <FaEye />
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-    //Reading Date
-    const [readingDate, setReadingDate] = useState();
-    const handleReadingDate = async (event) => {
-        const readDate = event.target.value;
-        setReadingDate(readDate); // set current reading in state
+      {/* VIEW MODAL START */}
+      <Modal show={showViewModal} onHide={() => setShowViewModal(false)}>
+        <Modal.Header closeButton />
+        <Modal.Body>
+          <h1 className="modal-divider">Condo Unit Details</h1>
+          <div className="viewModal">
+            <div className="col-md-6">
+              <p>
+                <strong>Unit Number:</strong> <br /> {selectedData.unit_no}
+              </p>
+            </div>
+            <div className="col-md-6">
+              <p>
+                <strong>Unit Owner:</strong> <br /> {selectedData.unit_owner}
+              </p>
+            </div>
+          </div>
+          <div className="viewModal">
+            <div className="col-md-6">
+              <p>
+                <strong>Unit Tower:</strong> <br /> {selectedData.unit_tower}
+              </p>
+            </div>
+            <div className="col-md-6">
+              <p>
+                <strong>Unit Floor:</strong> <br /> {selectedData.unit_floor}
+              </p>
+            </div>
+          </div>
+          <div className="viewModal">
+            <div className="col-md-6">
+              <p>
+                <strong>Unit Size:</strong> <br /> {selectedData.unit_size}
+              </p>
+            </div>
+            <div className="col-md-6">
+              <p>
+                <strong>Status:</strong> <br /> {selectedData.status}
+              </p>
+            </div>
+          </div>
+          <br />
+          <h1 className="modal-divider">Tenant Details</h1>
+          <div className="viewModal">
+            <div className="col-md-6">
+              <p>
+                <strong>Main Tenant:</strong> <br /> {selectedData.mainTenant}
+              </p>
+            </div>
+            <div className="col-md-6">
+              <p>
+                <strong>Number of Occupants:</strong> <br />{" "}
+                {selectedData.numOccupants}
+              </p>
+            </div>
+          </div>
+          <div className="viewModal">
+            <div className="col-md-6">
+              <p>
+                <strong>Assoc Dues Billed to:</strong> <br />{" "}
+                {selectedData.assocBills}
+              </p>
+            </div>
+            <div className="col-md-6">
+              <p>
+                <strong>Water Bills Billed to:</strong> <br />{" "}
+                {selectedData.waterBills}
+              </p>
+            </div>
+          </div>
+          <div className="viewModal">
+            <div className="col-md-6">
+              <p>
+                <strong>Date Move In:</strong> <br /> {selectedData.dateMoveIn}
+              </p>
+            </div>
+            <div className="col-md-6">
+              <p>
+                <strong>Date Move Out:</strong> <br />{" "}
+                {selectedData.dateMoveOut}
+              </p>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+      {/* VIEW MODAL START */}
 
-    };
-    //Add Bill for WaterBill and Association Due
-    const handleAddNewBill = async (e) => {
-        e.preventDefault()
-        try {
-            axios
-                .post(INVOICE_ADD_URL, {
-                    unit_num: formData.unit_num,
-                    waterBillTo: formData.waterBillTo,
-                    invoiceWaterBillTo: formData.invoiceWaterBillTo,
-                    assocBillTo: formData.assocBillTo,
-                    invoiceAssocBillTo: formData.invoiceAssocBillTo,
-                    unit_size: formData.unit_size,
-                    meter_no: formData.meter_no,
-                    previous_reading: formData.previous_reading,
-                    cur_read: curReading,
-                    ratePerSqm: formData.ratePerSqm,
-                    discountRate: formData.discountRate,
-                    ratePerCubic: formData.ratePerCubic,
-                    penaltyRate: formData.penaltyRate,
-                    assocDueRate: formData.assocDueRate,
-                    waterBillTotal: waterBillTotal,
-                    assocDueTotal: assocDueTotal,
-                    reading_date: readingDate,
-                });
-            setFormData({
-                unit_num: '',
-                waterBillTo: '',
-                invoiceWaterBillTo: '',
-                assocBillTo: '',
-                invoiceAssocBillTo: '',
-                unit_size: '',
-                meter_no: '',
-                previous_reading: '',
-                ratePerSqm: '',
-                discountRate: '',
-                ratePerCubic: '',
-                penaltyRate: '',
-                assocDueRate: '',
-            });
-            setWaterBillTotal('')
-            setAssocDueTotal('')
-            setReadingDate('')
-            setCurReading('')
-            setShowAddModal(false);
-        } catch (error) {
-            console.error(error)
-        }
-
-    };
-
-    useEffect(() => {
-        axios.post(WATERBILL_GET_URL).then((response) => {
-            setData(response.data);
-            //console.log(response.data);
-        });
-    }, []);
-
-    const handleInputChange = (event) => {
-        setFormData({ ...formData, [event.target.id]: event.target.value });
-    };
-
-    const handleAddNewEntry = () => {
-        setShowAddModal(true);
-    };
-
-    const handleUploadEntry = () => {
-        setShowUploadModal(true);
-    };
-
-    const handleEditButtonClick = (data) => {
-        setSelectedData(data);
-        setFormData(data);
-        setShowEditModal(true);
-    };
-
-    const handleDeleteButtonClick = (data) => {
-        setSelectedData(data);
-        setShowDeleteModal(true);
-    };
-
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        const newId = data.length + 1;
-        const newData = { id: newId, ...formData };
-        setData([...data, newData]);
-        setFormData({
-            invoice_num: "",
-            unit_num: "",
-            unit_size: "",
-            billed_to: "",
-            bill_cost: "",
-            due_date: "",
-            prev_reading: "",
-            curr_reading: "",
-            reading_date: "",
-            penalty: "",
-            meter: "",
-            rate: "",
-        });
-        setShowAddModal(false);
-    };
-
-    const handleUploadFormSubmit = (event) => {
-        event.preventDefault();
-        const newId = data.length + 1;
-        const newData = { id: newId, ...formData };
-        setData([...data, newData]);
-        setFormData({
-            invoice_num: "",
-            unit_num: "",
-            unit_size: "",
-            billed_to: "",
-            bill_cost: "",
-            due_date: "",
-            prev_reading: "",
-            curr_reading: "",
-            reading_date: "",
-            penalty: "",
-            meter: "",
-            rate: "",
-        });
-        setShowUploadModal(false);
-    };
-
-    const handleUpdateSubmit = (event) => {
-        event.preventDefault();
-        const newData = data.map((item) =>
-            item.id === selectedData.id ? formData : item
-        );
-        setData(newData);
-        setFormData({
-            invoice_num: "",
-            unit_num: "",
-            unit_size: "",
-            billed_to: "",
-            bill_cost: "",
-            due_date: "",
-            prev_reading: "",
-            curr_reading: "",
-            reading_date: "",
-            penalty: "",
-            meter: "",
-            rate: "",
-        });
-        setSelectedData({});
-        setShowEditModal(false);
-    };
-
-    const handleDeleteConfirm = () => {
-        const newData = data.filter((item) => item.id !== selectedData.id);
-        setData(newData);
-        setSelectedData({});
-        setShowDeleteModal(false);
-    };
-    const handleAddModalCancel = () => {
-        setFormData({
-            unit_num: '',
-            waterBillTo: '',
-            invoiceWaterBillTo: '',
-            assocBillTo: '',
-            invoiceAssocBillTo: '',
-            unit_size: '',
-            meter_no: '',
-            previous_reading: '',
-            ratePerSqm: '',
-            discountRate: '',
-            ratePerCubic: '',
-            penaltyRate: '',
-            assocDueRate: '',
-        });
-        setWaterBillTotal('')
-        setAssocDueTotal('')
-        setReadingDate('')
-        setCurReading('')
-        setShowAddModal(false);
-    };
-
-    return (
-        <div className="container">
-            <Form onSubmit={handleFormSubmit}>
-                <div className="waterbillBox">
-                    <h1 className="invoice-label">GA TOWER 2 CONDOMINIUM CORPORATION</h1>
-                    <p className="invoice-sub-label"># 83 Epifanio de los Santos Avenue, Barangay Malamig, Mandaluyong City</p>
-                    <hr className="underline" />
-                    <h2 className="invoice-sub2-label">Pull-Out Gatepass</h2>
-                    <div className="invoice-row">
-                        <div className="col-md-9">
-                            <Form.Group controlId="date" className="invoice-field-label">
-                                <Form.Label className="invoice-form-label">Date:</Form.Label>
-                                <Form.Control
-                                    className="invoice-input"
-                                    type="text"
-                                    name="date"
-                                    value={formData.date}
-                                    onChange={handleInputChange}
-                                />
-                            </Form.Group>
-                            <Form.Group controlId="unit_num" className="invoice-field-label">
-                                <Form.Label className="invoice-form-label">Requesting Unit:</Form.Label>
-                                <Form.Control
-                                    className="invoice-input"
-                                    type="text"
-                                    name="unit_num"
-                                    value={formData.unit_num}
-                                    readOnly
-                                />
-                            </Form.Group>
-                        </div>
-                        <div className="col-md-4">
-                            <Form.Group controlId="invoice_date" className="invoice-field-label">
-                                <Form.Label className="invoice-form-label">Date of Pull-Out:</Form.Label>
-                                <Form.Control
-                                    className="invoice-input-date"
-                                    type="text"
-                                    name="invoice_date"
-                                    value={formData.invoice_date}
-                                    readOnly
-                                />
-                            </Form.Group>
-                        </div>
-                    </div>
-                    <br />
-                    <table className="table">
-                        <thead className="table-light">
-                            <tr>
-                                <th>Particulars/Description/Items</th>
-                                <th>Quantity</th>
-                                <th>Verified by Security</th>
-                                <th>Costing Debris</th>
-                                <th>Checked Verified by basement guard</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="prev_read" value={formData.prev_read} onChange={handleInputChange} /></td>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="cur_read" value={formData.cur_read} onChange={handleInputChange} /></td>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="meter_no" value={formData.meter_no} readOnly /></td>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="reading_date" value={formData.reading_date} readOnly /></td>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="due_date" value={formData.due_date} readOnly /></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </Form>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default PullOut;

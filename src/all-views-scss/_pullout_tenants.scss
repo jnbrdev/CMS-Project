@@ -1,128 +1,468 @@
-.container {
-    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19);
-    padding: 30px;
-    overflow: hidden;
+// action buttons
+.view, .edit, .delete {
+    font-size: 20px;
+    padding: 0px 0px 5px 0px;
+    width: 50px;
+    background-color: transparent;
+    border: none;
+    color:  #0B5ED7;
+}
+
+.service-edit, .service-delete {
+    font-size: 20px;
+    padding: 0px 0px 5px 0px;
+    width: 100px;
+    background-color: transparent;
+    border: none;
+    color:  #0B5ED7;
+}
+
+.request-view, .request-delete {
+    font-size: 20px;
+    padding: 0px 0px 5px 0px;
+    width: 50px;
+    background-color: transparent;
+    border: none;
+    color:  #0B5ED7;
+}
+// slider switch
+.toggle {
+    --width: 100px;
+    --height: calc(var(--width) / 3);
+
     position: relative;
+    display: inline-block;
+    width: var(--width);
+    height: var(--height);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    border-radius: var(--height);
+    cursor: pointer;
 }
 
-.waterbillBox {
-    border:none;
+.toggle input {
+    display: none;
 }
 
-.invoice-row {
+.toggle .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--height);
+    background-color: #ccc;
+    transition: all 0.4s ease-in-out;
+}
+
+.toggle .slider::before {
+content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(var(--height));
+    height: calc(var(--height));
+    border-radius: calc(var(--height) / 2);
+    background-color: #fff;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease-in-out;
+}
+
+.toggle input:checked+.slider {
+    background-color: #30e20d;
+}
+
+.toggle input:checked+.slider::before {
+    transform: translateX(calc(var(--width) - var(--height)));
+}
+
+.toggle .labels {
+    position: absolute;
+    top: 7px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 13px;
+    font-family: sans-serif;
+    transition: all 0.4s ease-in-out;
+}
+
+.toggle .labels::after {
+content: attr(data-off);
+    position: absolute;
+    right: 5px;
+    color: #4d4d4d;
+    opacity: 1;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s ease-in-out;
+}
+
+.toggle .labels::before {
+content: attr(data-on);
+    position: absolute;
+    left: 5px;
+    color: #ffffff;
+    opacity: 0;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+    transition: all 0.4s ease-in-out;
+}
+
+.toggle input:checked~.labels::after {
+    opacity: 0;
+}
+
+.toggle input:checked~.labels::before {
+    opacity: 1;
+}
+
+// modals
+.modal-divider {
+    --modal-divider-gap: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: bolder;
+    font-family: sans-serif;
+    margin-bottom: 5px;
+}
+
+.modal-divider::before, .modal-divider::after {
+    content: '';
+    height: 3px;
+    background-color: #009DFF;
+    flex-grow: 1;
+}
+
+.modal-divider::before {
+    margin-right: var(--modal-divider-gap);
+}
+
+.modal-divider::after {
+    margin-left: var(--modal-divider-gap);
+}
+
+.viewModal {
     display: flex;
 }
 
-.invoice-label {
-    font-size: 35px;
+.modalbtn {
+    display: flex;
+    justify-content: center;
+}
+
+.modalbtn .primarybtn{
+    background: #e01b1b;
+    padding: 10px;
+    width: 210px;
+    border: none;
+}
+
+.modalbtn .secondarybtn{
+    background: #0B5ED7;
+    padding: 10px;
+    width: 210px;
+    border: none;
+}
+
+.modal-header .btn-close {
+    display: hidden !important;
+}
+
+.deleteModal {
+    text-align: center;
+    font-size: 20px;
     font-family: sans-serif;
-    text-transform: uppercase;
-    font-weight: bolder;
-    margin-top: -10px;
+}
+
+.addForm, .editForm {
+    display: flex;
+    flex-direction: row;
+}
+
+.formField {
     position: relative;
-    text-align: center;
+    margin: 5px 0px 5px 0px;
+    color: #81898F;
 }
 
-.invoice-sub-label {
-    text-align: center;
-}
-
-.invoice-sub2-label {
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 25px;
-}
-
-.underline {
-    border-top: 3px solid #009DFF;
-    opacity: 1;
-    margin-top: -5px;
-}
-
-.invoice-field-label {
-    width: 200px;
-    font-size: 12px;
-    font-weight: 900;
-}
-
-.invoice-input {
-    font-size: 12px;
-    border: none;
-    padding-left: 76px;
-    margin: 4px;
-    border-radius: 0px;
-}
-
-.tbl-invoice-input {
-    font-size: 12px;
-    border: none;
-    padding: 1px;
-    border-radius: 0px;
-}
-
-.invoice-input-penalty, .invoice-input-total {
-    font-size: 12px;
-    border: none;
-    margin: 2px;
-    padding-left: 56px;
-    border-radius: 0px;
-}
-
-.invoice-input-date {
-    font-size: 12px;
-    border: none;
-    padding-left: 40px;
-    margin: 4px;
-    border-radius: 0px;
-}
-
-
-.invoice-form-label {
+.formIcon {
+    display: flex;
     position: absolute;
-    padding-top: 6px;
-    padding-left: 6px;
+    justify-content: center;
+    background: #0B5ED7;
+    border: none;
+    border-radius: 5px 0px 0px 5px;
+    color: white;
+    font-size: 20px;
+    height: 38px;
+    width: 40px;
+    z-index: 1;
+    margin-top: 5px;
+    padding: 8px 0px 0px 3px;
 }
 
-.invoice-form-date {
-    position: absolute;
-    padding-top: 5px;
-    padding-left: 6px;
+// water bills modal
+.waterbillModal {
+    width: 130%
 }
 
-.invoice-form-penalty, .invoice-form-total {
-    position: absolute;
-    padding-top: 7px;
-    padding-left: 5px;
+// datatable
+.container {
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19);
 }
 
-// INVOICE BODY
-.table thead > tr > th {
-    font-size: 12px;
+.text-divider {
+    --text-divider-gap: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 30px;
     text-transform: uppercase;
-    background: #eff1f3;
-    text-align: center;
-    border: 1px solid;
+    letter-spacing: 0.1em;
+    font-weight: bolder;
+    font-family: sans-serif;
+    margin-bottom: 5px;
 }
-
-.table td {
-    border: 1px solid;
-}
-
-button.secondarybtn.btn.btn-primary {
-    text-transform: uppercase;
-    font-weight: 700;
-}
-
-table {
-    height: 100%;
-    border-collapse: collapse;
-    width: 100%;
-    margin: 10px;
-    font-size: 0.8em;
-  }
   
-  thead {
-    position: sticky;
-    top: 0;
-    background: #eee;
-  }
+.text-divider::before, .text-divider::after {
+    content: '';
+    height: 3px;
+    background-color: #009DFF;
+    flex-grow: 1;
+}
+
+.text-divider::before {
+    margin-right: var(--text-divider-gap);
+}
+
+.text-divider::after {
+    margin-left: var(--text-divider-gap);
+}
+
+label {
+    display: flex;
+    padding-bottom: 10px;
+}
+
+select.custom-select.custom-select-sm.form-control.form-control-sm {
+    width: 45px;
+    text-align: center;
+}
+
+.dataTables_filter, .pagination {
+    display: flex;
+    float: right;
+}
+
+// datatable filtering
+.table-head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0px 0px 0px;
+    margin: 0px 10px 0px 10px;
+    border-radius: 5px;
+}
+
+.table-head .costum-select {
+    margin: 0px 5px 0px 5px;
+    height: 40px;
+    border-radius: 5px;
+    width: 180px;
+}
+
+.thead-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.thead-btn-primary, .thead-btn-secondary, .thead-btn-tertiary, .thead-btn-quaternary {
+    margin: 0px 3px 0px 3px;
+    padding-top: 0px;
+    background: #0B5ED7;
+    font-size: 17px;
+}
+
+.filter-date {
+    display: flex;
+    padding: 15px 0px 0px 0px;
+    margin-top: 15px;
+    margin-left: -220px;
+    border-radius: 5px;
+    position: absolute;
+}
+
+.filter-date-label {
+    position: absolute;
+    justify-content: center;
+    background: #0B5ED7;
+    border: none;
+    border-radius: 5px 0px 0px 5px;
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    height: 38px;
+    width: 70px;
+    z-index: 1;
+    padding: 7px 0px 0px 3px;
+}
+
+.filter-date-from, .filter-date-to {
+    width: 230px;
+    margin: 0px 5px 0px 5px;
+}
+
+.filter-date-input {
+    padding-left: 80px;
+}
+
+// Add New Water Bill Modal
+.addnewbillForm {
+    display: inline-flex;
+    width: 212px;
+    margin: 10px;
+    margin-top: -12px;
+    align-items: center;
+    padding-left: 0px;
+}
+
+.addnewbillformField {
+    padding-left: 44px;
+    font-weight: 500;
+    height: 39px;
+}
+
+.billdetailsformField {
+    padding-left: 44px;
+    font-weight: 100;
+}
+
+.unitinputField {
+    display: flex;
+    justify-content: center;
+}
+
+.readinginputField {
+    display: flex;
+    justify-content: center;
+}
+
+.waterbillDetails, .assocdueDetails {
+    display: inline-block;
+    width: 70px;
+    margin: 10px 6px 10px 5px;
+    padding-left: 0px;
+    font-size: 11px;
+}
+
+.waterbillformField, .assocdueformField {
+    padding-left: 5px;
+    margin-top: -35px;
+    margin-bottom: 10px;
+    font-size: 10px;
+}
+
+.waterbilletdoDetails, .assocduedtoDetails {
+    display: inline-block;
+    width: 120px;
+    margin: 10px 6px 10px 5px;
+    padding-left: 0px;
+    font-size: 11px;
+}
+
+.waterbilledtoformField, .assocduedtoformField {
+    padding-left: 5px;
+    margin-top: -35px;
+    margin-bottom: 10px;
+    font-size: 10px;
+}
+
+.newbillModal {
+    width: 109%;
+}
+
+.waterbillBox, .assocdueBox {
+    text-align: center;
+    -webkit-text-stroke: medium;
+    border: 3px solid #909ba5;
+    margin-top: 19px;
+    border-radius: 6px
+}
+
+// Water Bill & Association Due Text Divider
+.waterbill-text-divider, .assocdue-text-divider {
+    --waterbill-text-divider-gap: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: bolder;
+    font-family: sans-serif;
+    margin-top: -9px;
+    margin-bottom: -2px;
+    margin-left: 10px;
+    background-color: white;
+    width: 126px;
+    padding: 0px 10px 0px 10px
+}
+
+.assocdue-text-divider {
+    --waterbill-text-divider-gap: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: bolder;
+    font-family: sans-serif;
+    margin-top: -9px;
+    margin-bottom: -2px;
+    margin-left: 10px;
+    background-color: white;
+    width: 193px;
+    padding: 0px 10px 0px 10px
+}
+
+// Condo Unit Modal
+.bill-info {
+    --bill-info-gap: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: bolder;
+    font-family: sans-serif;
+    margin-bottom: 5px;
+}
+  
+.bill-info::before, .bill-info::after {
+    content: '';
+    height: 3px;
+    background-color: #009DFF;
+    flex-grow: 1;
+}
+
+.bill-info::before {
+    margin-right: var(--bill-info-gap);
+}
+
+.bill-info::after {
+    margin-left: var(--bill-info-gap);
+}
+
+.pullOutForm {
+    display: flex;
+    gap: 11px;
+}
+
+.pullformField {
+    position: relative;
+    margin: 5px 0px 5px 0px;
+    padding-left: 50px;
+    color: #81898F;
+    width: 95%;
+}
