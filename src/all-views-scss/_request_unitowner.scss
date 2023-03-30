@@ -183,7 +183,6 @@ content: attr(data-on);
 .formField {
     position: relative;
     margin: 5px 0px 5px 0px;
-    padding-left: 50px;
     color: #81898F;
 }
 
@@ -211,13 +210,6 @@ content: attr(data-on);
 // datatable
 .container {
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19);
-}
-
-.head-container {
-    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19);
-    padding: 30px;
-    overflow: hidden;
-    position: relative;
 }
 
 .text-divider {
@@ -267,6 +259,7 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 15px 0px 0px 0px;
     margin: 0px 10px 0px 10px;
     border-radius: 5px;
 }
@@ -459,4 +452,25 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
 
 .bill-info::after {
     margin-left: var(--bill-info-gap);
+}
+
+.pullOutForm {
+    display: flex;
+    gap: 11px;
+}
+
+.pullformField {
+    position: relative;
+    margin: 5px 0px 5px 0px;
+    padding-left: 50px;
+    color: #81898F;
+    width: 95%;
+}
+
+.unitformField {
+    position: relative;
+    margin: 5px 0px 5px 0px;
+    padding-left: 50px;
+    color: #81898F;
+    width: 100%;
 }

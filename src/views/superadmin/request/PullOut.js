@@ -3,7 +3,7 @@ import $ from "jquery";
 import "datatables.net";
 import "datatables.net-bs4";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../../all-views-scss/_pullout_tenants.scss";
+import "../../../all-views-scss/_request.scss";
 import { RiCalendarTodoFill } from 'react-icons/ri';
 import {
   FaEdit,
@@ -99,7 +99,6 @@ const PullOut = () => {
 
   return (
     <div className="container">
-      <br />
       <div className="tbl-title">
         <h1 className="text-divider">PULL-OUT REQUEST</h1>
       </div>

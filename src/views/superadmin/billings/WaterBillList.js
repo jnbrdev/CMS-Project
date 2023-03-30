@@ -272,257 +272,257 @@ const WaterBillList = () => {
   };
 
   return (
-    <div className="container">
-      <br />
-      <div className="tbl-title">
-        <h1 className="text-divider">WATER BILL LIST</h1>
-      </div>
+    <div className="wrap">
+      <div className="head-container">
+        <div className="table-head">
+          <Form.Group controlId="dateFrom" className="filter-date-from">
+            <Form.Label className="filter-date-label">From</Form.Label>
+            <Form.Control
+              className="filter-date-input"
+              type="date"
+              placeholder="yyyy-mm-dd"
+              name="datFrom"
+              onChange={handleInputChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="dateTo" className="filter-date-to">
+            <Form.Label className="filter-date-label">To</Form.Label>
+            <Form.Control
+              className="filter-date-input"
+              type="date"
+              placeholder="yyyy-mm-dd"
+              name="dateTo"
+              onChange={handleInputChange}
+            />
+          </Form.Group>
 
-      {/* DATE PICKER START */}
-      <div className="table-head">
-        <Form.Group controlId="dateFrom" className="filter-date-from">
-          <Form.Label className="filter-date-label">From</Form.Label>
-          <Form.Control
-            className="filter-date-input"
-            type="date"
-            placeholder="yyyy-mm-dd"
-            name="datFrom"
-            onChange={handleInputChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="dateTo" className="filter-date-to">
-          <Form.Label className="filter-date-label">To</Form.Label>
-          <Form.Control
-            className="filter-date-input"
-            type="date"
-            placeholder="yyyy-mm-dd"
-            name="dateTo"
-            onChange={handleInputChange}
-          />
-        </Form.Group>
-        {/* DATE PICKER END */}
-
-        <div className="thead-btn">
-          <Button className="thead-btn-primary" name="filter" type="submit">
-            <FaFilter />
-          </Button>
-          <Button className="thead-btn-secondary">
-            <FiRefreshCcw />
-          </Button>
+          <div className="thead-btn">
+            <Button className="thead-btn-primary" name="filter" type="submit">
+              <FaFilter />
+            </Button>
+            <Button className="thead-btn-secondary">
+              <FiRefreshCcw />
+            </Button>
+          </div>
         </div>
       </div>
-
-      <div className="divider"></div>
-      <hr />
-      <table id="example" className="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th>Invoice No.</th>
-            <th>Unit No.</th>
-            <th>Billed To</th>
-            <th>Billing Cost</th>
-            <th>Prev. Reading</th>
-            <th>Curr. Reading</th>
-            <th>Reading Date</th>
-            <th>Due Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((entry) => (
-            <tr key={entry.id}>
-              <td>{entry.invoice_no}</td>
-              <td>{entry.unit_no}</td>
-              <td>{entry.billed_to}</td>
-              <td>{entry.amount}</td>
-              <td>{entry.prev_read}</td>
-              <td>{entry.cur_read}</td>
-              <td>{entry.reading_date}</td>
-              <td>{entry.due_date}</td>
-              <td>
-                {" "}
-                <Button
-                  className="edit"
-                  onClick={() => handleEditButtonClick(entry)}
-                >
-                  <FaEdit />
-                </Button>{" "}
-                <Button
-                  className="delete"
-                  onClick={() => handleDeleteButtonClick(entry)}
-                >
-                  <FaTrash />
-                </Button>
-              </td>
+      <br />
+      <div className="container">
+        <div className="tbl-title">
+          <h1 className="text-divider">WATER BILL LIST</h1>
+        </div>
+        <div className="divider"></div>
+        <hr />
+        <table id="example" className="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Invoice No.</th>
+              <th>Unit No.</th>
+              <th>Billed To</th>
+              <th>Billing Cost</th>
+              <th>Prev. Reading</th>
+              <th>Curr. Reading</th>
+              <th>Reading Date</th>
+              <th>Due Date</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {data.map((entry) => (
+              <tr key={entry.id}>
+                <td>{entry.invoice_no}</td>
+                <td>{entry.unit_no}</td>
+                <td>{entry.billed_to}</td>
+                <td>{entry.amount}</td>
+                <td>{entry.prev_read}</td>
+                <td>{entry.cur_read}</td>
+                <td>{entry.reading_date}</td>
+                <td>{entry.due_date}</td>
+                <td>
+                  {" "}
+                  <Button
+                    className="edit"
+                    onClick={() => handleEditButtonClick(entry)}
+                  >
+                    <FaEdit />
+                  </Button>{" "}
+                  <Button
+                    className="delete"
+                    onClick={() => handleDeleteButtonClick(entry)}
+                  >
+                    <FaTrash />
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-      {/* EDIT MODAL START */}
-      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
-        <br />
-        <h1 className="text-divider">Edit Bill</h1>
-        <Modal.Body>
-          <Form onSubmit={handleUpdateSubmit}>
-            <Form.Group controlId="invoice_num" className="addForm">
-              <Form.Label className="formIcon">
-                <MdNumbers />
-              </Form.Label>
-              <Form.Control
-                className="formField"
-                type="text"
-                placeholder="Enter invoice number"
-                name="invoice_num"
-                value={formData.invoice_num}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="unit_num" className="addForm">
-              <Form.Label className="formIcon">
-                <MdNumbers />
-              </Form.Label>
-              <Form.Control
-                className="formField"
-                type="text"
-                placeholder="Enter unit number"
-                name="unit_num"
-                value={formData.unit_num}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="billed_to" className="addForm">
-              <Form.Label className="formIcon">
-                <GiReceiveMoney />
-              </Form.Label>
-              <Form.Control
-                className="formField"
-                type="text"
-                placeholder="Enter billed to"
-                name="billed_to"
-                value={formData.billed_to}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="bill_cost" className="addForm">
-              <Form.Label className="formIcon">
-                <GiMoneyStack />
-              </Form.Label>
-              <Form.Control
-                className="formField"
-                type="text"
-                placeholder="Enter bill cost"
-                name="bill_cost"
-                value={formData.bill_cost}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="due_date" className="addForm">
-              <Form.Label className="formIcon">
-                <RiCalendarTodoFill />
-              </Form.Label>
-              <Form.Control
-                className="formField"
-                type="date"
-                name="due_date"
-                value={formData.due_date}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="prev_reading" className="addForm">
-              <Form.Label className="formIcon">
-                <TbReportMoney />
-              </Form.Label>
-              <Form.Control
-                className="formField"
-                type="text"
-                placeholder="Enter previous reading"
-                name="prev_reading"
-                value={formData.prev_reading}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="current_reading" className="addForm">
-              <Form.Label className="formIcon">
-                <TbReportMoney />
-              </Form.Label>
-              <Form.Control
-                className="formField"
-                type="text"
-                placeholder="Enter current reading"
-                name="current_reading"
-                value={formData.current_reading}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="reading_date" className="addForm">
-              <Form.Label className="formIcon">
-                <RiCalendarTodoFill />
-              </Form.Label>
-              <Form.Control
-                className="formField"
-                type="date"
-                name="reading_date"
-                value={formData.reading_date}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="penalty" className="addForm">
-              <Form.Label className="formIcon">
-                <GiPayMoney />
-              </Form.Label>
-              <Form.Control
-                className="formField"
-                type="text"
-                placeholder="Enter penalty"
-                name="penalty"
-                value={formData.penalty}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <br />
-            <Modal.Footer className="modalbtn">
-              <Button
-                className="primarybtn"
-                onClick={handleAddModalCancel}
-              >
-                Cancel
-              </Button>
-              <Button className="secondarybtn" type="submit">
-                Save
-              </Button>
-            </Modal.Footer>
-          </Form>
-        </Modal.Body>
-      </Modal>
-      {/* EDIT MODAL END */}
+        {/* EDIT MODAL START */}
+        <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+          <br />
+          <h1 className="text-divider">Edit Bill</h1>
+          <Modal.Body>
+            <Form onSubmit={handleUpdateSubmit}>
+              <Form.Group controlId="invoice_num" className="addForm">
+                <Form.Label className="formIcon">
+                  <MdNumbers />
+                </Form.Label>
+                <Form.Control
+                  className="formField"
+                  type="text"
+                  placeholder="Enter invoice number"
+                  name="invoice_num"
+                  value={formData.invoice_num}
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="unit_num" className="addForm">
+                <Form.Label className="formIcon">
+                  <MdNumbers />
+                </Form.Label>
+                <Form.Control
+                  className="formField"
+                  type="text"
+                  placeholder="Enter unit number"
+                  name="unit_num"
+                  value={formData.unit_num}
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="billed_to" className="addForm">
+                <Form.Label className="formIcon">
+                  <GiReceiveMoney />
+                </Form.Label>
+                <Form.Control
+                  className="formField"
+                  type="text"
+                  placeholder="Enter billed to"
+                  name="billed_to"
+                  value={formData.billed_to}
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="bill_cost" className="addForm">
+                <Form.Label className="formIcon">
+                  <GiMoneyStack />
+                </Form.Label>
+                <Form.Control
+                  className="formField"
+                  type="text"
+                  placeholder="Enter bill cost"
+                  name="bill_cost"
+                  value={formData.bill_cost}
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="due_date" className="addForm">
+                <Form.Label className="formIcon">
+                  <RiCalendarTodoFill />
+                </Form.Label>
+                <Form.Control
+                  className="formField"
+                  type="date"
+                  name="due_date"
+                  value={formData.due_date}
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="prev_reading" className="addForm">
+                <Form.Label className="formIcon">
+                  <TbReportMoney />
+                </Form.Label>
+                <Form.Control
+                  className="formField"
+                  type="text"
+                  placeholder="Enter previous reading"
+                  name="prev_reading"
+                  value={formData.prev_reading}
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="current_reading" className="addForm">
+                <Form.Label className="formIcon">
+                  <TbReportMoney />
+                </Form.Label>
+                <Form.Control
+                  className="formField"
+                  type="text"
+                  placeholder="Enter current reading"
+                  name="current_reading"
+                  value={formData.current_reading}
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="reading_date" className="addForm">
+                <Form.Label className="formIcon">
+                  <RiCalendarTodoFill />
+                </Form.Label>
+                <Form.Control
+                  className="formField"
+                  type="date"
+                  name="reading_date"
+                  value={formData.reading_date}
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="penalty" className="addForm">
+                <Form.Label className="formIcon">
+                  <GiPayMoney />
+                </Form.Label>
+                <Form.Control
+                  className="formField"
+                  type="text"
+                  placeholder="Enter penalty"
+                  name="penalty"
+                  value={formData.penalty}
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+              <br />
+              <Modal.Footer className="modalbtn">
+                <Button
+                  className="primarybtn"
+                  onClick={handleAddModalCancel}
+                >
+                  Cancel
+                </Button>
+                <Button className="secondarybtn" type="submit">
+                  Save
+                </Button>
+              </Modal.Footer>
+            </Form>
+          </Modal.Body>
+        </Modal>
+        {/* EDIT MODAL END */}
 
-      {/* DELETE MODAL START */}
-      <Modal
-        show={showDeleteModal}
-        onHide={() => setShowDeleteModal(false)}
-        className="deleteModal"
-      >
-        <br />
-        <h1 className="text-divider">Delete Bill</h1>
-        <Modal.Body>
-          <p className="confirmation">
-            Are you sure you want to delete this billing?
-          </p>
-        </Modal.Body>
-        <Modal.Footer className="modalbtn">
-          <Button
-            className="primarybtn"
-            onClick={() => setShowDeleteModal(false)}
-          >
-            Cancel
-          </Button>
-          <Button className="secondarybtn" onClick={handleDeleteConfirm}>
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      {/* DELETE MODAL END */}
+        {/* DELETE MODAL START */}
+        <Modal
+          show={showDeleteModal}
+          onHide={() => setShowDeleteModal(false)}
+          className="deleteModal"
+        >
+          <br />
+          <h1 className="text-divider">Delete Bill</h1>
+          <Modal.Body>
+            <p className="confirmation">
+              Are you sure you want to delete this billing?
+            </p>
+          </Modal.Body>
+          <Modal.Footer className="modalbtn">
+            <Button
+              className="primarybtn"
+              onClick={() => setShowDeleteModal(false)}
+            >
+              Cancel
+            </Button>
+            <Button className="secondarybtn" onClick={handleDeleteConfirm}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        {/* DELETE MODAL END */}
+      </div>
     </div>
   );
 };

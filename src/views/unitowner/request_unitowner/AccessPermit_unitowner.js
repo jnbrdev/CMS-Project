@@ -3,7 +3,7 @@ import $ from "jquery";
 import "datatables.net";
 import "datatables.net-bs4";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../../all-views-scss/_pullout_tenants.scss";
+import "../../../all-views-scss/_request_unitowner.scss";
 import { RiCalendarTodoFill } from 'react-icons/ri';
 import {
   FaEdit,
@@ -34,7 +34,7 @@ const UNIT_ADD_URL = "/unit/addUnit";
 const UNIT_SHOW_URL = "/unit/getAllUnit";
 const UNIT_UPDATE_URL = "/unit/updateUnit/";
 const USER_SHOW_URL = "/users/getUnitOwnerDetails";
-const PullOut_Tenants = () => {
+const AccessPermit_unitowner = () => {
   const [listOfUnit, setListOfUnit] = useState([]);
 
   const [data, setData] = useState([]);
@@ -166,13 +166,13 @@ const PullOut_Tenants = () => {
     <div className="container">
       <br />
       <div className="tbl-title">
-        <h1 className="text-divider">PULL-OUT GATEPASS</h1>
+        <h1 className="text-divider">ACCESS PERMIT</h1>
       </div>
 
       {/* BUTTONS START */}
       <div className="thead-btn">
         <Button className="thead-btn-tertiary" onClick={handleAddNewEntry}>
-            <FaFileImport />  Request Pull-out
+            <FaFileImport />  Request Access
         </Button>
         <Button className="thead-btn-quaternary">
             <FiDownload /> Download Form
@@ -185,9 +185,10 @@ const PullOut_Tenants = () => {
       <table id="example" className="table table-striped table-bordered">
         <thead>
           <tr>
-            <th>Requesting Unit</th>
+            <th>Unit/Area</th>
+            <th>From Date</th>
+            <th>To Date</th>
             <th>Date Requested</th>
-            <th>Date of Pull-out</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -197,6 +198,7 @@ const PullOut_Tenants = () => {
             <tr key={entry.id}>
               <td>{entry.unit_no}</td>
               <td>{entry.unit_owner}</td>
+              <td>{entry.unit_no}</td>
               <td>{entry.unit_owner}</td>
               <td>{entry.status}</td>
               <td>
@@ -218,17 +220,28 @@ const PullOut_Tenants = () => {
         <h1 className="text-divider">Fill-in Form</h1>
         <Modal.Body>
           <Form>
+            <Form.Group controlId="unit_no" className="addForm">
+                <Form.Label className="formIcon">
+                    <MdNumbers />
+                </Form.Label>
+                <Form.Control
+                    className="unitformField"
+                    type="text"
+                    placeholder="Enter unit number"
+                    name="unit_no"
+                    onChange={(e) => setUnitNo(e.target.value)}
+                />
+            </Form.Group>
             <div className="pullOutForm">
-                <div className="col-md-6">
-                    <Form.Group controlId="unit_no" className="addForm">
+              <div className="col-md-6">
+                    <Form.Group controlId="pull_out_date" className="addForm">
                         <Form.Label className="formIcon">
-                            <MdNumbers />
+                            <RiCalendarTodoFill />
                         </Form.Label>
                         <Form.Control
                             className="pullformField"
-                            type="text"
-                            placeholder="Enter unit number"
-                            name="unit_no"
+                            type="date"
+                            name="pull_out_date"
                             onChange={(e) => setUnitNo(e.target.value)}
                         />
                     </Form.Group>
@@ -296,4 +309,4 @@ const PullOut_Tenants = () => {
   );
 };
 
-export default PullOut_Tenants;
+export default AccessPermit_unitowner;

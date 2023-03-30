@@ -186,7 +186,6 @@ const PullOut_Tenants = () => {
         <thead>
           <tr>
             <th>Requesting Unit</th>
-            <th>Date Requested</th>
             <th>Date of Pull-out</th>
             <th>Status</th>
             <th>Actions</th>
@@ -196,7 +195,6 @@ const PullOut_Tenants = () => {
           {data.map((entry) => (
             <tr key={entry.id}>
               <td>{entry.unit_no}</td>
-              <td>{entry.unit_owner}</td>
               <td>{entry.unit_owner}</td>
               <td>{entry.status}</td>
               <td>

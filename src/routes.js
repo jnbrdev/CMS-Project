@@ -71,7 +71,7 @@ const UserList = React.lazy(() => import('./views/superadmin/user/UserList'))
 //Request
 const RequestList = React.lazy(() => import('./views/superadmin/request/RequestList'))
 const PullOut = React.lazy(() => import('./views/superadmin/request/PullOut'))
-const Delivery = React.lazy(() => import('./views/superadmin/request/Delivery'))
+const AccessPermit = React.lazy(() => import('./views/superadmin/request/AccessPermit'))
 
 //Guest
 const GuestList = React.lazy(() => import('./views/superadmin/guest/GuestList'))
@@ -126,6 +126,7 @@ const CalendarReminders_tenants = React.lazy(() => import('./views/tenants/calen
 //Request
 const RequestVisit_tenants = React.lazy(() => import('./views/tenants/request_tenants/RequestVisit_tenants'))
 const PullOut_tenants = React.lazy(() => import('./views/tenants/request_tenants/PullOut_tenants'))
+const AccessPermit_tenants = React.lazy(() => import('./views/tenants/request_tenants/AccessPermit_tenants'))
 
 //FAQ
 const FAQ_tenants = React.lazy(() => import('./views/tenants/faq_tenants/FAQ_tenants'))
@@ -139,6 +140,11 @@ const TenantsList = React.lazy(() => import('./views/unitowner/tenantslist/Tenan
 //Billings
 const WaterBills_unitowner = React.lazy(() => import('./views/unitowner/billings_unitowner/WaterBills_unitowner'))
 const AssocDues_unitowner = React.lazy(() => import('./views/unitowner/billings_unitowner/AssocDues_unitowner'))
+
+//Request
+const RequestVisit_unitowner = React.lazy(() => import('./views/unitowner/request_unitowner/RequestVisit_unitowner'))
+const PullOut_unitowner = React.lazy(() => import('./views/unitowner/request_unitowner/PullOut_unitowner'))
+const AccessPermit_unitowner = React.lazy(() => import('./views/unitowner/request_unitowner/AccessPermit_unitowner'))
 
 //Calendar Reminders
 const CalendarReminders_unitowner = React.lazy(() => import('./views/unitowner/calendar_unitowner/CalendarReminders_unitowner'))
@@ -214,7 +220,7 @@ const routes = [
   { path: '/superadmin/billings/associationduelist', name: 'Association Due List', element: AssocDueList },
   { path: '/superadmin/requests/requestlist', name: 'Request List', element: RequestList },
   { path: '/superadmin/requests/pullout', name: 'Pull Out Request', element: PullOut },
-  { path: '/superadmin/requests/delivery', name: 'Delivery Request', element: Delivery },
+  { path: '/superadmin/requests/accesspermit', name: 'Access Permit', element: AccessPermit },
   { path: '/superadmin/services/servicelist', name: 'Service List', element: ServiceList },
   { path: '/superadmin/units/condounitlist', name: 'View Unit Details', element: CondoUnitList },
   { path: '/superadmin/user/userlist', name: 'User List', element: UserList },
@@ -244,6 +250,7 @@ const routes = [
   { path: '/tenants/billings_tenants/assocdues_tenants', name: 'Association Dues', element: AssocDues_tenants },
   { path: '/tenants/request_tenants/requestvisit_tenants', name: 'Request Visit', element: RequestVisit_tenants },
   { path: '/tenants/request_tenants/pullout_tenants', name: 'Pull Out', element: PullOut_tenants },
+  { path: '/tenants/request_tenants/accesspermit_tenants', name: 'Access Permit', element: AccessPermit_tenants },
   { path: '/tenants/calendar_tenants/calendarreminders_tenants', name: 'Calendar Reminders', element: CalendarReminders_tenants },
   { path: '/tenants/faq_tenants/faq_tenants', name: 'FAQ', element: FAQ_tenants },
 
@@ -253,6 +260,9 @@ const routes = [
   { path: '/unitowner/tenantslist/tenantslist', name: 'Water Bills', element: TenantsList },
   { path: '/unitowner/billings_unitowner/waterbills_unitowner', name: 'Water Bills', element: WaterBills_unitowner },
   { path: '/unitowner/billings_unitowner/assocdues_unitowner', name: 'Association Dues', element: AssocDues_unitowner },
+  { path: '/unitowner/request_unitowner/requestvisit_unitowner', name: 'Request Visit', element: RequestVisit_unitowner },
+  { path: '/unitowner/request_unitowner/pullout_unitowner', name: 'Pull Out', element: PullOut_unitowner },
+  { path: '/unitowner/request_unitowner/accesspermit_unitowner', name: 'Access Permit', element: AccessPermit_unitowner },
   { path: '/unitowner/calendar_unitowner/calendarreminders_unitowner', name: 'Calendar Reminders', element: CalendarReminders_unitowner },
   { path: '/unitowner/faq_unitowner/faq_unitowner', name: 'FAQ', element: FAQ_unitowner },
 

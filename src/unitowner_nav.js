@@ -6,6 +6,7 @@ import {
   cilCalendarCheck,
   cilItalic,
   cilGroup,
+  cilDescription,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -52,6 +53,29 @@ const unitowner_nav = [
       //   name: 'Manage Billings',
       //   to: '/unitowner/managebilling',
       // },
+    ],
+  },
+
+  {
+    component: CNavGroup,
+    name: 'Request',
+    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Request Visit Form',
+        to: '/unitowner/requestvisit_unitowner',
+      },
+      {
+        component: CNavItem,
+        name: 'Pull Out Form',
+        to: '/unitowner/pullout_unitowner',
+      },
+      {
+        component: CNavItem,
+        name: 'Access Permit',
+        to: '/unitowner/accesspermit_unitowner',
+      },
     ],
   },
 

@@ -43,7 +43,7 @@ const UserList = React.lazy(() => import('./views/superadmin/user/UserList'))
 //Request
 const RequestList = React.lazy(() => import('./views/superadmin/request/RequestList'))
 const PullOut = React.lazy(() => import('./views/superadmin/request/PullOut'))
-const Delivery = React.lazy(() => import('./views/superadmin/request/Delivery'))
+const AccessPermit = React.lazy(() => import('./views/superadmin/request/AccessPermit'))
 
 //Guest
 const GuestList = React.lazy(() => import('./views/superadmin/guest/GuestList'))
@@ -103,6 +103,7 @@ const CalendarReminders_tenants = React.lazy(() => import('./views/tenants/calen
 //Request
 const RequestVisit_tenants = React.lazy(() => import('./views/tenants/request_tenants/RequestVisit_tenants'))
 const PullOut_tenants = React.lazy(() => import('./views/tenants/request_tenants/PullOut_tenants'))
+const AccessPermit_tenants = React.lazy(() => import('./views/tenants/request_tenants/AccessPermit_tenants'))
 
 //FAQ
 const FAQ_tenants = React.lazy(() => import('./views/tenants/faq_tenants/FAQ_tenants'))
@@ -119,6 +120,11 @@ const TenantsList = React.lazy(() => import('./views/unitowner/tenantslist/Tenan
 //Billings
 const WaterBills_unitowner = React.lazy(() => import('./views/unitowner/billings_unitowner/WaterBills_unitowner'))
 const AssocDues_unitowner = React.lazy(() => import('./views/unitowner/billings_unitowner/AssocDues_unitowner'))
+
+//Request
+const RequestVisit_unitowner = React.lazy(() => import('./views/unitowner/request_unitowner/RequestVisit_unitowner'))
+const PullOut_unitowner = React.lazy(() => import('./views/unitowner/request_unitowner/PullOut_unitowner'))
+const AccessPermit_unitowner = React.lazy(() => import('./views/unitowner/request_unitowner/AccessPermit_unitowner'))
 
 //Calendar Reminders
 const CalendarReminders_unitowner = React.lazy(() => import('./views/unitowner/calendar_unitowner/CalendarReminders_unitowner'))
@@ -174,7 +180,7 @@ class App extends Component {
             <Route path="/userlist" element={<UserList />} />
             <Route path="/requestlist" element={<RequestList />} />
             <Route path="/pullout" element={<PullOut />} />
-            <Route path="/delivery" element={<Delivery />} />
+            <Route path="/accesspermit" element={<AccessPermit />} />
             <Route path="/guestlist" element={<GuestList />} />
             <Route path="/servicelist" element={<ServiceList />} />
             <Route path="/adminlist" element={<AdminList />} />
@@ -208,6 +214,7 @@ class App extends Component {
             <Route path="/tenants/assocdues_tenants" element={<AssocDues_tenants />} />
             <Route path="/tenants/requestvisit_tenants" element={<RequestVisit_tenants />} />
             <Route path="/tenants/pullout_tenants" element={<PullOut_tenants />} />
+            <Route path="/tenants/accesspermit_tenants" element={<AccessPermit_tenants />} />
             <Route path="/tenants/calendarreminders_tenants" element={<CalendarReminders_tenants />} />
             <Route path="/tenants/faq_tenants" element={<FAQ_tenants />} />
 
@@ -220,6 +227,9 @@ class App extends Component {
             <Route path="/unitowner/tenantslist" element={<TenantsList />} />
             <Route path="/unitowner/waterbills_unitowner" element={<WaterBills_unitowner />} />
             <Route path="/unitowner/assocdues_unitowner" element={<AssocDues_unitowner />} />
+            <Route path="/unitowner/requestvisit_unitowner" element={<RequestVisit_unitowner />} />
+            <Route path="/unitowner/pullout_unitowner" element={<PullOut_unitowner />} />
+            <Route path="/unitowner/accesspermit_unitowner" element={<AccessPermit_unitowner />} />
             <Route path="/unitowner/calendarreminders_unitowner" element={<CalendarReminders_unitowner />} />
             <Route path="/unitowner/faq_unitowner" element={<FAQ_unitowner />} />
 

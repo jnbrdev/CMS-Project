@@ -268,7 +268,7 @@ const AddBill = () => {
             <Form onSubmit={handleFormSubmit}>
                 {/* WATER BILL DETAILS */}
                 <div className="company">
-                    <img src="./images/com-logo2.png" className="com-image"></img>
+                    <img src="./images/condo-logo.png" className="com-image"></img>
                     <p className="com-address">Gold Coast, Austrilia</p>
                 </div>
                 <br />

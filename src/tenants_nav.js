@@ -63,11 +63,11 @@ const tenants_nav = [
         name: 'Pull Out Form',
         to: '/tenants/pullout_tenants',
       },
-      // {
-      //   component: CNavItem,
-      //   name: 'Manage Billings',
-      //   to: '/tenants/managebilling',
-      // },
+      {
+        component: CNavItem,
+        name: 'Access Permit',
+        to: '/tenants/accesspermit_tenants',
+      },
     ],
   },
 

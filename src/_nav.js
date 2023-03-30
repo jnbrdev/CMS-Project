@@ -91,8 +91,8 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: 'Delivery',
-        to: '/delivery',
+        name: 'Access Permit',
+        to: '/accesspermit',
       },
     ],
   },

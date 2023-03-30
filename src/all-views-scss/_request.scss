@@ -212,6 +212,13 @@ content: attr(data-on);
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19);
 }
 
+.head-container {
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19);
+    padding: 30px;
+    overflow: hidden;
+    position: relative;
+}
+
 .text-divider {
     --text-divider-gap: 1rem;
     display: flex;
@@ -259,7 +266,6 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 15px 0px 0px 0px;
     margin: 0px 10px 0px 10px;
     border-radius: 5px;
 }
@@ -274,7 +280,6 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
 .thead-btn {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
 }
 
 .thead-btn-primary, .thead-btn-secondary, .thead-btn-tertiary, .thead-btn-quaternary {
