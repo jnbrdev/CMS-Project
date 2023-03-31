@@ -61,7 +61,7 @@ const AccessPermit = () => {
   const [unStatus, setUnitStatus] = useState();
 
 
-  // ADD UNIT
+  // ADD ACCESS PERMIT
   const handleAddNewUnit = async (e) => {
     e.preventDefault()
     axios
@@ -74,7 +74,7 @@ const AccessPermit = () => {
         occupied_by: occupiedBy,
         status: unStatus,
       });
-      setShowAddModal(false);
+    setShowAddModal(false);
   };
 
   // UPDATE UNIT
@@ -98,9 +98,9 @@ const AccessPermit = () => {
     setSelectedData({});
     setShowEditModal(false);
   };
-  
+
   // SHOW UNIT DATAs
-  
+
   useEffect(() => {
     axios.post(UNIT_SHOW_URL).then((response) => {
       setData(response.data);
@@ -123,7 +123,7 @@ const AccessPermit = () => {
       console.log(error);
     }
   };
-  
+
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.unit_no]: event.target.value });
@@ -164,18 +164,51 @@ const AccessPermit = () => {
 
   return (
     <div className="wraps">
-        <div className="head-container">
-          <div className="thead-btn">
-            <Button className="thead-btn-tertiary" onClick={handleAddNewEntry}>
-                <FaFileImport />  Request Access
-            </Button>
-            <Button className="thead-btn-quaternary">
-                <FiDownload /> Download Form
-            </Button>
-          </div>
+      <div className="head-container">
+        <div className="thead-btn">
+          <Form.Group controlId="dateFrom" className="filter-date-from">
+            <Form.Label className="filter-date-label">From</Form.Label>
+            <Form.Control
+              className="filter-date-input"
+              type="date"
+              placeholder="yyyy-mm-dd"
+              name="datFrom"
+              onChange={handleInputChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="dateTo" className="filter-date-to">
+            <Form.Label className="filter-date-label">To</Form.Label>
+            <Form.Control
+              className="filter-date-input"
+              type="date"
+              placeholder="yyyy-mm-dd"
+              name="dateTo"
+              onChange={handleInputChange}
+            />
+          </Form.Group>
+          <CFormSelect className="costum-select">
+            <option value="">Filter by Status</option>
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Declined">Declined</option>
+          </CFormSelect>
+          <Button className="thead-btn-primary" name="filter" type="submit">
+            <FaFilter />
+          </Button>
+          <Button className="thead-btn-secondary">
+            <FiRefreshCcw />
+          </Button>
+          <Button className="thead-btn-tertiary" onClick={handleAddNewEntry}>
+            <FaFileImport />
+          </Button>
+          <Button className="thead-btn-quaternary">
+            <FiDownload />
+          </Button>
         </div>
-      <br/>
+      </div>
+      <br />
       <div className="container">
+        <br />
         <div className="tbl-title">
           <h1 className="text-divider">ACCESS PERMIT</h1>
         </div>
@@ -220,44 +253,44 @@ const AccessPermit = () => {
           <Modal.Body>
             <Form>
               <Form.Group controlId="unit_no" className="addForm">
-                  <Form.Label className="formIcon">
-                      <MdNumbers />
-                  </Form.Label>
-                  <Form.Control
-                      className="unitformField"
-                      type="text"
-                      placeholder="Enter unit number"
-                      name="unit_no"
-                      onChange={(e) => setUnitNo(e.target.value)}
-                  />
+                <Form.Label className="formIcon">
+                  <MdNumbers />
+                </Form.Label>
+                <Form.Control
+                  className="unitformField"
+                  type="text"
+                  placeholder="Enter unit number"
+                  name="unit_no"
+                  onChange={(e) => setUnitNo(e.target.value)}
+                />
               </Form.Group>
               <div className="pullOutForm">
                 <div className="col-md-6">
-                      <Form.Group controlId="pull_out_date" className="addForm">
-                          <Form.Label className="formIcon">
-                              <RiCalendarTodoFill />
-                          </Form.Label>
-                          <Form.Control
-                              className="pullformField"
-                              type="date"
-                              name="pull_out_date"
-                              onChange={(e) => setUnitNo(e.target.value)}
-                          />
-                      </Form.Group>
-                  </div>
-                  <div className="col-md-6">
-                      <Form.Group controlId="pull_out_date" className="addForm">
-                          <Form.Label className="formIcon">
-                              <RiCalendarTodoFill />
-                          </Form.Label>
-                          <Form.Control
-                              className="pullformField"
-                              type="date"
-                              name="pull_out_date"
-                              onChange={(e) => setUnitNo(e.target.value)}
-                          />
-                      </Form.Group>
-                  </div>
+                  <Form.Group controlId="pull_out_date" className="addForm">
+                    <Form.Label className="formIcon">
+                      <RiCalendarTodoFill />
+                    </Form.Label>
+                    <Form.Control
+                      className="pullformField"
+                      type="date"
+                      name="pull_out_date"
+                      onChange={(e) => setUnitNo(e.target.value)}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col-md-6">
+                  <Form.Group controlId="pull_out_date" className="addForm">
+                    <Form.Label className="formIcon">
+                      <RiCalendarTodoFill />
+                    </Form.Label>
+                    <Form.Control
+                      className="pullformField"
+                      type="date"
+                      name="pull_out_date"
+                      onChange={(e) => setUnitNo(e.target.value)}
+                    />
+                  </Form.Group>
+                </div>
               </div>
               <Form.Group controlId="unit_upload" className="addForm">
                 <Form.Control
@@ -268,7 +301,7 @@ const AccessPermit = () => {
                   onChange={handleInputChange}
                 />
               </Form.Group>
-              
+
               <Modal.Footer className="modalbtn">
                 <Button
                   className="primarybtn"
@@ -290,7 +323,7 @@ const AccessPermit = () => {
         {/* ADD MODAL END */}
 
         <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} className="deleteModal">
-          <br/>
+          <br />
           <h1 className="text-divider">Delete Unit</h1>
           <Modal.Body>
             <p className="confirmation">Are you sure you want to delete this request?</p>

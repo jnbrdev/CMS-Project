@@ -267,7 +267,7 @@ const CondoUnitList = () => {
         {/* FILTERING END */}
 
         {/* BUTTONS START */}
-        <div className="thead-btn">
+        <div className="thead-btn" style={{marginTop: "10px"}}>
           <Button className="thead-btn-primary" name="filter" type="submit">
             <FaFilter />
           </Button>

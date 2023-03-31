@@ -1,4 +1,7 @@
 // datatable
+.wrap {
+    display: flex;
+}
 .bill-container {
     border: 5px solid #009DFF;
     border-radius: 10px;
@@ -31,12 +34,14 @@
 
 .readinginputField {
     display: flex;
+    flex-direction: column;
+    padding-left: 14px;
 }
 
 .waterbillDetails, .assocdueDetails {
     display: inline-block;
     width: 225px;
-    margin: 10px 6px 10px 5px;
+    margin: 0px 6px 0px 5px;
     padding-left: 0px;
     font-size: 14px;
     font-weight: 600;
@@ -54,5 +59,15 @@
     padding: 10px;
     width: 180px;
     border: none;
-    float: right;
+}
+
+.com-logo {
+    height: 390px;
+    opacity: 0.5;
+    margin-top: 5px;
+}
+
+.col-md-5 {
+    display: flex;
+    justify-content: center;
 }

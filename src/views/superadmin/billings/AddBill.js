@@ -264,17 +264,18 @@ const AddBill = () => {
 
     return (
         <div className="container">
-            <br />
             <Form onSubmit={handleFormSubmit}>
                 {/* WATER BILL DETAILS */}
                 <div className="company">
-                    <img src="./images/condo-logo.png" className="com-image"></img>
-                    <p className="com-address">Gold Coast, Austrilia</p>
+                    <div className="condo-name">
+                        <img src="./images/condo-logo.png" className="com-image"></img>
+                        <h1>GA TOWER 2 CONDMINIUM CORP.</h1>
+                    </div>
+                    <p className="com-address">#83 EDSA, Mandaluyong City</p>
                 </div>
-                <br />
                 <div className="waterbillBox">
-                    <img src="./images/com-logo.png" className="com-logo"></img>
-                    <h1 className="invoice-label">ADD NEW BILLING</h1>
+                    <img src="./images/condo-logo.png" className="com-logo"></img>
+                    <h2 className="invoice-label">ADD NEW BILLING</h2>
                     <hr className="underline" />
                     <div className="invoice-row">
                         <div className="col-md-6">
@@ -294,7 +295,7 @@ const AddBill = () => {
                                     className="invoice-input"
                                     type="text"
                                     name="unit_num"
-                                    value={formData.unit_num}
+                                    placeholder="Input unit number.."
                                     onChange={handleInputChange}
                                 />
                             </Form.Group>
@@ -336,8 +337,8 @@ const AddBill = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="prev_read" value={formData.prev_read} onChange={handleInputChange} /></td>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="cur_read" value={formData.cur_read} onChange={handleInputChange} /></td>
+                                <td><Form.Control className="tbl-invoice-input" type="text" name="prev_read" placeholder="Input previous reading.." onChange={handleInputChange} /></td>
+                                <td><Form.Control className="tbl-invoice-input" type="text" name="cur_read" placeholder="Input current reading.." onChange={handleInputChange} /></td>
                                 <td><Form.Control className="tbl-invoice-input" type="text" name="meter_no" value={formData.meter_no} readOnly /></td>
                                 <td><Form.Control className="tbl-invoice-input" type="text" name="reading_date" value={formData.reading_date} readOnly /></td>
                                 <td><Form.Control className="tbl-invoice-input" type="text" name="due_date" value={formData.due_date} readOnly /></td>

@@ -139,6 +139,7 @@ const ServiceList = () => {
       </div>
       <br/>
       <div className="container">
+        <br/>
         <div className="tbl-title">
           <h1 className="text-divider">SERVICE LIST</h1>
         </div>

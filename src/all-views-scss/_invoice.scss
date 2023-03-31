@@ -11,25 +11,38 @@
     align-items: end;
 }
 
+.condo-name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.condo-name h1 {
+    font-size: 25px;
+    font-family: serif;
+    font-weight: 600;
+    color: #002060;
+    margin-top: -7px;
+}
+
 .com-image {
-    height: 65px;
-    width: 130px;
+    height: 120px;
+    width: 90px;
 }
 
 .com-logo {
     position: absolute;
     height: 299px;
-    margin-top: -193px;
+    margin-top: -111px;
     margin-left: -60px;
     opacity: 0.50;
 }
 
 .com-address {
-    font-size: 12px;
+    font-size: 19px;
     font-weight: 500;
     font-family: sans-serif;
-    padding-right: 8px;
-    margin-top: -10px;
+    margin-top: -52px;
 }
 
 .invoice-row {
