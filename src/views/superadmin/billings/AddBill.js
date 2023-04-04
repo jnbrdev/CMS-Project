@@ -88,6 +88,7 @@ const AddBill = () => {
     //Add Bill for WaterBill and Association Due
     const handleAddNewBill = async (e) => {
         e.preventDefault()
+        const currentDate = new Date().toLocaleDateString('sv-SE');
         try {
             axios
                 .post(INVOICE_ADD_URL, {
@@ -107,7 +108,7 @@ const AddBill = () => {
                     assocDueRate: formData.assocDueRate,
                     waterBillTotal: waterBillTotal,
                     assocDueTotal: assocDueTotal,
-                    reading_date: readingDate,
+                    reading_date: currentDate,
                 });
             setFormData({
                 unit_num: '',
@@ -279,16 +280,6 @@ const AddBill = () => {
                     <hr className="underline" />
                     <div className="invoice-row">
                         <div className="col-md-6">
-                            <Form.Group controlId="invoiceWaterBillTo" className="invoice-field-label">
-                                <Form.Label className="invoice-form-label">Invoice No:</Form.Label>
-                                <Form.Control
-                                    className="invoice-input"
-                                    type="text"
-                                    name="invoice_num"
-                                    value={formData.invoiceWaterBillTo}
-                                    readOnly
-                                />
-                            </Form.Group>
                             <Form.Group controlId="unit_num" className="invoice-field-label">
                                 <Form.Label className="invoice-form-label">Unit No:</Form.Label>
                                 <Form.Control
@@ -296,7 +287,7 @@ const AddBill = () => {
                                     type="text"
                                     name="unit_num"
                                     placeholder="Input unit number.."
-                                    onChange={handleInputChange}
+                                    onChange={handleUnitNumberChange}
                                 />
                             </Form.Group>
                             <Form.Group controlId="waterBillTo" className="invoice-field-label">
@@ -321,6 +312,16 @@ const AddBill = () => {
                                     readOnly
                                 />
                             </Form.Group>
+                            <Form.Group controlId="unit_num" className="invoice-field-label">
+                                <Form.Label className="invoice-form-label">Curr. Reading</Form.Label>
+                                <Form.Control
+                                    className="invoice-input"
+                                    type="text"
+                                    name="current_reading"
+                                    
+                                    onChange={handleCurrentReading}
+                                />
+                            </Form.Group>
                         </div>
                     </div>
                     <br />
@@ -328,20 +329,16 @@ const AddBill = () => {
                     <table className="table table-sm">
                         <thead>
                             <tr>
+                                <th>Invoice #</th>
                                 <th>Prev. Reading</th>
-                                <th>Curr. Reading</th>
                                 <th>Meter No.</th>
-                                <th>Reading Date</th>
-                                <th>Due Date</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="prev_read" placeholder="Input previous reading.." onChange={handleInputChange} /></td>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="cur_read" placeholder="Input current reading.." onChange={handleInputChange} /></td>
+                            <td><Form.Control className="tbl-invoice-input" type="text" name="invoice_no" value={formData.invoiceWaterBillTo} readOnly /></td>
+                                <td><Form.Control className="tbl-invoice-input" type="text" name="prev_read" value={formData.previous_reading} readOnly /></td>
                                 <td><Form.Control className="tbl-invoice-input" type="text" name="meter_no" value={formData.meter_no} readOnly /></td>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="reading_date" value={formData.reading_date} readOnly /></td>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="due_date" value={formData.due_date} readOnly /></td>
                             </tr>
                         </tbody>
                     </table>
@@ -354,7 +351,7 @@ const AddBill = () => {
                             className="invoice-input-total"
                             type="text"
                             name="waterBillTotal"
-                            value={formData.waterBillTotal}
+                            value={waterBillTotal}
                             readOnly
                         />
                     </Form.Group>
