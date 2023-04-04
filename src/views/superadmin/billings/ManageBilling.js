@@ -125,7 +125,7 @@ const ManageBilling = () => {
       </div>
       <div className="col-md-5">
         <div className="condo-name">
-              <img src="./images/condo-logo.png" className="com-logo"></img>
+              <img src="./images/com-logo.png" className="com-logo"></img>
           </div>
       </div>
     </div>
