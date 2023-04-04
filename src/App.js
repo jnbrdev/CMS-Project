@@ -33,6 +33,7 @@ const WaterBillList = React.lazy(() => import('./views/superadmin/billings/Water
 const AssocDueList = React.lazy(() => import('./views/superadmin/billings/AssocDueList'))
 const ManageBilling = React.lazy(() => import('./views/superadmin/billings/ManageBilling'))
 const AddBill = React.lazy(() => import('./views/superadmin/billings/AddBill'))
+const MainInvoice = React.lazy(() => import('./views/superadmin/billings/MainInvoice'))
 
 //Unit
 const CondoUnitList = React.lazy(() => import('./views/superadmin/unit/CondoUnitList'))
@@ -176,6 +177,7 @@ class App extends Component {
             <Route path="/assocduelist" element={<AssocDueList />} />
             <Route path="/managebilling" element={<ManageBilling />} />
             <Route path="/addbill" element={<AddBill />} />
+            <Route path="/maininvoice" element={<MainInvoice />} />
             <Route path="/unitlist" element={<CondoUnitList />} />
             <Route path="/userlist" element={<UserList />} />
             <Route path="/requestlist" element={<RequestList />} />

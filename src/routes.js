@@ -61,6 +61,7 @@ const WaterBillList = React.lazy(() => import('./views/superadmin/billings/Water
 const AssocDueList = React.lazy(() => import('./views/superadmin/billings/AssocDueList'))
 const ManageBilling = React.lazy(() => import('./views/superadmin/billings/ManageBilling'))
 const AddBill = React.lazy(() => import('./views/superadmin/billings/AddBill'))
+const MainInvoice = React.lazy(() => import('./views/superadmin/billings/MainInvoice'))
 
 //Unit
 const CondoUnitList = React.lazy(() => import('./views/superadmin/unit/CondoUnitList'))
@@ -217,6 +218,7 @@ const routes = [
   { path: '/superadmin/billings/waterbilllist', name: 'Water Bill List', element: WaterBillList },
   { path: '/superadmin/billings/managebill', name: 'Manage Billings', element: ManageBilling },
   { path: '/superadmin/billings/addbill', name: 'Add Bill', element: AddBill },
+  { path: '/superadmin/billings/maininvoice', name: 'Main Invoice', element: MainInvoice },
   { path: '/superadmin/billings/associationduelist', name: 'Association Due List', element: AssocDueList },
   { path: '/superadmin/requests/requestlist', name: 'Request List', element: RequestList },
   { path: '/superadmin/requests/pullout', name: 'Pull Out Request', element: PullOut },

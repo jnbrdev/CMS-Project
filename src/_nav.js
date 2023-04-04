@@ -71,6 +71,11 @@ const _nav = [
         name: 'Add Bill',
         to: '/addbill',
       },
+      {
+        component: CNavItem,
+        name: 'Main Invoice',
+        to: '/maininvoice',
+      },
     ],
   },
 
