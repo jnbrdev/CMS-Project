@@ -280,13 +280,11 @@ const MainInvoice = () => {
                     <div className="invoice-row">
                         <div className="col-md-6">
                             <Form.Group controlId="invoiceWaterBillTo" className="invoice-field-label">
-                                <Form.Label className="invoice-form-label">Invoice No:</Form.Label>
+                                <Form.Label className="invoice-form-label">Invoice #</Form.Label>
                                 <Form.Control
                                     className="invoice-input"
                                     type="text"
-                                    name="invoice_num"
-                                    value={formData.invoiceWaterBillTo}
-                                    readOnly
+                                    name="invoice_no"
                                 />
                             </Form.Group>
                             <Form.Group controlId="waterBillTo" className="invoice-field-label">
