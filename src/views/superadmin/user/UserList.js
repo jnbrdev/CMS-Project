@@ -264,7 +264,7 @@ const UserList = () => {
     const newId = data.length + 1;
     const newData = { unit_id: newId, ...formData };
     setData([...data, newData]);
-    setFormData({ email: '', password: '', first_name: '', last_name: '', contact_no: '', birthdate: '', role: '', status: '' });
+    setFormData({ first_name: '', last_name: '', age: '', gender: '', contact_no: '', birthdate: '', address: '', email: '', role: '', password: '', status: '' });
     setShowAddModal(false);
   };
 
@@ -273,7 +273,7 @@ const UserList = () => {
     const newId = data.length + 1;
     const newData = { unit_id: newId, ...formData };
     setData([...data, newData]);
-    setFormData({ email: '', password: '', first_name: '', last_name: '', contact_no: '', birthdate: '', role: '', status: '' });
+    setFormData({ first_name: '', last_name: '', age: '', gender: '', contact_no: '', birthdate: '', address: '', email: '', role: '', password: '', status: '' });
     setShowUploadModal(false);
   };
 
@@ -284,7 +284,7 @@ const UserList = () => {
       item.unit_id === selectedData.unit_id ? formData : item
     );
     setData(newData);
-    setFormData({ email: '', password: '', first_name: '', last_name: '', contact_no: '', birthdate: '', role: '', status: '' });
+    setFormData({ first_name: '', last_name: '', age: '', gender: '', contact_no: '', birthdate: '', address: '', email: '', role: '', password: '', status: '' });
     setSelectedData({});
     setShowEditModal(false);
   };
@@ -406,72 +406,90 @@ const UserList = () => {
           <Modal.Body>
             <Form onSubmit={handleFormSubmit}>
 
-              <Form.Group controlId="first_name" className="addForm">
-                <Form.Label className="formIcon"><MdDriveFileRenameOutline /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="text"
-                  placeholder="Enter firstname"
-                  name="first_name"
-                  onChange={(e) => setFname(e.target.value)}
-                />
-              </Form.Group>
+              <div className="addModal">
+                <div className="col-md-6">
+                  <Form.Group controlId="first_name" className="addForm">
+                    <Form.Label className="formIcon"><MdDriveFileRenameOutline /></Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      type="text"
+                      placeholder="Enter firstname"
+                      name="first_name"
+                      onChange={(e) => setFname(e.target.value)}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col-md-6">
+                  <Form.Group controlId="last_name" className="addForm">
+                    <Form.Label className="formIcon"><MdDriveFileRenameOutline /></Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      type="text"
+                      placeholder="Enter lastname"
+                      name="last_name"
+                      onChange={(e) => setLname(e.target.value)}
+                    />
+                  </Form.Group>
+                </div>
+              </div>
 
-              <Form.Group controlId="last_name" className="addForm">
-                <Form.Label className="formIcon"><MdDriveFileRenameOutline /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="text"
-                  placeholder="Enter lastname"
-                  name="last_name"
-                  onChange={(e) => setLname(e.target.value)}
-                />
-              </Form.Group>
+              <div className="addModal">
+                <div className="col-md-6">
+                  <Form.Group controlId="age" className="addForm">
+                    <Form.Label className="formIcon"><FaUserPlus /></Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      type="text"
+                      placeholder="Enter age"
+                      name="age"
+                      onChange={(e) => setAge(e.target.value)}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col-md-6">
+                  <Form.Group controlId="gender" className="addForm">
+                    <Form.Label className="formIcon"><BiMaleFemale /></Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      as="select"
+                      name="gender"
+                      onChange={(e) => setGender(e.target.value)}
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </Form.Control>
+                  </Form.Group>
+                </div>
+              </div>
 
-              <Form.Group controlId="age" className="addForm">
-                <Form.Label className="formIcon"><FaUserPlus /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="text"
-                  placeholder="Enter age"
-                  name="age"
-                  onChange={(e) => setAge(e.target.value)}
-                />
-              </Form.Group>
-
-              <Form.Group controlId="gender" className="addForm">
-                <Form.Label className="formIcon"><BiMaleFemale /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="text"
-                  placeholder="Enter gender"
-                  name="gender"
-                  onChange={(e) => setGender(e.target.value)}
-                />
-              </Form.Group>
-
-              <Form.Group controlId="contact_no" className="addForm">
-                <Form.Label className="formIcon"><MdContactPhone /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="text"
-                  placeholder="Enter contact number"
-                  name="contact_no"
-                  onChange={(e) => setContactNo(e.target.value)}
-                />
-              </Form.Group>
-
-              <Form.Group controlId="birthdate" className="addForm">
-                <Form.Label className="formIcon"><MdCake /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="date"
-                  placeholder="yyyy-mm-dd"
-                  name="birthdate"
-                  onChange={(e) => setBdate(e.target.value)}
-                />
-              </Form.Group>
-
+              <div className="addModal">
+                <div className="col-md-6">
+                  <Form.Group controlId="contact_no" className="addForm">
+                    <Form.Label className="formIcon"><MdContactPhone /></Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      type="text"
+                      placeholder="Enter contact number"
+                      name="contact_no"
+                      onChange={(e) => setContactNo(e.target.value)}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col-md-6">
+                  <Form.Group controlId="birthdate" className="addForm">
+                    <Form.Label className="formIcon"><MdCake /></Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      type="date"
+                      placeholder="yyyy-mm-dd"
+                      name="birthdate"
+                      onChange={(e) => setBdate(e.target.value)}
+                    />
+                  </Form.Group>
+                </div>
+              </div>
+            
               <Form.Group controlId="address" className="addForm">
                 <Form.Label className="formIcon"><BiHome /></Form.Label>
                 <Form.Control
@@ -494,34 +512,38 @@ const UserList = () => {
                 />
               </Form.Group>
 
-              <Form.Group controlId="role" className="addForm">
-                <Form.Label className="formIcon"><FaUsersCog /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  as="select"
-                  name="role"
-                  onChange={(e) => setRole(e.target.value)}
-                >
-                  <option value="">Select Role</option>
-                  <option value="Unit Owner">Unit Owner</option>
-                  <option value="Tenant">Tenant</option>
-                  <option value="Accounting">Accounting</option>
-                  <option value="Security Guard">Security Guard</option>
-                  <option value="Agent">Agent</option>
-                </Form.Control>
-              </Form.Group>
-
-              <Form.Group controlId="password" className="addForm">
-                <Form.Label className="formIcon"><BsFillShieldLockFill /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="password"
-                  placeholder="Enter password"
-                  name="password"
-                  onChange={(e) => setUserPassword(e.target.value)}
-                />
-              </Form.Group>
-            
+              <div className="addModal">
+                <div className="col-md-6">
+                  <Form.Group controlId="role" className="addForm">
+                    <Form.Label className="formIcon"><FaUsersCog /></Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      as="select"
+                      name="role"
+                      onChange={(e) => setRole(e.target.value)}
+                    >
+                      <option value="">Select Role</option>
+                      <option value="Unit Owner">Unit Owner</option>
+                      <option value="Tenant">Tenant</option>
+                      <option value="Accounting">Accounting</option>
+                      <option value="Security Guard">Security Guard</option>
+                      <option value="Agent">Agent</option>
+                    </Form.Control>
+                  </Form.Group>
+                </div>
+                <div className="col-md-6">
+                <Form.Group controlId="password" className="addForm">
+                  <Form.Label className="formIcon"><BsFillShieldLockFill /></Form.Label>
+                  <Form.Control
+                    className="addformField"
+                    type="password"
+                    placeholder="Enter password"
+                    name="password"
+                    onChange={(e) => setUserPassword(e.target.value)}
+                  />
+                </Form.Group>
+                </div>
+              </div>
               <br />
               <Modal.Footer className="modalbtn">
                 <Button className="primarybtn" onClick={() => setShowAddModal(false)}>
@@ -565,18 +587,32 @@ const UserList = () => {
           </Modal.Body>
         </Modal>
 
+        {/* VIEW MODAL START */}
         <Modal show={showViewModal} onHide={() => setShowViewModal(false)}>
           <Modal.Header closeButton />
           <Modal.Body>
-            <h1 className="modal-divider">Personal Information</h1>
+            <h1 className="modal-divider">Personal Profile</h1>
 
             <div className="viewModal">
               <div className="col-md-6">
-                <p><strong>Firstname:</strong> <br /> {selectedData.first_name}</p>
+                <p><strong>Fullname:</strong> <br /> {selectedData.fname}</p>
               </div>
               <div className="col-md-6">
-                <p><strong>Lastname:</strong> <br /> {selectedData.last_name}</p>
+                <p><strong>Age:</strong> <br /> {selectedData.age}</p>
               </div>
+            </div>
+
+            <div className="viewModal">
+              <div className="col-md-6">
+                <p><strong>Gender:</strong> <br /> {selectedData.gender}</p>
+              </div>
+              <div className="col-md-6">
+                <p><strong>Birthdate:</strong> <br /> {selectedData.birthdate}</p>
+              </div>
+            </div>
+
+            <div className="col-md-12">
+                <p><strong>Address:</strong> <br /> {selectedData.address}</p>
             </div>
 
             <div className="viewModal">
@@ -584,7 +620,7 @@ const UserList = () => {
                 <p><strong>Contact Number:</strong> <br /> {selectedData.contact_no}</p>
               </div>
               <div className="col-md-6">
-                <p><strong>Birthdate:</strong> <br /> {selectedData.birthdate}</p>
+                <p><strong>Email:</strong> <br /> {selectedData.email}</p>
               </div>
             </div>
 
@@ -596,99 +632,118 @@ const UserList = () => {
                 <p><strong>Status:</strong> <br /> {selectedData.status}</p>
               </div>
             </div><br />
-          
-            <h1 className="modal-divider">User Account Credential</h1>
-            <div className="viewModal">
-              <div className="col-md-6">
-                <p><strong>Email</strong> <br /> {selectedData.email}</p>
-              </div>
-              <div className="col-md-6">
-                <p><strong>Password</strong> <br /> {selectedData.password}</p>
-              </div>
-            </div>
 
           </Modal.Body>
         </Modal>
+         {/* VIEW MODAL END */}
 
+        {/* EDIT MODAL START */}
         <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
           <br/>
-          <h1 className="text-divider">Edit Unit</h1>
+          <h1 className="text-divider">Edit User</h1>
           <Modal.Body>
             <Form onSubmit={handleUpdateSubmit}>
 
-              <Form.Group controlId="unit_id" className="addForm">
-                <Form.Label className="formIcon"><HiIdentification /></Form.Label>
+            <div className="addModal">
+                <div className="col-md-6">
+                  <Form.Group controlId="first_name" className="addForm">
+                    <Form.Label className="formIcon"><MdDriveFileRenameOutline /></Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      type="text"
+                      placeholder="Enter firstname"
+                      name="first_name"
+                      value={formData.first_name}
+                      onChange={(e) => setFname(e.target.value)}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col-md-6">
+                  <Form.Group controlId="last_name" className="addForm">
+                    <Form.Label className="formIcon"><MdDriveFileRenameOutline /></Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      type="text"
+                      placeholder="Enter lastname"
+                      name="last_name"
+                      value={formData.last_name}
+                      onChange={(e) => setLname(e.target.value)}
+                    />
+                  </Form.Group>
+                </div>
+              </div>
+
+              <div className="addModal">
+                <div className="col-md-6">
+                  <Form.Group controlId="age" className="addForm">
+                    <Form.Label className="formIcon"><FaUserPlus /></Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      type="text"
+                      placeholder="Enter age"
+                      name="age"
+                      value={formData.age}
+                      onChange={(e) => setAge(e.target.value)}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col-md-6">
+                  <Form.Group controlId="gender" className="addForm">
+                    <Form.Label className="formIcon"><BiMaleFemale /></Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      as="select"
+                      name="gender"
+                      value={formData.gender}
+                      onChange={(e) => setGender(e.target.value)}
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </Form.Control>
+                  </Form.Group>
+                </div>
+              </div>
+
+              <div className="addModal">
+                <div className="col-md-6">
+                  <Form.Group controlId="contact_no" className="addForm">
+                    <Form.Label className="formIcon"><MdContactPhone /></Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      type="text"
+                      placeholder="Enter contact number"
+                      name="contact_no"
+                      value={formData.contact_no}
+                      onChange={(e) => setContactNo(e.target.value)}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col-md-6">
+                  <Form.Group controlId="birthdate" className="addForm">
+                    <Form.Label className="formIcon"><MdCake /></Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      type="date"
+                      placeholder="yyyy-mm-dd"
+                      name="birthdate"
+                      value={formData.birthdate}
+                      onChange={(e) => setBdate(e.target.value)}
+                    />
+                  </Form.Group>
+                </div>
+              </div>
+            
+              <Form.Group controlId="address" className="addForm">
+                <Form.Label className="formIcon"><BiHome /></Form.Label>
                 <Form.Control
                   className="formField"
                   type="text"
-                  placeholder="Enter unit ID"
-                  name="unit_id"
-                  value={formData.unit_id}
-                  onChange={handleInputChange}
+                  placeholder="Enter home address"
+                  name="address"
+                  value={formData.address}
+                  onChange={(e) => setAddress(e.target.value)}
                 />
-              </Form.Group>
-
-              <Form.Group controlId="first_name" className="addForm">
-                <Form.Label className="formIcon"><MdDriveFileRenameOutline /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="text"
-                  placeholder="Enter firstname"
-                  name="first_name"
-                  value={formData.first_name}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
-
-              <Form.Group controlId="last_name" className="addForm">
-                <Form.Label className="formIcon"><MdDriveFileRenameOutline /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="text"
-                  placeholder="Enter lastname"
-                  name="last_name"
-                  value={formData.last_name}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
-
-              <Form.Group controlId="contact_no" className="addForm">
-                <Form.Label className="formIcon"><MdContactPhone /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="text"
-                  placeholder="Enter contact number"
-                  name="contact_no"
-                  value={formData.contact_no}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
-
-              <Form.Group controlId="birthdate" className="addForm">
-                <Form.Label className="formIcon"><MdCake /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="date"
-                  placeholder="yyyy-mm-dd"
-                  name="birthdate"
-                  value={formData.birthdate}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
-
-              <Form.Group controlId="role" className="addForm">
-                <Form.Label className="formIcon"><FaUsersCog /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  as="select"
-                  name="role"
-                  value={formData.role}
-                  onChange={handleInputChange}
-                >
-                  <option value="">Select Role</option>
-                  <option value="Unit Owner">Unit Owner</option>
-                  <option value="Tenant">Tenant</option>
-                </Form.Control>
               </Form.Group>
 
               <Form.Group controlId="email" className="addForm">
@@ -699,21 +754,44 @@ const UserList = () => {
                   placeholder="Enter email"
                   name="email"
                   value={formData.email}
-                  onChange={handleInputChange}
+                  onChange={(e) => setUserEmail(e.target.value)}
                 />
               </Form.Group>
 
-              <Form.Group controlId="password" className="addForm">
-                <Form.Label className="formIcon"><BsFillShieldLockFill /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="text"
-                  placeholder="Enter password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
+              <div className="addModal">
+                <div className="col-md-6">
+                  <Form.Group controlId="role" className="addForm">
+                    <Form.Label className="formIcon"><FaUsersCog /></Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      as="select"
+                      name="role"
+                      value={formData.role}
+                      onChange={(e) => setRole(e.target.value)}
+                    >
+                      <option value="">Select Role</option>
+                      <option value="Unit Owner">Unit Owner</option>
+                      <option value="Tenant">Tenant</option>
+                      <option value="Accounting">Accounting</option>
+                      <option value="Security Guard">Security Guard</option>
+                      <option value="Agent">Agent</option>
+                    </Form.Control>
+                  </Form.Group>
+                </div>
+                <div className="col-md-6">
+                <Form.Group controlId="password" className="addForm">
+                  <Form.Label className="formIcon"><BsFillShieldLockFill /></Form.Label>
+                  <Form.Control
+                    className="addformField"
+                    type="password"
+                    placeholder="Enter password"
+                    name="password"
+                    value={formData.password}
+                    onChange={(e) => setUserPassword(e.target.value)}
+                  />
+                </Form.Group>
+                </div>
+              </div>
               <br />
               <Modal.Footer className="modalbtn">
                 <Button className="primarybtn" onClick={() => setShowEditModal(false)}>
@@ -726,7 +804,9 @@ const UserList = () => {
             </Form>
           </Modal.Body>
         </Modal>
+        {/* EDIT MODAL END */}
 
+        {/* DELETE MODAL START */}
         {/* <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} className="deleteModal">
           <br/>
           <h1 className="text-divider">Delete Unit</h1>
@@ -742,6 +822,7 @@ const UserList = () => {
             </Button>
           </Modal.Footer>
         </Modal> */}
+        {/* DELETE MODAL END */}
       </div>
     </div>
   );
