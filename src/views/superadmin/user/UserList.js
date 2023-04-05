@@ -4,11 +4,12 @@ import 'datatables.net';
 import 'datatables.net-bs4';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../../all-views-scss/_datatable.scss'
-import { FaEdit, FaTrash, FaEye, FaFilter, FaUsersCog } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaEye, FaFilter, FaUsersCog, FaUserPlus } from 'react-icons/fa';
 import { MdDriveFileRenameOutline, MdContactPhone, MdCake, MdEmail } from 'react-icons/md';
 import { BsFiletypeCsv, BsFillPlusSquareFill, BsFillShieldLockFill } from 'react-icons/bs';
 import { FiRefreshCcw, FiUpload } from 'react-icons/fi';
 import { HiIdentification } from 'react-icons/hi';
+import { BiMaleFemale, BiHome } from 'react-icons/bi';
 import { CFormSelect } from '@coreui/react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from "src/api/axios";
@@ -25,23 +26,29 @@ const UserList = () => {
   // const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
     first_name: '',
     last_name: '',
+    age: '',
+    gender: '',
     contact_no: '',
     birthdate: '',
+    address: '',
+    email: '',
     role: '',
+    password: '',
     status: '',
   });
 
-  const [userEmail, setUserEmail] = useState();
-  const [userPassword, setUserPassword] = useState();
   const [userFname, setFname] = useState();
   const [userLname, setLname] = useState();
+  const [userAge, setAge] = useState();
+  const [userGender, setGender] = useState();
   const [userContactNo, setContactNo] = useState();
   const [userBirthdate, setBdate] = useState();
+  const [userAddress, setAddress] = useState();
+  const [userEmail, setUserEmail] = useState();
   const [userRole, setRole] = useState();
+  const [userPassword, setUserPassword] = useState();
   const [userStatus, setStatus] = useState();
 
   //Add User
@@ -57,14 +64,18 @@ const UserList = () => {
       try {
         axios
         .post(USER_ADD_URL, {
-          email: userEmail,
-          password: userPassword,
+
           full_name: fname,
+          age: userAge,
+          gender: userGender,
           contact_no: userContactNo,
           birthdate: userBirthdate,
+          address: userAddress,
+          email: userEmail,
           role: roles,
+          password: userPassword,
           status: uStatus,
-          
+
         }).then((response) => {
           console.log(response.data)
         });
@@ -80,12 +91,16 @@ const UserList = () => {
       try {
         axios
         .post(USER_ADD_URL, {
-          email: userEmail,
-          password: userPassword,
+
           full_name: fname,
+          age: userAge,
+          gender: userGender,
           contact_no: userContactNo,
           birthdate: userBirthdate,
+          address: userAddress,
+          email: userEmail,
           role: roles,
+          password: userPassword,
           status: uStatus,
           
         }).then((response) => {
@@ -103,12 +118,16 @@ const UserList = () => {
       try {
         axios
         .post(USER_ADD_URL, {
-          email: userEmail,
-          password: userPassword,
+
           full_name: fname,
+          age: userAge,
+          gender: userGender,
           contact_no: userContactNo,
           birthdate: userBirthdate,
+          address: userAddress,
+          email: userEmail,
           role: roles,
+          password: userPassword,
           status: uStatus,
           
         }).then((response) => {
@@ -124,12 +143,16 @@ const UserList = () => {
       try {
         axios
         .post(USER_ADD_URL, {
-          email: userEmail,
-          password: userPassword,
+
           full_name: fname,
+          age: userAge,
+          gender: userGender,
           contact_no: userContactNo,
           birthdate: userBirthdate,
+          address: userAddress,
+          email: userEmail,
           role: roles,
+          password: userPassword,
           status: uStatus,
           
         }).then((response) => {
@@ -145,12 +168,16 @@ const UserList = () => {
       try {
         axios
         .post(USER_ADD_URL, {
-          email: userEmail,
-          password: userPassword,
+
           full_name: fname,
+          age: userAge,
+          gender: userGender,
           contact_no: userContactNo,
           birthdate: userBirthdate,
+          address: userAddress,
+          email: userEmail,
           role: roles,
+          password: userPassword,
           status: uStatus,
           
         }).then((response) => {
@@ -166,12 +193,16 @@ const UserList = () => {
       try {
         axios
         .post(USER_ADD_URL, {
-          email: userEmail,
-          password: userPassword,
+
           full_name: fname,
+          age: userAge,
+          gender: userGender,
           contact_no: userContactNo,
           birthdate: userBirthdate,
+          address: userAddress,
+          email: userEmail,
           role: roles,
+          password: userPassword,
           status: uStatus,
           
         }).then((response) => {
@@ -397,6 +428,28 @@ const UserList = () => {
                 />
               </Form.Group>
 
+              <Form.Group controlId="age" className="addForm">
+                <Form.Label className="formIcon"><FaUserPlus /></Form.Label>
+                <Form.Control
+                  className="formField"
+                  type="text"
+                  placeholder="Enter age"
+                  name="age"
+                  onChange={(e) => setAge(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group controlId="gender" className="addForm">
+                <Form.Label className="formIcon"><BiMaleFemale /></Form.Label>
+                <Form.Control
+                  className="formField"
+                  type="text"
+                  placeholder="Enter gender"
+                  name="gender"
+                  onChange={(e) => setGender(e.target.value)}
+                />
+              </Form.Group>
+
               <Form.Group controlId="contact_no" className="addForm">
                 <Form.Label className="formIcon"><MdContactPhone /></Form.Label>
                 <Form.Control
@@ -419,6 +472,28 @@ const UserList = () => {
                 />
               </Form.Group>
 
+              <Form.Group controlId="address" className="addForm">
+                <Form.Label className="formIcon"><BiHome /></Form.Label>
+                <Form.Control
+                  className="formField"
+                  type="text"
+                  placeholder="Enter home address"
+                  name="address"
+                  onChange={(e) => setAddress(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group controlId="email" className="addForm">
+                <Form.Label className="formIcon"><MdEmail /></Form.Label>
+                <Form.Control
+                  className="formField"
+                  type="text"
+                  placeholder="Enter email"
+                  name="email"
+                  onChange={(e) => setUserEmail(e.target.value)}
+                />
+              </Form.Group>
+
               <Form.Group controlId="role" className="addForm">
                 <Form.Label className="formIcon"><FaUsersCog /></Form.Label>
                 <Form.Control
@@ -436,22 +511,11 @@ const UserList = () => {
                 </Form.Control>
               </Form.Group>
 
-              <Form.Group controlId="email" className="addForm">
-                <Form.Label className="formIcon"><MdEmail /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="text"
-                  placeholder="Enter email"
-                  name="email"
-                  onChange={(e) => setUserEmail(e.target.value)}
-                />
-              </Form.Group>
-
               <Form.Group controlId="password" className="addForm">
                 <Form.Label className="formIcon"><BsFillShieldLockFill /></Form.Label>
                 <Form.Control
                   className="formField"
-                  type="text"
+                  type="password"
                   placeholder="Enter password"
                   name="password"
                   onChange={(e) => setUserPassword(e.target.value)}
