@@ -194,8 +194,11 @@ const UserList = () => {
       setData(response.data);
       console.log(response.data);
     });
-    //$('#example').DataTable();
   }, []);
+
+  $(function() {
+    $("#example").dataTable();
+  });
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.email]: event.target.value });

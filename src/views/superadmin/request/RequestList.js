@@ -35,6 +35,10 @@ const RequestList = () => {
     });
   }, []);
 
+  $(function() {
+    $("#example").dataTable();
+  });
+
   
   
 

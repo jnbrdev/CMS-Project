@@ -106,8 +106,11 @@ const AccessPermit = () => {
       setData(response.data);
       //console.log(response.data);
     });
-    $("example").DataTable();
   }, [data]);
+
+  $(function() {
+    $("#example").dataTable();
+  });
 
   //SHOW USER FULL NAME
   const [unitOwner, setUOwner] = useState([]);

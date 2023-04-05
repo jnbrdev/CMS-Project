@@ -39,6 +39,11 @@ const GuestList = () => {
       console.log(response)
     });
   }, []);
+
+  $(function() {
+    $("#example").dataTable();
+  });
+  
   // Add Guest
   const [unitNo, setUnitNo] = useState();
   const [userFname, setFname] = useState();

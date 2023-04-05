@@ -34,8 +34,11 @@ const ServiceList = () => {
       setData(response.data);
       //console.log(response.data);
     });
-    //$('#example').DataTable();
   }, [data]);
+
+  $(function() {
+    $("#example").dataTable();
+  });
 
   //Add Data Service
   const [serviceName, setServiceName] = useState();

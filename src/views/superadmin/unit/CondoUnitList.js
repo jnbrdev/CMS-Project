@@ -36,12 +36,7 @@ const UNIT_UPDATE_URL = "/unit/updateUnit/";
 const USER_SHOW_URL = "/users/getUnitOwnerDetails";
 const CondoUnitList = () => {
   const [listOfUnit, setListOfUnit] = useState([]);
-
   const [data, setData] = useState([]);
-
-  
-  
-
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
@@ -113,8 +108,11 @@ const CondoUnitList = () => {
       setData(response.data);
       //console.log(response.data);
     });
-    $("example").DataTable();
   }, [data]);
+
+  $(function() {
+      $("#example").dataTable();
+  });
 
   //SHOW USER FULL NAME
   const [unitOwner, setUOwner] = useState([]);
