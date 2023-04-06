@@ -4,7 +4,6 @@ import "datatables.net";
 import "datatables.net-bs4";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../../all-views-scss/_billingdatatable.scss";
-import "../../../all-views-scss/_invoice.scss";
 import { FaEdit, FaTrash, FaFilter } from "react-icons/fa";
 import { MdNumbers } from "react-icons/md";
 import { BsFiletypeCsv, BsFillPlusSquareFill } from "react-icons/bs";
@@ -312,6 +311,7 @@ const WaterBillList = () => {
       </div>
       <br />
       <div className="container">
+        <br />
         <div className="tbl-title">
           <h1 className="text-divider">WATER BILL LIST</h1>
         </div>
@@ -349,7 +349,8 @@ const WaterBillList = () => {
                     onClick={() => handleEditButtonClick(entry)}
                   >
                     <FaEdit />
-                  </Button>{" "}
+                  </Button>
+                  {" "}
                   <Button
                     className="delete"
                     onClick={() => handleDeleteButtonClick(entry)}
@@ -368,58 +369,72 @@ const WaterBillList = () => {
           <h1 className="text-divider">Edit Bill</h1>
           <Modal.Body>
             <Form onSubmit={handleUpdateSubmit}>
-              <Form.Group controlId="invoice_num" className="addForm">
-                <Form.Label className="formIcon">
-                  <MdNumbers />
-                </Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="text"
-                  placeholder="Enter invoice number"
-                  name="invoice_num"
-                  value={formData.invoice_num}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
-              <Form.Group controlId="unit_num" className="addForm">
-                <Form.Label className="formIcon">
-                  <MdNumbers />
-                </Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="text"
-                  placeholder="Enter unit number"
-                  name="unit_num"
-                  value={formData.unit_num}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
-              <Form.Group controlId="billed_to" className="addForm">
-                <Form.Label className="formIcon">
-                  <GiReceiveMoney />
-                </Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="text"
-                  placeholder="Enter billed to"
-                  name="billed_to"
-                  value={formData.billed_to}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
-              <Form.Group controlId="bill_cost" className="addForm">
-                <Form.Label className="formIcon">
-                  <GiMoneyStack />
-                </Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="text"
-                  placeholder="Enter bill cost"
-                  name="bill_cost"
-                  value={formData.bill_cost}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
+              <div className="addModal">
+                <div className="col-md-6">
+                  <Form.Group controlId="invoice_num" className="addForm">
+                    <Form.Label className="formIcon">
+                      <MdNumbers />
+                    </Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      type="text"
+                      placeholder="Enter invoice number"
+                      name="invoice_num"
+                      value={formData.invoice_num}
+                      onChange={handleInputChange}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col-md-6">
+                  <Form.Group controlId="unit_num" className="addForm">
+                    <Form.Label className="formIcon">
+                      <MdNumbers />
+                    </Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      type="text"
+                      placeholder="Enter unit number"
+                      name="unit_num"
+                      value={formData.unit_num}
+                      onChange={handleInputChange}
+                    />
+                  </Form.Group>
+                </div>
+              </div>
+
+              <div className="addModal">
+                <div className="col-md-6">
+                  <Form.Group controlId="billed_to" className="addForm">
+                    <Form.Label className="formIcon">
+                      <GiReceiveMoney />
+                    </Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      type="text"
+                      placeholder="Enter billed to"
+                      name="billed_to"
+                      value={formData.billed_to}
+                      onChange={handleInputChange}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col-md-6">
+                  <Form.Group controlId="bill_cost" className="addForm">
+                    <Form.Label className="formIcon">
+                      <GiMoneyStack />
+                    </Form.Label>
+                    <Form.Control
+                      className="addformField"
+                      type="text"
+                      placeholder="Enter bill cost"
+                      name="bill_cost"
+                      value={formData.bill_cost}
+                      onChange={handleInputChange}
+                    />
+                  </Form.Group>
+                </div>
+              </div>
+
               <Form.Group controlId="due_date" className="addForm">
                 <Form.Label className="formIcon">
                   <RiCalendarTodoFill />
@@ -485,10 +500,7 @@ const WaterBillList = () => {
               </Form.Group>
               <br />
               <Modal.Footer className="modalbtn">
-                <Button
-                  className="primarybtn"
-                  onClick={handleAddModalCancel}
-                >
+              <Button className="primarybtn" onClick={() => setShowEditModal(false)}>
                   Cancel
                 </Button>
                 <Button className="secondarybtn" type="submit">

@@ -23,7 +23,7 @@ const UserList = () => {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  // const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [formData, setFormData] = useState({
     first_name: '',
@@ -254,10 +254,10 @@ const UserList = () => {
     setShowEditModal(true);
   };
 
-  // const handleDeleteButtonClick = (data) => {
-  //   setSelectedData(data);
-  //   setShowDeleteModal(true);
-  // };
+  const handleDeleteButtonClick = (data) => {
+    setSelectedData(data);
+    setShowDeleteModal(true);
+  };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -289,12 +289,12 @@ const UserList = () => {
     setShowEditModal(false);
   };
 
-  // const handleDeleteConfirm = () => {
-  //   const newData = data.filter((item) => item.unit_id !== selectedData.unit_id);
-  //   setData(newData);
-  //   setSelectedData({});
-  //   setShowDeleteModal(false);
-  // };
+  const handleDeleteConfirm = () => {
+    const newData = data.filter((item) => item.unit_id !== selectedData.unit_id);
+    setData(newData);
+    setSelectedData({});
+    setShowDeleteModal(false);
+  };
 
   return (
     <div className="wrap"> 
@@ -388,13 +388,13 @@ const UserList = () => {
                   >
                     <FaEdit />
                   </Button>
-                  {/* {' '}
+                  {' '}
                   <Button
                     className="delete"
                     onClick={() => handleDeleteButtonClick(entry)}
                   >
                     <FaTrash />
-                  </Button> */}
+                  </Button>
                 </td>
               </tr>
             ))}
@@ -807,11 +807,11 @@ const UserList = () => {
         {/* EDIT MODAL END */}
 
         {/* DELETE MODAL START */}
-        {/* <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} className="deleteModal">
+        <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} className="deleteModal">
           <br/>
-          <h1 className="text-divider">Delete Unit</h1>
+          <h1 className="text-divider">Delete User</h1>
           <Modal.Body>
-            <p className="confirmation">Are you sure you want to delete this unit?</p>
+            <p className="confirmation">Are you sure you want to delete this user?</p>
           </Modal.Body>
           <Modal.Footer className="modalbtn">
             <Button className="primarybtn" onClick={() => setShowDeleteModal(false)}>
@@ -821,7 +821,7 @@ const UserList = () => {
               Delete
             </Button>
           </Modal.Footer>
-        </Modal> */}
+        </Modal>
         {/* DELETE MODAL END */}
       </div>
     </div>

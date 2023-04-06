@@ -16,7 +16,7 @@ const REQUEST_GET_URL = "/req/getAllRequest";
 const REQUEST_UPDATE_URL = "/req/";
 const RequestList = () => {
   const [data, setData] = useState([]);
-  const [showViewModal, setShowViewModal] = useState(false);
+  // const [showViewModal, setShowViewModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [formData, setFormData] = useState({
@@ -46,10 +46,10 @@ const RequestList = () => {
     setFormData({ ...formData, [event.target.id]: event.target.value });
   };
 
-   const handleViewButtonClick = (data) => {
-    setSelectedData(data);
-    setShowViewModal(true);
-  };
+  //  const handleViewButtonClick = (data) => {
+  //   setSelectedData(data);
+  //   setShowViewModal(true);
+  // };
 
   const handleDeleteButtonClick = (data) => {
     setSelectedData(data);
@@ -136,18 +136,18 @@ const RequestList = () => {
                 </td>
                 <td>{entry.req_date}</td>
                 <td>
-                  <Button
+                  {/* <Button
                     className="request-view"
                     onClick={() => handleViewButtonClick(entry)}
                   >
                     <FaEye />
-                  </Button>
+                  </Button> */}
                   {' '}
                   <Button
                     className="request-delete"
                     onClick={() => handleDeleteButtonClick(entry)}
                   >
-                    <FaTrash />
+                    <FaTrash /> Delete
                   </Button>
                 </td>
               </tr>
@@ -156,7 +156,7 @@ const RequestList = () => {
         </table>
 
         {/* VIEW MODAL START */}
-        <Modal show={showViewModal} onHide={() => setShowViewModal(false)}>
+        {/* <Modal show={showViewModal} onHide={() => setShowViewModal(false)}>
           <Modal.Header closeButton />
           <Modal.Body>
             <h1 className="modal-divider">Request Details</h1>
@@ -175,12 +175,12 @@ const RequestList = () => {
               <div className="col-md-6">
                 <p><strong>Request</strong> <br /> {selectedData.req_body}</p>
               </div>
-              <div className="col-md-6">
+            </div>
+            <div className="col-md-6">
                 <p><strong>Date Requested</strong> <br /> {selectedData.req_date}</p>
-              </div>
             </div>
           </Modal.Body>
-        </Modal>  
+        </Modal>   */}
         {/* VIEW MODAL END */}
 
         {/* DELETE MODAL START */}

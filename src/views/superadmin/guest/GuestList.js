@@ -4,7 +4,7 @@ import 'datatables.net';
 import 'datatables.net-bs4';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../../all-views-scss/_datatable.scss'
-import { FaEdit, FaFilter } from 'react-icons/fa';
+import { FaEdit, FaFilter, FaTrash } from 'react-icons/fa';
 import { MdDriveFileRenameOutline, MdContactPhone, MdNumbers } from 'react-icons/md';
 import { BsFiletypeCsv, BsFillPlusSquareFill } from 'react-icons/bs';
 import { FiRefreshCcw, FiUpload } from 'react-icons/fi';
@@ -22,6 +22,7 @@ const GuestList = () => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [formData, setFormData] = useState({
     unit_no: '',
@@ -92,6 +93,11 @@ const GuestList = () => {
     setShowEditModal(true);
   };
 
+  const handleDeleteButtonClick = (data) => {
+    setSelectedData(data);
+    setShowDeleteModal(true);
+  };
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
     const newId = data.length + 1;
@@ -122,6 +128,12 @@ const GuestList = () => {
     setShowEditModal(false);
   };
 
+  const handleDeleteConfirm = () => {
+    const newData = data.filter((item) => item.unit_id !== selectedData.unit_id);
+    setData(newData);
+    setSelectedData({});
+    setShowDeleteModal(false);
+  };
   return (
     <div className="wrap">
       <div className="head-container">
@@ -210,6 +222,13 @@ const GuestList = () => {
                     onClick={() => handleEditButtonClick(entry)}
                   >
                     <FaEdit />
+                  </Button>
+                  {' '}
+                  <Button
+                    className="delete"
+                    onClick={() => handleDeleteButtonClick(entry)}
+                  >
+                    <FaTrash />
                   </Button>
                 </td>
               </tr>
@@ -425,6 +444,24 @@ const GuestList = () => {
           </Modal.Body>
         </Modal>
         {/* EDIT MODAL ENDS */}
+
+          {/* DELETE MODAL START */}
+          <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} className="deleteModal">
+          <br/>
+          <h1 className="text-divider">Delete User</h1>
+          <Modal.Body>
+            <p className="confirmation">Are you sure you want to delete this guest?</p>
+          </Modal.Body>
+          <Modal.Footer className="modalbtn">
+            <Button className="primarybtn" onClick={() => setShowDeleteModal(false)}>
+              Cancel
+            </Button>
+            <Button className="secondarybtn" onClick={handleDeleteConfirm}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        {/* DELETE MODAL END */}
       </div>
      </div>
   );

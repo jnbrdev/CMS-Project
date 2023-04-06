@@ -41,7 +41,7 @@ const CondoUnitList = () => {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  // const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [formData, setFormData] = useState({
     unit_id: null,
@@ -153,10 +153,10 @@ const CondoUnitList = () => {
     setShowEditModal(true);
   };
 
-  // const handleDeleteButtonClick = (data) => {
-  //   setSelectedData(data);
-  //   setShowDeleteModal(true);
-  // };
+  const handleDeleteButtonClick = (data) => {
+    setSelectedData(data);
+    setShowDeleteModal(true);
+  };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -211,12 +211,12 @@ const CondoUnitList = () => {
     setShowEditModal(false);
   };
 
-  // const handleDeleteConfirm = () => {
-  //   const newData = data.filter((item) => item.unitID !== selectedData.unitID);
-  //   setData(newData);
-  //   setSelectedData({});
-  //   setShowDeleteModal(false);
-  // };
+  const handleDeleteConfirm = () => {
+    const newData = data.filter((item) => item.unitID !== selectedData.unitID);
+    setData(newData);
+    setSelectedData({});
+    setShowDeleteModal(false);
+  };
 
   return (
     <div className="wrap">
@@ -325,13 +325,13 @@ const CondoUnitList = () => {
                   >
                     <FaEdit />
                   </Button>
-                  {/* {' '}
+                  {' '}
                   <Button
                     className="delete"
                     onClick={() => handleDeleteButtonClick(entry)}
                   >
                     <FaTrash />
-                  </Button> */}
+                  </Button>
                 </td>
               </tr>
             ))}
@@ -651,7 +651,7 @@ const CondoUnitList = () => {
           <h1 className="text-divider">Edit Unit</h1>
           <Modal.Body>
             <Form onSubmit={handleFormSubmit}>
-              <Form.Group controlId="unit_no" className="editForm">
+              <Form.Group controlId="unit_no" className="addForm">
                 <Form.Label className="formIcon">
                   <MdNumbers />
                 </Form.Label>
@@ -662,23 +662,30 @@ const CondoUnitList = () => {
                   name="unit_no"
                   defaultValue={formData.unit_no}
                   onChange={(e) => setUnitNo(e.target.value)}
-                  
                 />
               </Form.Group>
-              <Form.Group controlId="unit_owner" className="editForm">
+              <Form.Group controlId="unit_owner" className="addForm">
                 <Form.Label className="formIcon">
                   <FaHospitalUser />
                 </Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="text"
-                  placeholder="Enter unit owner"
-                  name="unit_owner"
-                  defaultValue={formData.unit_owner}
-                  onChange={(e) => setUnitOwner(e.target.value)}
-                />
+                <div className="search-results">
+                  {unitOwner.map((owner) => (
+                    <div key={owner.id} className="search-result-item">
+                      {owner.full_name}
+                    </div>
+                  ))}
+                </div>
+                  <Form.Control
+                    className="formField"
+                    type="text"
+                    placeholder="Enter unit owner"
+                    name="unit_owner"
+                    defaultValue={formData.unit_owner}
+                    onChange={(e) => setUnitOwner(e.target.value)}
+                  />
               </Form.Group>
-              <Form.Group controlId="unit_tower" className="editForm">
+
+              <Form.Group controlId="unit_tower" className="addForm">
                 <Form.Label className="formIcon">
                   <FaBuilding />
                 </Form.Label>
@@ -689,11 +696,12 @@ const CondoUnitList = () => {
                   defaultValue={formData.unit_tower}
                   onChange={(e) => setUnitTower(e.target.value)}
                 >
+                  <option value="">Select Tower</option>
                   <option value="Tower 1">Tower 1</option>
                   <option value="Tower 2">Tower 2</option>
                 </Form.Control>
               </Form.Group>
-              <Form.Group controlId="unit_floor" className="editForm">
+              <Form.Group controlId="unit_floor" className="addForm">
                 <Form.Label className="formIcon">
                   <FaLayerGroup />
                 </Form.Label>
@@ -704,13 +712,14 @@ const CondoUnitList = () => {
                   defaultValue={formData.unit_floor}
                   onChange={(e) => setUnitFloor(e.target.value)}
                 >
+                  <option value="">Select Floor</option>
                   <option value="1st Floor">1st Floor</option>
                   <option value="2nd Floo">2nd Floor</option>
                   <option value="3rd Floor">3rd Floor</option>
                   <option value="4th Floor">4th Floor</option>
                 </Form.Control>
               </Form.Group>
-              <Form.Group controlId="unit_size" className="editForm">
+              <Form.Group controlId="unit_size" className="addForm">
                 <Form.Label className="formIcon">
                   <BsFillBuildingsFill />
                 </Form.Label>
@@ -721,26 +730,27 @@ const CondoUnitList = () => {
                   defaultValue={formData.unit_size}
                   onChange={(e) => setUnitSize(e.target.value)}
                 >
+                  <option value="">Select Unit Size (sqm)</option>
                   <option value="5">5 sqm</option>
                   <option value="10">10 sqm</option>
                   <option value="15">15 sqm</option>
                   <option value="20">20 sqm</option>
                 </Form.Control>
               </Form.Group>
-              <Form.Group controlId="occupied_by" className="editForm">
+              <Form.Group controlId="unit_owner" className="addForm">
                 <Form.Label className="formIcon">
-                  <MdNumbers />
+                  <FaHospitalUser />
                 </Form.Label>
                 <Form.Control
                   className="formField"
                   type="text"
-                  placeholder="Enter Tenant"
-                  name="occupied_by"
-                  defaultValue={formData.occupied_by}
+                  placeholder="Occupied By"
+                  name="unit_owner"
+                  defaultValue={formData.unit_owner}
                   onChange={(e) => setOccupiedBy(e.target.value)}
                 />
               </Form.Group>
-              <Form.Group controlId="status" className="editForm">
+              <Form.Group controlId="status" className="addForm">
                 <Form.Label className="formIcon">
                   <FaInnosoft />
                 </Form.Label>
@@ -751,13 +761,14 @@ const CondoUnitList = () => {
                   defaultValue={formData.status}
                   onChange={(e) => setUnitStatus(e.target.value)}
                 >
+                  <option value="">Select Status</option>
                   <option value="Owner Occupied">Owner Occupied</option>
                   <option value="Tenant Occupied">Tenant Occupied</option>
                   <option value="Vacant">Vacant</option>
                 </Form.Control>
               </Form.Group>
               <br />
-              <h1 className="bill-info">Edit Billing Info.</h1>
+              <h1 className="bill-info">Add Billing Info.</h1>
               <Form.Group controlId="billed_to" className="addForm">
                 <Form.Label className="formIcon">
                   <GiPayMoney />
@@ -826,7 +837,7 @@ const CondoUnitList = () => {
         </Modal>
         {/* EDIT MODAL START */}
 
-        {/* <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} className="deleteModal">
+        <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} className="deleteModal">
           <br/>
           <h1 className="text-divider">Delete Unit</h1>
           <Modal.Body>
@@ -840,7 +851,7 @@ const CondoUnitList = () => {
               Delete
             </Button>
           </Modal.Footer>
-        </Modal> */}
+        </Modal>
       </div>
     </div>
   );
