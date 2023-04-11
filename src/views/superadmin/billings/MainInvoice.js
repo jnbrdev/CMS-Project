@@ -40,10 +40,10 @@ const MainInvoice = () => {
             );
              // Do something with the invoice data, e.g. store it in state
             const invoiceData = invoiceResponse.data;
-            setWaterBillData(invoiceData.WaterBill)
-            setAssocData(invoiceData.AssocDue)
+            setWaterBillData(invoiceData.waterBillData)
+            setAssocData(invoiceData.assocDueData)
             setFormData(invoiceData)
-            
+            setData(invoiceData)
             
            
         } catch (error) {
@@ -252,23 +252,33 @@ const MainInvoice = () => {
                     <table className="table table-sm">
                         <thead>
                             <tr>
-                                <th>TRN #</th>
+                                <th>INVOICE #</th>
                                 <th>DESCRIPTION</th>
-                                <th>TRANSACTION PLACE</th>
+                                <th>TRANSACTION DATE</th>
                                 <th>CHARGES</th>
-                                <th>PAYMENT</th>
                                 <th>RUNNING BALANCE</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="meter_no"  /></td>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="meter_no" /></td>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="reading_date"  /></td>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="due_date"  /></td>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="due_date"  /></td>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="due_date"  /></td>
-                            </tr>
+                        {data.map((entry) => (
+                        <tr key={entry.id}>
+                            <td>{entry.waterBillData.invoiceID}</td>
+                            <td style={{ whiteSpace: 'pre-wrap' }}>{entry.waterBillData.description}</td>
+                            <td>{entry.waterBillData.readDate}</td>
+                            <td>{entry.waterBillData.amount}</td>
+                            <td>{entry.totalCharges}</td>
+                        </tr>
+                        ))}
+                        {data.map((entry) => (
+                        <tr key={entry.id}>
+                            <td>{entry.assocDueData.invoice_no}</td>
+                            <td style={{ whiteSpace: 'pre-wrap' }}>{entry.assocDueData.description}</td>
+                            <td></td>
+                            <td>{entry.assocDueData.amount}</td>
+                            <td>{entry.assocDueData.amount}</td>
+                        </tr>
+                        ))}
+                            
                         </tbody>
                     </table>
                 </div>
@@ -288,14 +298,17 @@ const MainInvoice = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><Form.Control className="tbl-invoice-input" type="text" name="meter_no"  /></td>
-                            <td><Form.Control className="tbl-invoice-input" type="text" name="meter_no"  /></td>
-                            <td><Form.Control className="tbl-invoice-input" type="text" name="reading_date"  /></td>
-                            <td><Form.Control className="tbl-invoice-input" type="text" name="due_date"  /></td>
-                            <td><Form.Control className="tbl-invoice-input" type="text" name="due_date" /></td>
-                            <td><Form.Control className="tbl-invoice-input" type="text" name="due_date" /></td>
-                        </tr>
+                        {data.map((entry) => (
+                                <tr key={entry.id}>
+                                    <td>{entry.invoice_no}</td>
+                                    <td>{entry.unit_no}</td>
+                                    <td>{entry.billed_to}</td>
+                                    <td>{entry.amount}</td>
+                                    <td>{entry.prev_read}</td>
+                                    <td>{entry.cur_read}</td>
+                                   
+                                </tr>
+                                ))}
                     </tbody>
                 </table>
                 
