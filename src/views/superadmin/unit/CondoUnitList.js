@@ -102,7 +102,6 @@ const CondoUnitList = () => {
   };
   
   // SHOW UNIT DATAs
-  
   useEffect(() => {
     axios.post(UNIT_SHOW_URL).then((response) => {
       setData(response.data);
@@ -129,7 +128,6 @@ const CondoUnitList = () => {
     }
   };
   
-
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.unit_no]: event.target.value });
   };
@@ -403,7 +401,7 @@ const CondoUnitList = () => {
                 >
                   <option value="">Select Floor</option>
                   <option value="1st Floor">1st Floor</option>
-                  <option value="2nd Floo">2nd Floor</option>
+                  <option value="2nd Floor">2nd Floor</option>
                   <option value="3rd Floor">3rd Floor</option>
                   <option value="4th Floor">4th Floor</option>
                 </Form.Control>

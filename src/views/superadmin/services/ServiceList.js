@@ -55,6 +55,22 @@ const ServiceList = () => {
       setShowAddModal(false);
   };
 
+   // UPDATE SERVICE
+   const handleUpdateService = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(SERVICE_UPDATE_URL + `${id}`, {
+        service_name: serviceName,
+        rate: serviceRate,
+      })
+    } catch (error) {
+      console.log(error)
+    }
+
+    setSelectedData({});
+    setShowEditModal(false);
+  };
+
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.service_name]: event.target.value });
   };
@@ -103,7 +119,7 @@ const ServiceList = () => {
       item.id === selectedData.id ? formData : item
     );
     setData(newData);
-    setFormData({ service_name: '', service_rate: '', status: '' });
+    setFormData({ service_name: '', service_rate: '' });
     setSelectedData({});
     setShowEditModal(false);
   };
@@ -272,7 +288,6 @@ const ServiceList = () => {
         </Modal>
         {/* UPLOAD MODAL END */}
 
-        
         {/* EDIT MODAL START */}
         <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
           <br />
@@ -286,8 +301,8 @@ const ServiceList = () => {
                   type="text"
                   placeholder="Enter service name"
                   name="service_name"
-                  value={formData.service_name}
-                  onChange={handleInputChange}
+                  defaultValue={formData.service_name}
+                  onChange={(e) => setServiceName(e.target.value)}
                 />
               </Form.Group>
               <Form.Group controlId="service_rate" className="addForm">
@@ -296,30 +311,17 @@ const ServiceList = () => {
                   className="formField"
                   type="text"
                   placeholder="Enter service rate"
-                  name="rate"
-                  value={formData.service_rate}
-                  onChange={handleInputChange}
+                  name="service_rate"
+                  defaultValue={formData.rate}
+                  onChange={(e) => setServiceRate(e.target.value)}
                 />
-              </Form.Group>
-              <Form.Group controlId="status" className="addForm">
-                <Form.Label className="formIcon"><FaInnosoft /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  as="select"
-                  name="status"
-                  onChange={handleInputChange}
-                >
-                  <option value="">Select Status</option>
-                  <option value="Active">Active</option>
-                  <option value="Inactive">Inactive</option>
-                </Form.Control>
               </Form.Group>
               <br />
               <Modal.Footer className="modalbtn">
                 <Button className="primarybtn" onClick={() => setShowEditModal(false)}>
                   Cancel
                 </Button>
-                <Button className="secondarybtn" type="submit">
+                <Button className="secondarybtn" type="submit" onClick={handleUpdateService}>
                   Save
                 </Button>
               </Modal.Footer>

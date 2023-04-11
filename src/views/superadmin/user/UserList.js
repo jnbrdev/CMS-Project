@@ -16,7 +16,7 @@ import axios from "src/api/axios";
 
 const USER_ADD_URL = "/users/addUser";
 const USER_SHOW_URL = "/users/getAllUser";
-const USER_UPDATE_URL = "/users/updateUnit/";
+const USER_UPDATE_URL = "/users/updateUser/";
 const UserList = () => {
   const [data, setData] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -26,17 +26,17 @@ const UserList = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
-    age: '',
-    gender: '',
-    contact_no: '',
-    birthdate: '',
-    address: '',
-    email: '',
-    role: '',
-    password: '',
-    status: '',
+    first_name: null,
+    last_name: null,
+    age: null,
+    gender: null,
+    contact_no: null,
+    birthdate: null,
+    address: null,
+    email: null,
+    role: null,
+    password: null,
+    status: null,
   });
 
   const [userFname, setFname] = useState();
@@ -193,7 +193,6 @@ const UserList = () => {
       try {
         axios
         .post(USER_ADD_URL, {
-
           full_name: fname,
           age: userAge,
           gender: userGender,
@@ -213,12 +212,23 @@ const UserList = () => {
         console.log(error)
       }
     }
-
-    
     console.log(fname)
-    
-    
   };
+
+    // UPDATE USER
+    const handleUpdateUser = async (e) => {
+      e.preventDefault();
+      const id = formData.id;
+      try {
+        await axios.put(USER_UPDATE_URL + `${id}`, {
+          role: roles,
+        })
+      } catch (error) {
+        console.log(error)
+      }
+      setSelectedData({});
+      setShowEditModal(false);
+    };  
 
   useEffect(() => {
     axios.get(USER_SHOW_URL).then((response) => {
@@ -232,7 +242,7 @@ const UserList = () => {
   });
 
   const handleInputChange = (event) => {
-    setFormData({ ...formData, [event.target.email]: event.target.value });
+    setFormData({ ...formData, [event.target.id]: event.target.value });
   };
 
   const handleAddNewEntry = () => {
@@ -262,9 +272,20 @@ const UserList = () => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     const newId = data.length + 1;
-    const newData = { unit_id: newId, ...formData };
+    const newData = { id: newId, ...formData };
     setData([...data, newData]);
-    setFormData({ first_name: '', last_name: '', age: '', gender: '', contact_no: '', birthdate: '', address: '', email: '', role: '', password: '', status: '' });
+    setFormData({ 
+      first_name: "", 
+      last_name: "", 
+      age: "", 
+      gender: "", 
+      contact_no: "", 
+      birthdate: "", 
+      address: "", 
+      email: "", 
+      role: "", 
+      password: "", 
+      status: "" });
     setShowAddModal(false);
   };
 
@@ -277,14 +298,15 @@ const UserList = () => {
     setShowUploadModal(false);
   };
 
-
   const handleUpdateSubmit = (event) => {
     event.preventDefault();
     const newData = data.map((item) =>
-      item.unit_id === selectedData.unit_id ? formData : item
+      item.id === selectedData.id ? formData : item
     );
     setData(newData);
-    setFormData({ first_name: '', last_name: '', age: '', gender: '', contact_no: '', birthdate: '', address: '', email: '', role: '', password: '', status: '' });
+    setFormData({
+      role: "",
+    });
     setSelectedData({});
     setShowEditModal(false);
   };
@@ -400,6 +422,8 @@ const UserList = () => {
             ))}
           </tbody>
         </table>
+
+        {/* ADD MODAL START */}
         <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
           <br/>
           <h1 className="text-divider">Add New User</h1>
@@ -556,7 +580,9 @@ const UserList = () => {
             </Form>
           </Modal.Body>
         </Modal>
-        {/* Upload Modal */}
+        {/* ADD MODAL END */}
+
+        {/* UPLOAD MODAL START */}
         <Modal show={showUploadModal} onHide={() => setShowUploadModal(false)}>
           <br/>
           <h1 className="text-divider">Upload CSV</h1>
@@ -586,6 +612,7 @@ const UserList = () => {
             </Form>
           </Modal.Body>
         </Modal>
+        {/* UPLOAD MODAL END */}
 
         {/* VIEW MODAL START */}
         <Modal show={showViewModal} onHide={() => setShowViewModal(false)}>
@@ -595,7 +622,7 @@ const UserList = () => {
 
             <div className="viewModal">
               <div className="col-md-6">
-                <p><strong>Fullname:</strong> <br /> {selectedData.fname}</p>
+                <p><strong>Fullname:</strong> <br /> {selectedData.full_name}</p>
               </div>
               <div className="col-md-6">
                 <p><strong>Age:</strong> <br /> {selectedData.age}</p>
@@ -640,133 +667,16 @@ const UserList = () => {
         {/* EDIT MODAL START */}
         <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
           <br/>
-          <h1 className="text-divider">Edit User</h1>
+          <h1 className="text-divider">Edit Role</h1>
           <Modal.Body>
             <Form onSubmit={handleUpdateSubmit}>
-
-            <div className="addModal">
-                <div className="col-md-6">
-                  <Form.Group controlId="first_name" className="addForm">
-                    <Form.Label className="formIcon"><MdDriveFileRenameOutline /></Form.Label>
-                    <Form.Control
-                      className="addformField"
-                      type="text"
-                      placeholder="Enter firstname"
-                      name="first_name"
-                      value={formData.first_name}
-                      onChange={(e) => setFname(e.target.value)}
-                    />
-                  </Form.Group>
-                </div>
-                <div className="col-md-6">
-                  <Form.Group controlId="last_name" className="addForm">
-                    <Form.Label className="formIcon"><MdDriveFileRenameOutline /></Form.Label>
-                    <Form.Control
-                      className="addformField"
-                      type="text"
-                      placeholder="Enter lastname"
-                      name="last_name"
-                      value={formData.last_name}
-                      onChange={(e) => setLname(e.target.value)}
-                    />
-                  </Form.Group>
-                </div>
-              </div>
-
-              <div className="addModal">
-                <div className="col-md-6">
-                  <Form.Group controlId="age" className="addForm">
-                    <Form.Label className="formIcon"><FaUserPlus /></Form.Label>
-                    <Form.Control
-                      className="addformField"
-                      type="text"
-                      placeholder="Enter age"
-                      name="age"
-                      value={formData.age}
-                      onChange={(e) => setAge(e.target.value)}
-                    />
-                  </Form.Group>
-                </div>
-                <div className="col-md-6">
-                  <Form.Group controlId="gender" className="addForm">
-                    <Form.Label className="formIcon"><BiMaleFemale /></Form.Label>
-                    <Form.Control
-                      className="addformField"
-                      as="select"
-                      name="gender"
-                      value={formData.gender}
-                      onChange={(e) => setGender(e.target.value)}
-                    >
-                      <option value="">Select Gender</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                    </Form.Control>
-                  </Form.Group>
-                </div>
-              </div>
-
-              <div className="addModal">
-                <div className="col-md-6">
-                  <Form.Group controlId="contact_no" className="addForm">
-                    <Form.Label className="formIcon"><MdContactPhone /></Form.Label>
-                    <Form.Control
-                      className="addformField"
-                      type="text"
-                      placeholder="Enter contact number"
-                      name="contact_no"
-                      value={formData.contact_no}
-                      onChange={(e) => setContactNo(e.target.value)}
-                    />
-                  </Form.Group>
-                </div>
-                <div className="col-md-6">
-                  <Form.Group controlId="birthdate" className="addForm">
-                    <Form.Label className="formIcon"><MdCake /></Form.Label>
-                    <Form.Control
-                      className="addformField"
-                      type="date"
-                      placeholder="yyyy-mm-dd"
-                      name="birthdate"
-                      value={formData.birthdate}
-                      onChange={(e) => setBdate(e.target.value)}
-                    />
-                  </Form.Group>
-                </div>
-              </div>
-            
-              <Form.Group controlId="address" className="addForm">
-                <Form.Label className="formIcon"><BiHome /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="text"
-                  placeholder="Enter home address"
-                  name="address"
-                  value={formData.address}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-              </Form.Group>
-
-              <Form.Group controlId="email" className="addForm">
-                <Form.Label className="formIcon"><MdEmail /></Form.Label>
-                <Form.Control
-                  className="formField"
-                  type="text"
-                  placeholder="Enter email"
-                  name="email"
-                  value={formData.email}
-                  onChange={(e) => setUserEmail(e.target.value)}
-                />
-              </Form.Group>
-
-              <div className="addModal">
-                <div className="col-md-6">
                   <Form.Group controlId="role" className="addForm">
                     <Form.Label className="formIcon"><FaUsersCog /></Form.Label>
                     <Form.Control
                       className="addformField"
                       as="select"
                       name="role"
-                      value={formData.role}
+                      defaultValue={formData.role}
                       onChange={(e) => setRole(e.target.value)}
                     >
                       <option value="">Select Role</option>
@@ -777,27 +687,12 @@ const UserList = () => {
                       <option value="Agent">Agent</option>
                     </Form.Control>
                   </Form.Group>
-                </div>
-                <div className="col-md-6">
-                <Form.Group controlId="password" className="addForm">
-                  <Form.Label className="formIcon"><BsFillShieldLockFill /></Form.Label>
-                  <Form.Control
-                    className="addformField"
-                    type="password"
-                    placeholder="Enter password"
-                    name="password"
-                    value={formData.password}
-                    onChange={(e) => setUserPassword(e.target.value)}
-                  />
-                </Form.Group>
-                </div>
-              </div>
               <br />
               <Modal.Footer className="modalbtn">
                 <Button className="primarybtn" onClick={() => setShowEditModal(false)}>
                   Cancel
                 </Button>
-                <Button className="secondarybtn" type="submit">
+                <Button className="secondarybtn" type="submit" onClick={handleUpdateUser}>
                   Save
                 </Button>
               </Modal.Footer>
