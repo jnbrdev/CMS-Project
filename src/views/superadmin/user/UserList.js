@@ -218,17 +218,21 @@ const UserList = () => {
     // UPDATE USER
     const handleUpdateUser = async (e) => {
       e.preventDefault();
-      const id = formData.id;
+      const email = formData.email;
+      const eRole = formData.role
       try {
-        await axios.put(USER_UPDATE_URL + `${id}`, {
-          role: roles,
+        await axios.put(USER_UPDATE_URL + `${email}`, {
+          role: eRole,
         })
+        console.log(formData.email, eRole)
       } catch (error) {
         console.log(error)
       }
       setSelectedData({});
       setShowEditModal(false);
-    };  
+    }; 
+    
+    
 
   useEffect(() => {
     axios.get(USER_SHOW_URL).then((response) => {
@@ -242,7 +246,7 @@ const UserList = () => {
   });
 
   const handleInputChange = (event) => {
-    setFormData({ ...formData, [event.target.id]: event.target.value });
+    setFormData({ ...formData, [event.target.email]: event.target.value });
   };
 
   const handleAddNewEntry = () => {
@@ -262,6 +266,7 @@ const UserList = () => {
     setSelectedData(data);
     setFormData(data);
     setShowEditModal(true);
+    console.log(formData.email)
   };
 
   const handleDeleteButtonClick = (data) => {
