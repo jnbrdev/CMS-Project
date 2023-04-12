@@ -24,6 +24,7 @@ const MainInvoice = () => {
     });
     const [assocData, setAssocData] = useState([]);
     const [waterBillData, setWaterBillData] = useState([]);
+    const [accountAgingData, setAccountAgingData] = useState([]);
 
     //Get Unit and Rate data
     const [unitRateData, setUnitRateData] = useState([]);
@@ -42,6 +43,7 @@ const MainInvoice = () => {
             const invoiceData = invoiceResponse.data;
             setWaterBillData(invoiceData.waterBillData)
             setAssocData(invoiceData.assocDueData)
+            setAccountAgingData(invoiceData.accountAgingData)
             setFormData(invoiceData)
             setData(invoiceData)
             
@@ -52,8 +54,8 @@ const MainInvoice = () => {
     };
 
     useEffect(() => {
-        console.log(formData, assocData, waterBillData)
-    }, [formData, assocData, waterBillData]);
+        console.log(formData, assocData, waterBillData, accountAgingData)
+    }, [formData, assocData, waterBillData, accountAgingData]);
 
     
    
@@ -224,7 +226,7 @@ const MainInvoice = () => {
                         <div className="col-md-6">
                             <Form.Group controlId="view_record" className="invoice-field-label">
                                 <div>
-                                    <Form.Label className="main-invoice-form-label">Print Type:</Form.Label>
+                                    <Form.Label className="main-invoice-form-label"></Form.Label>
                                 </div>
                                 <input
                                     className="view-record-input"
@@ -237,7 +239,7 @@ const MainInvoice = () => {
                         <div className="col-md-6">
                             <Form.Group controlId="balance" className="invoice-field-label">
                                 <div>
-                                    <Form.Label className="main-invoice-form-label">Outstanding Balance:</Form.Label>
+                                    <Form.Label className="main-invoice-form-label"></Form.Label>
                                 </div>
                                 <input
                                     className="balance-input"
@@ -266,7 +268,19 @@ const MainInvoice = () => {
                             <td style={{ whiteSpace: 'pre-wrap' }}>{entry.waterBillData.description}</td>
                             <td>{entry.waterBillData.readDate}</td>
                             <td>{entry.waterBillData.amount}</td>
-                            <td>{entry.totalCharges}</td>
+                            <td>
+                            Outstanding Balance:
+                            <br />
+                            {entry.accAgingData.total}
+                            <br />
+                            <br />
+                            <br />
+                            {/*(
+                                Number(entry.accAgingData.thirty_days) +
+                                Number(entry.accAgingData.sixty_days) +
+                                Number(entry.accAgingData.ninety_days)
+                            ).toFixed(2)*/}
+                            </td>
                         </tr>
                         ))}
                         {data.map((entry) => (
@@ -274,8 +288,13 @@ const MainInvoice = () => {
                             <td>{entry.assocDueData.invoice_no}</td>
                             <td style={{ whiteSpace: 'pre-wrap' }}>{entry.assocDueData.description}</td>
                             <td></td>
-                            <td>{entry.assocDueData.amount}</td>
-                            <td>{entry.assocDueData.amount}</td>
+                            <td> {entry.assocDueData.amount}</td>
+                            <td>
+                            <br />
+                            <br />
+                            <br />
+                            Total Charges: {entry.totalCharges}
+                            </td>
                         </tr>
                         ))}
                             
@@ -300,12 +319,12 @@ const MainInvoice = () => {
                     <tbody>
                         {data.map((entry) => (
                                 <tr key={entry.id}>
-                                    <td>{entry.invoice_no}</td>
-                                    <td>{entry.unit_no}</td>
-                                    <td>{entry.billed_to}</td>
-                                    <td>{entry.amount}</td>
-                                    <td>{entry.prev_read}</td>
-                                    <td>{entry.cur_read}</td>
+                                    <td>{entry.accAgingData.total}</td>
+                                    <td>{entry.accAgingData.unit_no}</td>
+                                    <td>{entry.accAgingData.current}</td>
+                                    <td>{entry.accAgingData.thirty_days}</td>
+                                    <td>{entry.accAgingData.sixty_days}</td>
+                                    <td>{entry.accAgingData.ninety_days}</td>
                                    
                                 </tr>
                                 ))}
