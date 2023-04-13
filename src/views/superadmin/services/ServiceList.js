@@ -58,16 +58,14 @@ const ServiceList = () => {
    // UPDATE SERVICE
    const handleUpdateService = async (e) => {
     e.preventDefault();
-    const id = serviceName
+    const id = formData.service_name
     try {
       await axios.put(SERVICE_UPDATE_URL + `${id}`, {
         rate: serviceRate,
-        service_name: formData.service_name,
       })
     } catch (error) {
       console.log(error)
     }
-
     setSelectedData({});
     setShowEditModal(false);
   };
@@ -113,17 +111,28 @@ const ServiceList = () => {
     setShowUploadModal(false);
   };
 
-
   const handleUpdateSubmit = (event) => {
     event.preventDefault();
-    const newData = data.map((item) =>
-      item.id === selectedData.id ? formData : item
-    );
-    setData(newData);
-    setFormData({ service_name: '', service_rate: '' });
-    setSelectedData({});
-    setShowEditModal(false);
+    const newId = data.length + 1;
+    const newData = { service_name: newId, ...formData };
+    setData([...data, newData]);
+    setFormData({ 
+      service_name: "", 
+      service_rate: "", 
+      });
+      setShowEditModal(false);
   };
+
+  // const handleUpdateSubmit = (event) => {
+  //   event.preventDefault();
+  //   const newData = data.map((item) =>
+  //     item.service_name === selectedData.service_name ? formData : item
+  //   );
+  //   setData(newData);
+  //   setFormData({ service_name: '', service_rate: '' });
+  //   setSelectedData({});
+  //   setShowEditModal(false);
+  // };
 
   const handleDeleteConfirm = () => {
     const newData = data.filter((item) => item.id !== selectedData.id);
