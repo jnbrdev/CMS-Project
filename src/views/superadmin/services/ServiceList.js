@@ -13,7 +13,7 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import axios from "src/api/axios";
 const SERVICE_ADD_URL = "/service/addService";
 const SERVICE_GET_URL = "/service/getAllService";
-const SERVICE_UPDATE_URL = "/service/";
+const SERVICE_UPDATE_URL = "/service/updateService/";
 
 const ServiceList = () => {
   const [data, setData] = useState([]);
@@ -58,10 +58,11 @@ const ServiceList = () => {
    // UPDATE SERVICE
    const handleUpdateService = async (e) => {
     e.preventDefault();
+    const id = serviceName
     try {
       await axios.put(SERVICE_UPDATE_URL + `${id}`, {
-        service_name: serviceName,
         rate: serviceRate,
+        service_name: formData.service_name,
       })
     } catch (error) {
       console.log(error)
