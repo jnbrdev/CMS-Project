@@ -219,7 +219,7 @@ const UserList = () => {
     const handleUpdateUser = async (e) => {
       e.preventDefault();
       const email = formData.email;
-      const eRole = formData.role
+      const eRole = userRole
       try {
         await axios.put(USER_UPDATE_URL + `${email}`, {
           role: eRole,
@@ -237,9 +237,8 @@ const UserList = () => {
   useEffect(() => {
     axios.get(USER_SHOW_URL).then((response) => {
       setData(response.data);
-      console.log(response.data);
     });
-  }, []);
+  }, [data]);
 
   $(function() {
     $("#example").dataTable();
