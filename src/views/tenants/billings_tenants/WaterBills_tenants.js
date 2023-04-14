@@ -55,7 +55,7 @@ const WaterBills_tenants = () => {
     <div className="container">
       <br />
       <div className="tbl-title">
-        <h1 className="text-divider">WATER BILL LIST</h1>
+        <h1 className="text-divider">Billings</h1>
       </div>
 
       {/* DATE PICKER START */}
@@ -89,28 +89,22 @@ const WaterBills_tenants = () => {
           <tr>
             <th>Invoice No.</th>
             <th>Unit No.</th>
-            <th>Billed To</th>
-            <th>Billing Cost</th>
+            <th>Description</th>
+            <th>Charges</th>
             <th>Due Date</th>
-            <th>Prev. Reading</th>
-            <th>Curr. Reading</th>
-            <th>Reading Date</th>
-            <th>Penalty</th>
+            <th>Running Balance</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {data.map((entry) => (
             <tr key={entry.id}>
-              <td>{entry.invoice_num}</td>
-              <td>{entry.unit_num}</td>
-              <td>{entry.billed_to}</td>
-              <td>{entry.bill_cost}</td>
-              <td>{entry.due_date}</td>
-              <td>{entry.prev_reading}</td>
-              <td>{entry.curr_reading}</td>
-              <td>{entry.reading_date}</td>
-              <td>{entry.penalty}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td>
                 {' '}
                 <Button
