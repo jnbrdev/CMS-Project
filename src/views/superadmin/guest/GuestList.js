@@ -195,7 +195,6 @@ const GuestList = () => {
               <th>Contact Number</th>
               <th>Expected Date From</th>
               <th>Expected Date To</th>
-              <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -208,13 +207,6 @@ const GuestList = () => {
                 <td>{entry.contact_no}</td>
                 <td>{entry.date_from}</td>
                 <td>{entry.date_to}</td>
-                <td>
-                  <Form.Label className="toggle">
-                    <Form.Control type="checkbox" />
-                    <span className="slider"></span>
-                    <span className="labels" data-on="Approved" data-off="Declined"></span>
-                  </Form.Label>
-                </td>
                 <td>
                   {' '}
                   <Button

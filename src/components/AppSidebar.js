@@ -30,7 +30,7 @@ const AppSidebar = () => {
       }}
     >
       <CSidebarBrand className="d-none d-md-flex" to="/">
-        <img style={{height:"66px", marginLeft:"-13px"}} src="./images/com-logo2.png" className="com-image"></img>
+        <img style={{height:"50px", width:"200px", marginLeft:"-13px"}} src="./images/condo-connect.png" className="com-image"></img>
       </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>

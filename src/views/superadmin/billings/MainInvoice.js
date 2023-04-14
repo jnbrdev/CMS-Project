@@ -64,7 +64,6 @@ const MainInvoice = () => {
         documentTitle:"Bill-Invoice",
         // onAfterPrint:()=>alert("Data saved in PDF")
     });
-   
 
     const handleInputChange = (event) => {
         setFormData({ ...formData, [event.target.id]: event.target.value });
@@ -193,13 +192,13 @@ const MainInvoice = () => {
                     {/* WATER BILL DETAILS */}
                     <div className="company">
                         <div className="condo-name">
-                            <img src="./images/com-logo.png" className="com-image"></img>
-                            <h1>Lorem ipsum dolor corp.</h1>
+                            <img src="./images/condo-connect.png" className="com-image"></img>
+                            {/* <h1>Lorem ipsum dolor corp.</h1> */}
                         </div>
-                        <p className="com-address">#Lorem ipsum dolor sit amet</p>
+                        {/* <p className="com-address">#Lorem ipsum dolor sit amet</p> */}
                     </div>
                     <div className="waterbillBox">
-                        <img src="./images/com-logo.png" className="com-logo"></img>
+                        <img src="./images/condo.png" className="com-logo"></img>
                         <h2 className="invoice-label">STATEMENT OF ACCOUNT</h2>
                         <hr className="underline" />
                         <div className="invoice-row">
@@ -315,30 +314,30 @@ const MainInvoice = () => {
                     <table className="table table-sm">
                         <thead>
                             <tr>
-                                <th>TOTAL</th>
                                 <th>ADVANCES</th>
                                 <th>CURRENT</th>
                                 <th>30 DAYS</th>
                                 <th>60 DAYS</th>
                                 <th>OVER 90</th>
+                                <th>TOTAL</th>
                             </tr>
                         </thead>
                         <tbody>
                             {data.map((entry) => (
                                     <tr key={entry.id}>
-                                        <td>{entry.accAgingData.total}</td>
                                         <td>{entry.accAgingData.unit_no}</td>
                                         <td>{entry.accAgingData.current}</td>
                                         <td>{entry.accAgingData.thirty_days}</td>
                                         <td>{entry.accAgingData.sixty_days}</td>
                                         <td>{entry.accAgingData.ninety_days}</td>
-                                    
+                                        <td>{entry.accAgingData.total}</td>
                                     </tr>
                                     ))}
                         </tbody>
                     </table>
+                    <br/>
                     <Button className="secondarybtn" onClick={generatePDF}>
-                        Download PDF
+                        Download | Print Invoice
                     </Button>
                 </Form>
             </div>

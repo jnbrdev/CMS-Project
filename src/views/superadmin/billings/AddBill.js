@@ -269,13 +269,13 @@ const AddBill = () => {
                 {/* WATER BILL DETAILS */}
                 <div className="company">
                     <div className="condo-name">
-                        <img src="./images/com-logo.png" className="com-image"></img>
-                        <h1>Lorem ipsum dolor corp.</h1>
+                        <img src="./images/condo-connect.png" className="com-image"></img>
+                        {/* <h1>Lorem ipsum dolor corp.</h1> */}
                     </div>
-                    <p className="com-address">#Lorem ipsum dolor sit amet</p>
+                    {/* <p className="com-address">#Lorem ipsum dolor sit amet</p> */}
                 </div>
                 <div className="waterbillBox">
-                    <img src="./images/com-logo.png" className="com-logo"></img>
+                    <img src="./images/condo.png" className="com-logo"></img>
                     <h2 className="invoice-label">ADD NEW BILLING</h2>
                     <hr className="underline" />
                     <div className="invoice-row">
