@@ -71,21 +71,7 @@ const Login = () => {
           } else {
             setErrMsg("Login Failed");
           }
-          const roles = response?.data?.role;
-          if (roles[0] === '1') {
-            const accessToken = response?.data?.accessToken;
-            setAuth({ email, password, roles, accessToken });
-            navigate('/dashboard')
-          } else if (roles[0] === '2') {
-            const accessToken = response?.data?.accessToken;
-            setAuth({ email, password, roles, accessToken });
-            navigate('/admin')
-          }
-
           console.log(response.data);
-
-
-
           console.log(roles[0])
           errRef.current.focus();
         });
