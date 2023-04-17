@@ -118,8 +118,7 @@ const ServiceList_adminteam = React.lazy(() => import('./views/adminteam/service
 // TENANTS ---------------------------------------------------------------------------------------------------------------------------------------
 
 //Billings
-const WaterBills_tenants = React.lazy(() => import('./views/tenants/billings_tenants/WaterBills_tenants'))
-const AssocDues_tenants = React.lazy(() => import('./views/tenants/billings_tenants/AssocDues_tenants'))
+const SOA_tenants = React.lazy(() => import('./views/tenants/billings_tenants/SOA_tenants'))
 
 //Calendar Reminders
 const CalendarReminders_tenants = React.lazy(() => import('./views/tenants/calendar_tenants/CalendarReminders_tenants'))
@@ -139,8 +138,7 @@ const FAQ_tenants = React.lazy(() => import('./views/tenants/faq_tenants/FAQ_ten
 const TenantsList = React.lazy(() => import('./views/unitowner/tenantslist/TenantsList'))
 
 //Billings
-const WaterBills_unitowner = React.lazy(() => import('./views/unitowner/billings_unitowner/WaterBills_unitowner'))
-const AssocDues_unitowner = React.lazy(() => import('./views/unitowner/billings_unitowner/AssocDues_unitowner'))
+const SOA_unitowner = React.lazy(() => import('./views/unitowner/billings_unitowner/SOA_unitowner'))
 
 //Request
 const RequestVisit_unitowner = React.lazy(() => import('./views/unitowner/request_unitowner/RequestVisit_unitowner'))
@@ -248,8 +246,7 @@ const routes = [
   // TENANTS PATHS ---------------------------------------------------------------------------------------------------------------------------------------
   { path: '/homepage', exact: true, name: 'Home' },
   { path: '/dashboard_tenants', name: 'Dashboard', element: Dashboard_tenants },
-  { path: '/tenants/billings_tenants/waterbills_tenants', name: 'Water Bills', element: WaterBills_tenants },
-  { path: '/tenants/billings_tenants/assocdues_tenants', name: 'Association Dues', element: AssocDues_tenants },
+  { path: '/tenants/billings_tenants/soa_tenants', name: 'Statement of Account', element: SOA_tenants },
   { path: '/tenants/request_tenants/requestvisit_tenants', name: 'Request Visit', element: RequestVisit_tenants },
   { path: '/tenants/request_tenants/pullout_tenants', name: 'Pull Out', element: PullOut_tenants },
   { path: '/tenants/request_tenants/accesspermit_tenants', name: 'Access Permit', element: AccessPermit_tenants },
@@ -260,8 +257,7 @@ const routes = [
   { path: '/homepage', exact: true, name: 'Home' },
   { path: '/dashboard_unitowner', name: 'Dashboard', element: Dashboard_unitowner },
   { path: '/unitowner/tenantslist/tenantslist', name: 'Water Bills', element: TenantsList },
-  { path: '/unitowner/billings_unitowner/waterbills_unitowner', name: 'Water Bills', element: WaterBills_unitowner },
-  { path: '/unitowner/billings_unitowner/assocdues_unitowner', name: 'Association Dues', element: AssocDues_unitowner },
+  { path: '/unitowner/billings_unitowner/soa_unitowner', name: 'Statement of Account', element: SOA_unitowner },
   { path: '/unitowner/request_unitowner/requestvisit_unitowner', name: 'Request Visit', element: RequestVisit_unitowner },
   { path: '/unitowner/request_unitowner/pullout_unitowner', name: 'Pull Out', element: PullOut_unitowner },
   { path: '/unitowner/request_unitowner/accesspermit_unitowner', name: 'Access Permit', element: AccessPermit_unitowner },

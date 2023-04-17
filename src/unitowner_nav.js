@@ -34,26 +34,10 @@ const unitowner_nav = [
   },
 
   {
-    component: CNavGroup,
-    name: 'Billings',
+    component: CNavItem,
+    name: 'Statement of Account',
+    to: '/unitowner/soa_unitowner',
     icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Water Bills',
-        to: '/unitowner/waterbills_unitowner',
-      },
-      {
-        component: CNavItem,
-        name: 'Association Dues',
-        to: '/unitowner/assocdues_unitowner',
-      },
-      // {
-      //   component: CNavItem,
-      //   name: 'Manage Billings',
-      //   to: '/unitowner/managebilling',
-      // },
-    ],
   },
 
   {

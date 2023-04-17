@@ -95,8 +95,7 @@ const Dashboard_tenants = React.lazy(() =>
 );
 
 //Billings
-const WaterBills_tenants = React.lazy(() => import('./views/tenants/billings_tenants/WaterBills_tenants'))
-const AssocDues_tenants = React.lazy(() => import('./views/tenants/billings_tenants/AssocDues_tenants'))
+const SOA_tenants = React.lazy(() => import('./views/tenants/billings_tenants/SOA_tenants'))
 
 //Calendar Reminders
 const CalendarReminders_tenants = React.lazy(() => import('./views/tenants/calendar_tenants/CalendarReminders_tenants'))
@@ -119,8 +118,7 @@ const Dashboard_unitowner = React.lazy(() =>
 const TenantsList = React.lazy(() => import('./views/unitowner/tenantslist/TenantsList'))
 
 //Billings
-const WaterBills_unitowner = React.lazy(() => import('./views/unitowner/billings_unitowner/WaterBills_unitowner'))
-const AssocDues_unitowner = React.lazy(() => import('./views/unitowner/billings_unitowner/AssocDues_unitowner'))
+const SOA_unitowner = React.lazy(() => import('./views/unitowner/billings_unitowner/SOA_unitowner'))
 
 //Request
 const RequestVisit_unitowner = React.lazy(() => import('./views/unitowner/request_unitowner/RequestVisit_unitowner'))
@@ -211,8 +209,7 @@ class App extends Component {
           <Route element={<TenantsLayout />}>
 
             <Route path="/tenants" element={<Dashboard_tenants />} />
-            <Route path="/tenants/waterbills_tenants" element={<WaterBills_tenants />} />
-            <Route path="/tenants/assocdues_tenants" element={<AssocDues_tenants />} />
+            <Route path="/tenants/soa_tenants" element={<SOA_tenants />} />
             <Route path="/tenants/requestvisit_tenants" element={<RequestVisit_tenants />} />
             <Route path="/tenants/pullout_tenants" element={<PullOut_tenants />} />
             <Route path="/tenants/accesspermit_tenants" element={<AccessPermit_tenants />} />
@@ -226,8 +223,7 @@ class App extends Component {
 
             <Route path="/unitowner" element={<Dashboard_unitowner />} />
             <Route path="/unitowner/tenantslist" element={<TenantsList />} />
-            <Route path="/unitowner/waterbills_unitowner" element={<WaterBills_unitowner />} />
-            <Route path="/unitowner/assocdues_unitowner" element={<AssocDues_unitowner />} />
+            <Route path="/unitowner/soa_unitowner" element={<SOA_unitowner />} />
             <Route path="/unitowner/requestvisit_unitowner" element={<RequestVisit_unitowner />} />
             <Route path="/unitowner/pullout_unitowner" element={<PullOut_unitowner />} />
             <Route path="/unitowner/accesspermit_unitowner" element={<AccessPermit_unitowner />} />
