@@ -9,13 +9,14 @@ import { RiCalendarTodoFill } from 'react-icons/ri';
 import { GiReceiveMoney, GiMoneyStack, GiPayMoney } from 'react-icons/gi';
 import { TbReportMoney } from 'react-icons/tb';
 import { Modal, Button, Form } from 'react-bootstrap';
+import axios from "src/api/axios";
+import useAuth from "src/hooks/useAuth";
 
+const USER_ADD_URL = "/users/addUser";
+const USER_SHOW_URL = "/users/getAllUser";
+const USER_UPDATE_URL = "/users/updateUser/";
 const WaterBills_unitowner = () => {
-  const [data, setData] = useState([
-    { id: '1', invoice_num: '10044', unit_num: '253', billed_to: 'Jonieber Dela Victoria', bill_cost: '800 PHP', due_date: '2023-05-30', prev_reading: '1,500 PHP', curr_reading: '1,000 PHP', reading_date: '2023-06-01', penalty: '100 PHP' },
-    { id: '2', invoice_num: '25203', unit_num: '102', billed_to: 'Jesulenio Redera', bill_cost: '1,000 PHP', due_date: '2023-06-31', prev_reading: '1,000 PHP', curr_reading: '950 PHP', reading_date: '2023-07-01', penalty: '200 PHP' },
-    { id: '3', invoice_num: '30253', unit_num: '301', billed_to: 'James Sevilla', bill_cost: '1,300 PHP', due_date: '2023-02-28', prev_reading: '800 PHP', curr_reading: '500 PHP', reading_date: '2023-04-01', penalty: '0 PHP'},
-  ]);
+  const [data, setData] = useState([]);
   const [showPayModal, setShowPayModal] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [formData, setFormData] = useState({
@@ -29,9 +30,13 @@ const WaterBills_unitowner = () => {
     reading_date: '',
     penalty: '',
   });
+  const {auth} = useAuth()
 
   useEffect(() => {
-    $('#example').DataTable();
+    const email = auth?.email
+    axios.post(`${INVOICE_GET_URL}${email}`).then((response) => {
+      setData(response.data);
+    });
   }, []);
 
   const handleInputChange = (event) => {
