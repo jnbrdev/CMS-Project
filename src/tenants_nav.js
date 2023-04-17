@@ -26,26 +26,10 @@ const tenants_nav = [
   },
 
   {
-    component: CNavGroup,
-    name: 'Billings',
+    component: CNavItem,
+    name: 'Statement of Account',
+    to: '/tenants/soa_tenants',
     icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Water Bills',
-        to: '/tenants/waterbills_tenants',
-      },
-      {
-        component: CNavItem,
-        name: 'Association Dues',
-        to: '/tenants/assocdues_tenants',
-      },
-      // {
-      //   component: CNavItem,
-      //   name: 'Manage Billings',
-      //   to: '/tenants/managebilling',
-      // },
-    ],
   },
 
   {
