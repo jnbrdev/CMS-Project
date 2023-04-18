@@ -49,18 +49,18 @@ const ManageBilling = () => {
   };
 
   return (
-    <div className="wrap">
+    <div className="manage-billing-wrap">
       <div className="col-md-7">
-        <div className="bill-container">
+        <div className="manage-billing-container">
           <br />
-          <div className="tbl-title">
-            <h1 className="text-divider">ASSOCIATION DUES</h1>
+          <div className="manage-billing-tbl-title">
+            <h1 className="manage-billing-divider">ASSOCIATION DUES</h1>
           </div>
-          <div className="readinginputField">
-            <Form.Group controlId="ratePerSqm" className="waterbillDetails">
-              <Form.Label className="labelname">*RATE PER SQUARE METER</Form.Label><br /><br />
+          <div className="manage-billing-inputField">
+            <Form.Group controlId="ratePerSqm" className="manage-assoc-dues">
+              <Form.Label className="manage-billing-label">*RATE PER SQUARE METER</Form.Label><br /><br />
               <Form.Control
-                className="waterbillformField"
+                className="manage-assoc-dues-formField"
                 type="text"
                 name="rate"
                 placeholder="Enter rate"
@@ -68,10 +68,10 @@ const ManageBilling = () => {
                 onChange={handleInputChange}
               />
             </Form.Group>
-            <Form.Group controlId="discountRate" className="waterbillDetails">
-              <Form.Label className="labelname">*3 MONTHS ADVANCE DISCOUNT</Form.Label><br /><br />
+            <Form.Group controlId="discountRate" className="manage-assoc-dues">
+              <Form.Label className="manage-billing-label">*3 MONTHS ADVANCE DISCOUNT</Form.Label><br /><br />
               <Form.Control
-                className="waterbillformField"
+                className="manage-assoc-dues-formField"
                 type="text"
                 name="discount"
                 placeholder="Enter advance discount"
@@ -81,16 +81,16 @@ const ManageBilling = () => {
             </Form.Group>
           </div>
         </div>
-        <div className="bill-container">
+        <div className="manage-billing-container">
           <br />
-          <div className="tbl-title">
-            <h1 className="text-divider">WATER BILLS</h1>
+          <div className="manage-billing-tbl-title">
+            <h1 className="manage-billing-divider">WATER BILLS</h1>
           </div>
-          <div className="readinginputField">
-            <Form.Group controlId="ratePerCubic" className="waterbillDetails">
-              <Form.Label className="labelname">*RATE PER CUBIC METER</Form.Label><br /><br />
+          <div className="manage-billing-inputField">
+            <Form.Group controlId="ratePerCubic" className="manage-water-bill">
+              <Form.Label className="manage-billing-label">*RATE PER CUBIC METER</Form.Label><br /><br />
               <Form.Control
-                className="waterbillformField"
+                className="manage-water-bill-formField"
                 type="text"
                 name="meter"
                 placeholder="Enter cubic meter"
@@ -98,10 +98,10 @@ const ManageBilling = () => {
                 onChange={handleInputChange}
               />
             </Form.Group>
-            <Form.Group controlId="penaltyRate" className="waterbillDetails">
-              <Form.Label className="labelname">*PENALTY PER DUE DATE</Form.Label><br /><br />
+            <Form.Group controlId="penaltyRate" className="manage-water-bill">
+              <Form.Label className="manage-billing-label">*PENALTY PER DUE DATE</Form.Label><br /><br />
               <Form.Control
-                className="waterbillformField"
+                className="manage-water-bill-formField"
                 type="text"
                 name="penalty"
                 placeholder="Enter advance penalty"
@@ -109,10 +109,10 @@ const ManageBilling = () => {
                 onChange={handleInputChange}
               />
             </Form.Group>
-            <Form.Group controlId="penalty_date" className="waterbillDetails">
-              <Form.Label className="labelname">*DAYS BEFORE PENALTY</Form.Label><br /><br />
+            <Form.Group controlId="penalty_date" className="manage-water-bill">
+              <Form.Label className="manage-billing-label">*DAYS BEFORE PENALTY</Form.Label><br /><br />
               <Form.Control
-                className="waterbillformField"
+                className="manage-water-bill-formField"
                 type="text"
                 name="penalty_date"
                 placeholder="Enter advance penalty"
@@ -121,11 +121,11 @@ const ManageBilling = () => {
             </Form.Group>
           </div>
         </div>
-        <Button className="primarybtn" type="submit" onClick={handleUpdateRate}> Update </Button>
+        <Button className="manage-billing-primarybtn" type="submit" onClick={handleUpdateRate}> Update </Button>
       </div>
       <div className="col-md-5">
-        <div className="condo-name">
-              <img src="./images/com-logo.png" className="com-logo"></img>
+        <div className="manage-billing-condo-logo">
+              <img src="./images/condo.png" className="manage-billing-com-logo"></img>
           </div>
       </div>
     </div>

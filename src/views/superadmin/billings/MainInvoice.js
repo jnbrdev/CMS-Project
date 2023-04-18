@@ -187,26 +187,26 @@ const MainInvoice = () => {
 
     return (
         <div ref={exportPDF} style={{width:'100%'}}>
-            <div className="container">
+            <div className="main-invoice-container">
                 <Form onSubmit={handleFormSubmit}>
                     {/* WATER BILL DETAILS */}
-                    <div className="company">
+                    <div className="main-invoice-company">
                         <div className="condo-name">
                             <img src="./images/condo-connect.png" className="com-image"></img>
                             {/* <h1>Lorem ipsum dolor corp.</h1> */}
                         </div>
                         {/* <p className="com-address">#Lorem ipsum dolor sit amet</p> */}
                     </div>
-                    <div className="waterbillBox">
+                    <div className="main-invoice-waterbillBox">
                         <img src="./images/condo.png" className="com-logo"></img>
-                        <h2 className="invoice-label">STATEMENT OF ACCOUNT</h2>
-                        <hr className="underline" />
-                        <div className="invoice-row">
+                        <h2 className="main-invoice-label">STATEMENT OF ACCOUNT</h2>
+                        <hr className="main-invoice-underline" />
+                        <div className="main-invoice-row">
                             <div className="col-md-6">
-                            <Form.Group controlId="unit_num" className="invoice-field-label">
-                                    <Form.Label className="invoice-form-label">Unit No:</Form.Label>
+                            <Form.Group controlId="unit_num" className="main-invoice-field-label">
+                                    <Form.Label className="main-invoice-form-label">Unit No:</Form.Label>
                                     <Form.Control
-                                        className="invoice-input"
+                                        className="main-invoice-input"
                                         type="text"
                                         name="unit_num"
                                         placeholder="Input unit number.."
@@ -215,10 +215,10 @@ const MainInvoice = () => {
                                 </Form.Group>
                             </div>
                             <div className="col-md-6">
-                                <Form.Group controlId="invoice_date" className="invoice-field-label">
-                                    <Form.Label className="invoice-form-label">Date:</Form.Label>
+                                <Form.Group controlId="invoice_date" className="main-invoice-field-label">
+                                    <Form.Label className="main-invoice-form-label">Date:</Form.Label>
                                     <Form.Control
-                                        className="invoice-input-date"
+                                        className="main-invoice-input-date"
                                         type="text"
                                         name="invoice_date"
                                         value={formData.invoice_date}
@@ -228,89 +228,60 @@ const MainInvoice = () => {
                             </div>
                         </div>
                         <br />
-                        <div className="balance">
-                            <div className="col-md-6">
-                                <Form.Group controlId="view_record" className="invoice-field-label">
-                                    <div>
-                                        <Form.Label className="main-invoice-form-label"></Form.Label>
-                                    </div>
-                                    <input
-                                        className="view-record-input"
-                                        type="text"
-                                        name="view_record"
-                                        readOnly
-                                    />
-                                </Form.Group>
-                            </div>
-                            <div className="col-md-6">
-                                <Form.Group controlId="balance" className="invoice-field-label">
-                                    <div>
-                                        <Form.Label className="main-invoice-form-label"></Form.Label>
-                                    </div>
-                                    <input
-                                        className="balance-input"
-                                        type="text"
-                                        name="balance"
-                                        readOnly
-                                    />
-                                </Form.Group>
-                            </div>
-                        </div>
-                        <br />
-                            <table className="table table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>INVOICE #</th>
-                                        <th>DESCRIPTION</th>
-                                        <th>TRANSACTION DATE</th>
-                                        <th>CHARGES</th>
-                                        <th>RUNNING BALANCE</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {data.map((entry) => (
-                                <tr key={entry.id}>
-                                    <td>{entry.waterBillData.invoiceID}</td>
-                                    <td style={{ whiteSpace: 'pre-wrap' }}>{entry.waterBillData.description}</td>
-                                    <td>{entry.waterBillData.readDate}</td>
-                                    <td>{entry.waterBillData.amount}</td>
-                                    <td>
-                                    Outstanding Balance:
-                                    <br />
-                                    {entry.accAgingData.total}
-                                    <br />
-                                    <br />
-                                    <br />
-                                    {/*(
-                                        Number(entry.accAgingData.thirty_days) +
-                                        Number(entry.accAgingData.sixty_days) +
-                                        Number(entry.accAgingData.ninety_days)
-                                    ).toFixed(2)*/}
-                                    </td>
+                        <table className="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>INVOICE #</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>TRANSACTION DATE</th>
+                                    <th>CHARGES</th>
+                                    <th>RUNNING BALANCE</th>
                                 </tr>
-                                ))}
-                                {data.map((entry) => (
-                                <tr key={entry.id}>
-                                    <td>{entry.assocDueData.invoice_no}</td>
-                                    <td style={{ whiteSpace: 'pre-wrap' }}>{entry.assocDueData.description}</td>
-                                    <td></td>
-                                    <td> {entry.assocDueData.amount}</td>
-                                    <td>
-                                    <br />
-                                    <br />
-                                    <br />
+                            </thead>
+                            <tbody>
+                            {data.map((entry) => (
+                            <tr key={entry.id}>
+                                <td>{entry.waterBillData.invoiceID}</td>
+                                <td style={{ whiteSpace: 'pre-wrap' }}>{entry.waterBillData.description}</td>
+                                <td>{entry.waterBillData.readDate}</td>
+                                <td>{entry.waterBillData.amount}</td>
+                                <td>
+                                Outstanding Balance:
+                                <br />
+                                {entry.accAgingData.total}
+                                <br />
+                                <br />
+                                <br />
+                                {/*(
+                                    Number(entry.accAgingData.thirty_days) +
+                                    Number(entry.accAgingData.sixty_days) +
+                                    Number(entry.accAgingData.ninety_days)
+                                ).toFixed(2)*/}
+                                </td>
+                            </tr>
+                            ))}
+                            {data.map((entry) => (
+                            <tr key={entry.id}>
+                                <td>{entry.assocDueData.invoice_no}</td>
+                                <td style={{ whiteSpace: 'pre-wrap' }}>{entry.assocDueData.description}</td>
+                                <td></td>
+                                <td> {entry.assocDueData.amount}</td>
+                                <td>
+                                <br />
+                                <br />
+                                <br />
                                     Total Charges: {entry.totalCharges}
-                                    </td>
-                                </tr>
-                                ))}
-                                    
-                                </tbody>
-                            </table>
+                                </td>
+                            </tr>
+                            ))}
+                                
+                            </tbody>
+                        </table>
                     </div>
                     <br />
                     
                     {/* STATEMENT OF AGING TABLE */}
-                    <p className="statement">STATEMENT OF ACCOUNT AGING</p>
+                    <p className="main-invoice-statement">STATEMENT OF ACCOUNT AGING</p>
                     <table className="table table-sm">
                         <thead>
                             <tr>
@@ -336,7 +307,7 @@ const MainInvoice = () => {
                         </tbody>
                     </table>
                     <br/>
-                    <Button className="secondarybtn" onClick={generatePDF}>
+                    <Button className="main-invoice-secondarybtn" onClick={generatePDF}>
                         Download | Print Invoice
                     </Button>
                 </Form>

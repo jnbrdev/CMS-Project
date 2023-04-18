@@ -99,31 +99,30 @@ const Login = () => {
   }
 
   return (
-    <CContainer className="logincontainer">
-      <homepage />
-      <CRow className="wrapper">
-        <header className="header-menu">
-          <h3><a class="header-menu-logo" href="#"><img src="./images/com-logo2.png"></img></a></h3>
+    <CContainer className="login-container">
+      <CRow className="login-wrapper">
+          <header className="login-header-menu">
+          <h3><a class="login-header-menu-logo" href="#"><img src="./images/condo-connect.png"></img></a></h3>
           <nav ref={navRef}>
             <Link to="/homepage">HOME</Link>
             <Link href="/#">ABOUT</Link>
             <Link href="/#">CONTACT</Link>
             <Link to="/login">SIGN IN</Link>
             <button
-              className="nav-btn nav-close-btn"
+              className="login-nav-btn nav-close-btn"
               onClick={showNavbar}>
               <FaTimes />
             </button>
           </nav>
           <button
-            className="nav-btn"
+            className="login-nav-btn"
             onClick={showNavbar}>
             <FaBars />
           </button>
         </header>
         <CCol>
           <CCardGroup>
-            <CCard className="loginform">
+            <CCard className="login-form">
               <CCardBody>
                 <CForm>
                   <CCol className="userIcon">
@@ -177,13 +176,13 @@ const Login = () => {
                       </CCol>
                     </CRow>
                   </Link>
-                  <Link to="/register" className="registernow">
+                  {/* <Link to="/register" className="registernow">
                     <CRow>
                       <CCol>
                         <CButton color="none">Guest? Request here.</CButton>
                       </CCol>
                     </CRow>
-                  </Link>
+                  </Link> */}
                 </CForm>
               </CCardBody>
             </CCard>

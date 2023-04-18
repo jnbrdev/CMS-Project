@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "datatables.net";
 import "datatables.net-bs4";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../../all-views-scss/_invoice.scss";
+import "../../../all-views-scss/_addbill.scss";
 import { Button, Form } from "react-bootstrap";
 import axios from "src/api/axios";
 
@@ -264,36 +264,36 @@ const AddBill = () => {
     };
 
     return (
-        <div className="container">
+        <div className="add-bill-container">
             <Form onSubmit={handleFormSubmit}>
                 {/* WATER BILL DETAILS */}
-                <div className="company">
+                <div className="add-bill-company">
                     <div className="condo-name">
                         <img src="./images/condo-connect.png" className="com-image"></img>
                         {/* <h1>Lorem ipsum dolor corp.</h1> */}
                     </div>
                     {/* <p className="com-address">#Lorem ipsum dolor sit amet</p> */}
                 </div>
-                <div className="waterbillBox">
+                <div className="add-bill-Box">
                     <img src="./images/condo.png" className="com-logo"></img>
-                    <h2 className="invoice-label">ADD NEW BILLING</h2>
-                    <hr className="underline" />
-                    <div className="invoice-row">
+                    <h2 className="add-bill-label">ADD NEW BILLING</h2>
+                    <hr className="add-bill-underline" />
+                    <div className="add-bill-row">
                         <div className="col-md-6">
-                            <Form.Group controlId="unit_num" className="invoice-field-label">
-                                <Form.Label className="invoice-form-label">Unit No:</Form.Label>
+                            <Form.Group controlId="unit_num" className="add-bill-field-label">
+                                <Form.Label className="add-bill-form-label">Unit No:</Form.Label>
                                 <Form.Control
-                                    className="invoice-input"
+                                    className="add-bill-input"
                                     type="text"
                                     name="unit_num"
                                     placeholder="Input unit number.."
                                     onChange={handleUnitNumberChange}
                                 />
                             </Form.Group>
-                            <Form.Group controlId="waterBillTo" className="invoice-field-label">
-                                <Form.Label className="invoice-form-label">Bill To:</Form.Label>
+                            <Form.Group controlId="waterBillTo" className="add-bill-field-label">
+                                <Form.Label className="add-bill-form-label">Bill To:</Form.Label>
                                 <Form.Control
-                                    className="invoice-input"
+                                    className="add-bill-input"
                                     type="text"
                                     name="waterBillTo"
                                     value={formData.waterBillTo}
@@ -302,20 +302,20 @@ const AddBill = () => {
                             </Form.Group>
                         </div>
                         <div className="col-md-6">
-                            <Form.Group controlId="invoice_date" className="invoice-field-label">
-                                <Form.Label className="invoice-form-label">Date:</Form.Label>
+                            <Form.Group controlId="invoice_date" className="add-bill-field-label">
+                                <Form.Label className="add-bill-form-label">Date:</Form.Label>
                                 <Form.Control
-                                    className="invoice-input-date"
+                                    className="add-bill-input-date"
                                     type="text"
                                     name="invoice_date"
                                     value={formData.invoice_date}
                                     readOnly
                                 />
                             </Form.Group>
-                            <Form.Group controlId="unit_num" className="invoice-field-label">
-                                <Form.Label className="invoice-form-label">Curr. Reading</Form.Label>
+                            <Form.Group controlId="unit_num" className="add-bill-field-label">
+                                <Form.Label className="add-bill-form-label">Curr. Reading</Form.Label>
                                 <Form.Control
-                                    className="invoice-input"
+                                    className="add-bill-input"
                                     type="text"
                                     name="current_reading"
                                     
@@ -325,7 +325,7 @@ const AddBill = () => {
                         </div>
                     </div>
                     <br />
-                    <h1 className="invoice-divider">Water bills</h1>
+                    <h1 className="add-bill-divider">Water bills</h1>
                     <table className="table table-sm">
                         <thead>
                             <tr>
@@ -336,19 +336,19 @@ const AddBill = () => {
                         </thead>
                         <tbody>
                             <tr>
-                            <td><Form.Control className="tbl-invoice-input" type="text" name="invoice_no" value={formData.invoiceWaterBillTo} readOnly /></td>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="prev_read" value={formData.previous_reading} readOnly /></td>
-                                <td><Form.Control className="tbl-invoice-input" type="text" name="meter_no" value={formData.meter_no} readOnly /></td>
+                            <td><Form.Control className="tbl-add-bill-input" type="text" name="invoice_no" value={formData.invoiceWaterBillTo} readOnly /></td>
+                                <td><Form.Control className="tbl-add-bill-input" type="text" name="prev_read" value={formData.previous_reading} readOnly /></td>
+                                <td><Form.Control className="tbl-add-bill-input" type="text" name="meter_no" value={formData.meter_no} readOnly /></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <br />
-                <div className="invoice-total">
-                    <Form.Group controlId="waterBillTotal" className="invoice-field-label">
-                        <Form.Label className="invoice-form-total">Total:</Form.Label>
+                <div className="add-bill-total">
+                    <Form.Group controlId="waterBillTotal" className="add-bill-field-label">
+                        <Form.Label className="add-bill-form-total">Total:</Form.Label>
                         <Form.Control
-                            className="invoice-input-total"
+                            className="add-bill-input-total"
                             type="text"
                             name="waterBillTotal"
                             value={waterBillTotal}
@@ -356,7 +356,7 @@ const AddBill = () => {
                         />
                     </Form.Group>
                 </div>
-                <Button className="secondarybtn" type="submit" onClick={handleAddNewBill}>
+                <Button className="add-bill-secondarybtn" type="submit" onClick={handleAddNewBill}>
                     Add New Bill
                 </Button>
             </Form>

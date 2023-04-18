@@ -276,7 +276,7 @@ const WaterBillList = () => {
 
   return (
     <div className="wrap">
-      <div className="head-container">
+      <div className="water-bill-head-container">
         <div className="table-head">
           <Form.Group controlId="dateFrom" className="filter-date-from">
             <Form.Label className="filter-date-label">From</Form.Label>

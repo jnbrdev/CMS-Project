@@ -8,34 +8,34 @@ function Homepage() {
 
 	const showNavbar = () => {
 		navRef.current.classList.toggle(
-			"responsive_nav"
+			"home-responsive_nav"
 		);
 	};
 
 	return (
-		<div classsName="container">
-			<header className="header-menu">
-				<h3><a class="header-menu-logo" href="#"><img src="./images/com-logo2.png"></img></a></h3>
+		<div classsName="home-container">
+			<header className="home-header-menu">
+				<h3><a class="home-header-menu-logo" href="#"><img src="./images/condo-connect.png"></img></a></h3>
 				<nav ref={navRef}>
 					<Link href="/#">HOME</Link>
 					<Link href="/#">ABOUT</Link>
 					<Link href="/#">CONTACT</Link>
 					<Link to="/login">SIGN IN</Link>
 					<button
-						className="nav-btn nav-close-btn"
+						className="home-nav-btn nav-close-btn"
 						onClick={showNavbar}>
 						<FaTimes />
 					</button>
 				</nav>
 				<button
-					className="nav-btn"
+					className="home-nav-btn"
 					onClick={showNavbar}>
 					<FaBars />
 				</button>
 			</header>
 
 			<div className="home-body">
-				<h1>The condominium <br/> that awaits!</h1>
+				<h1>Your condominium <br/> that awaits!</h1>
 			</div>
 
 			<footer className="footer">

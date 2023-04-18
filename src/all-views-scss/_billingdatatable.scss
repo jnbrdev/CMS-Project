@@ -1,4 +1,13 @@
-// action buttons
+// WATERBILLS
+.water-bill-head-container {
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19);
+    padding: 10px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+    background: #3C4B64;
+}
+
 .view, .edit, .delete {
     font-size: 20px;
     padding: 0px 0px 5px 0px;

@@ -14,14 +14,14 @@
 	--textColor: #eee;
 }
 
-.header-menu-logo>img {
-    display: flex;
-    height: 78px;
-    margin-top: 14px;
+.home-header-menu-logo>img {
+	display: flex;
+    height: 65px;
+    margin-top: 3px;
     margin-right: 530px;
 }
 
-.header-menu {
+.home-header-menu {
 	display: flex;
 	align-items: center;
 	justify-content: right;
@@ -33,9 +33,22 @@
 }
 
 .footer {
-   text-align: center;
-   background-color: #303C54;
-   border: none;
+    --cui-footer-min-height: 3rem;
+    --cui-footer-padding-x: 1rem;
+    --cui-footer-padding-y: 0.5rem;
+    --cui-footer-color: rgba(44, 56, 74, 0.95);
+    --cui-footer-bg: #303C54;
+    --cui-footer-border-color: #d8dbe0;
+    --cui-footer-border: 1px solid var(--cui-footer-border-color);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--cui-footer-min-height);
+    padding: var(--cui-footer-padding-y) var(--cui-footer-padding-x);
+    color: var(--cui-footer-color);
+    background: var(--cui-footer-bg);
+    border-top: var(--cui-footer-border);
 }
 
 // .footer h4 {
@@ -56,7 +69,7 @@ nav a:hover {
 	color: var(--secondaryColor);
 }
 
-.header-menu .nav-btn {
+.home-header-menu .home-nav-btn {
 	padding: 5px;
 	cursor: pointer;
 	background: transparent;
@@ -68,36 +81,38 @@ nav a:hover {
 	font-size: 1.8rem;
 }
 
-.header-menu div,
+.home-header-menu div,
 nav {
 	display: flex;
 	align-items: center;
 }
 
 .home-body {
-    min-height: 528px;
+    min-height: 533px;
 	background-image: url(../all-views-images/bglog.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-// .home-body h1 {
-// 	font-size: 75px;
-//     background: transparent;
-//     display: flex;
-//     position: absolute;
-//     color: white;
-//     font-family: fantasy;
-// }
+.home-body h1 {
+	font-size: 75px;
+    background: transparent;
+    display: flex;
+    position: absolute;
+    color: white;
+    font-family: fantasy;
+	margin-top: 150px;
+    margin-left: 110px;
+}
 
 @media only screen and (max-width: 1024px) {
-	.header-menu .nav-btn {
+	.home-header-menu .home-nav-btn {
 		visibility: visible;
 		opacity: 1;
 	}
 
-	.header-menu nav {
+	.home-header-menu nav {
 		position: fixed;
 		top: -100vh;
 		left: 0;
@@ -112,7 +127,7 @@ nav {
 		transition: 1s;
 	}
 
-	.header-menu .responsive_nav {
+	.home-header-menu .home-responsive_nav {
 		transform: translateY(100vh);
 	}
 
