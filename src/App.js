@@ -164,12 +164,11 @@ class App extends Component {
           <Route path="/homepage" element={<Homepage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          {/*Protected Routes*/}
           
-
+          {/*Protected Routes*/}
           {/* SUPER ADMIN ROUTES ----------------------------------------------------------------------------------------------------------------- */}
           <Route element={<DefaultLayout />}>
-
+          <Route element={<RequireAuth allowedRoles={['Super Admin']} />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/waterbilllist" element={<WaterBillList />} />
             <Route path="/assocduelist" element={<AssocDueList />} />
@@ -187,12 +186,12 @@ class App extends Component {
             <Route path="/addadmin" element={<AddNewAdminUser />} />
             <Route path="/adminprivileges" element={<AdminPriv />} />
             <Route path="/calendarreminders" element={<CalendarReminders />} />
-
+            </Route>
           </Route>
           
           {/* ADMIN TEAM ROUTES ----------------------------------------------------------------------------------------------------------------- */}
           <Route element={<AdminLayout />}>
-
+          <Route element={<RequireAuth allowedRoles={['Admin']} />}>
             <Route path="/admin" element={<Dashboard_adminteam />} />
             <Route path="/admin/waterbilllist" element={<WaterBillList_adminteam />} />
             <Route path="/admin/assocduelist" element={<AssocDueList_adminteam />} />
@@ -203,7 +202,7 @@ class App extends Component {
             <Route path="/admin/requestlist" element={<RequestList_adminteam />} />
             <Route path="/admin/guestlist" element={<GuestList_adminteam />} />
             <Route path="/admin/servicelist" element={<ServiceList_adminteam />} />
-
+            </Route>
           </Route>
 
           {/* TENANTS ROUTES -------------------------------------------------------------------------------------------------------------------- */}
