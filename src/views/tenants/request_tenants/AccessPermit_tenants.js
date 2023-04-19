@@ -3,7 +3,7 @@ import $ from "jquery";
 import "datatables.net";
 import "datatables.net-bs4";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../../all-views-scss/_pullout_tenants.scss";
+import "../../../all-views-scss/_request.scss";
 import { RiCalendarTodoFill } from 'react-icons/ri';
 import {
   FaEdit,
@@ -34,7 +34,7 @@ const UNIT_ADD_URL = "/unit/addUnit";
 const UNIT_SHOW_URL = "/unit/getAllUnit";
 const UNIT_UPDATE_URL = "/unit/updateUnit/";
 const USER_SHOW_URL = "/users/getUnitOwnerDetails";
-const PullOut_Tenants = () => {
+const AccessPermit_tenants = () => {
   const [listOfUnit, setListOfUnit] = useState([]);
 
   const [data, setData] = useState([]);
@@ -61,7 +61,7 @@ const PullOut_Tenants = () => {
   const [unStatus, setUnitStatus] = useState();
 
 
-  // ADD UNIT
+  // ADD ACCESS PERMIT
   const handleAddNewUnit = async (e) => {
     e.preventDefault()
     axios
@@ -74,7 +74,7 @@ const PullOut_Tenants = () => {
         occupied_by: occupiedBy,
         status: unStatus,
       });
-      setShowAddModal(false);
+    setShowAddModal(false);
   };
 
   // UPDATE UNIT
@@ -98,16 +98,19 @@ const PullOut_Tenants = () => {
     setSelectedData({});
     setShowEditModal(false);
   };
-  
+
   // SHOW UNIT DATAs
-  
+
   useEffect(() => {
     axios.post(UNIT_SHOW_URL).then((response) => {
       setData(response.data);
       //console.log(response.data);
     });
-    $("example").DataTable();
   }, [data]);
+
+  $(function() {
+    $("#example").dataTable();
+  });
 
   //SHOW USER FULL NAME
   const [unitOwner, setUOwner] = useState([]);
@@ -123,7 +126,7 @@ const PullOut_Tenants = () => {
       console.log(error);
     }
   };
-  
+
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.unit_no]: event.target.value });
@@ -163,135 +166,183 @@ const PullOut_Tenants = () => {
   };
 
   return (
-    <div className="container">
+    <div className="wraps">
+      <div className="head-container">
+        <div className="thead-btn">
+          <Form.Group controlId="dateFrom" className="filter-date-from">
+            <Form.Label className="filter-date-label">From</Form.Label>
+            <Form.Control
+              className="filter-date-input"
+              type="date"
+              placeholder="yyyy-mm-dd"
+              name="datFrom"
+              onChange={handleInputChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="dateTo" className="filter-date-to">
+            <Form.Label className="filter-date-label">To</Form.Label>
+            <Form.Control
+              className="filter-date-input"
+              type="date"
+              placeholder="yyyy-mm-dd"
+              name="dateTo"
+              onChange={handleInputChange}
+            />
+          </Form.Group>
+          <CFormSelect className="costum-select">
+            <option value="">Filter by Status</option>
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Declined">Declined</option>
+          </CFormSelect>
+          <Button className="thead-btn-primary" name="filter" type="submit">
+            <FaFilter />
+          </Button>
+          <Button className="thead-btn-secondary">
+            <FiRefreshCcw />
+          </Button>
+          <Button className="thead-btn-tertiary" onClick={handleAddNewEntry}>
+            <FaFileImport />
+          </Button>
+          <Button className="thead-btn-quaternary">
+            <FiDownload />
+          </Button>
+        </div>
+      </div>
       <br />
-      <div className="tbl-title">
-        <h1 className="text-divider">PULL-OUT GATEPASS</h1>
-      </div>
-
-      {/* BUTTONS START */}
-      <div className="thead-btn">
-        <Button className="thead-btn-tertiary" onClick={handleAddNewEntry}>
-            <FaFileImport />  Request Pull-out
-        </Button>
-        <Button className="thead-btn-quaternary">
-            <FiDownload /> Download Form
-        </Button>
-      </div>
-      {/* BUTTONS END */}
-
-      <div className="divider"></div>
-      <hr />
-      <table id="example" className="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th>Requesting Unit</th>
-            <th>Date of Pull-out</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((entry) => (
-            <tr key={entry.id}>
-              <td>{entry.unit_no}</td>
-              <td>{entry.unit_owner}</td>
-              <td>{entry.status}</td>
-              <td>
-                <Button
-                  className="delete"
-                  onClick={() => handleDeleteButtonClick(entry)}
-                >
-                  <FaTrash />
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {/* ADD MODAL START */}
-      <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
+      <div className="container">
         <br />
-        <h1 className="text-divider">Fill-in Form</h1>
-        <Modal.Body>
-          <Form>
-            <div className="pullOutForm">
-                <div className="col-md-6">
-                    <Form.Group controlId="unit_no" className="addForm">
-                        <Form.Label className="formIcon">
-                            <MdNumbers />
-                        </Form.Label>
-                        <Form.Control
-                            className="pullformField"
-                            type="text"
-                            placeholder="Enter unit number"
-                            name="unit_no"
-                            onChange={(e) => setUnitNo(e.target.value)}
-                        />
-                    </Form.Group>
-                </div>
-                <div className="col-md-6">
-                    <Form.Group controlId="pull_out_date" className="addForm">
-                        <Form.Label className="formIcon">
-                            <RiCalendarTodoFill />
-                        </Form.Label>
-                        <Form.Control
-                            className="pullformField"
-                            type="date"
-                            name="pull_out_date"
-                            onChange={(e) => setUnitNo(e.target.value)}
-                        />
-                    </Form.Group>
-                </div>
-            </div>
-            <Form.Group controlId="unit_upload" className="addForm">
-              <Form.Control
-                className="formField"
-                type="file"
-                placeholder="Upload CSV"
-                name="unit_upload"
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            
-            <Modal.Footer className="modalbtn">
-              <Button
-                className="primarybtn"
-                onClick={() => setShowAddModal(false)}
-              >
-                Cancel
-              </Button>
-              <Button
-                className="secondarybtn"
-                type="submit"
-                onClick={handleAddNewUnit}
-              >
-                Save
-              </Button>
-            </Modal.Footer>
-          </Form>
-        </Modal.Body>
-      </Modal>
-      {/* ADD MODAL END */}
+        <div className="tbl-title">
+          <h1 className="text-divider">ACCESS PERMIT</h1>
+        </div>
+        <div className="divider"></div>
+        <hr />
+        <table id="example" className="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Unit/Area</th>
+              <th>From Date</th>
+              <th>To Date</th>
+              <th>Date Requested</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((entry) => (
+              <tr key={entry.id}>
+                <td>{entry.unit_no}</td>
+                <td>{entry.unit_owner}</td>
+                <td>{entry.unit_no}</td>
+                <td>{entry.unit_owner}</td>
+                <td>{entry.status}</td>
+                <td>
+                  <Button
+                    className="delete"
+                    onClick={() => handleDeleteButtonClick(entry)}
+                  >
+                    <FaTrash />
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} className="deleteModal">
-        <br/>
-        <h1 className="text-divider">Delete Unit</h1>
-        <Modal.Body>
-          <p className="confirmation">Are you sure you want to delete this request?</p>
-        </Modal.Body>
-        <Modal.Footer className="modalbtn">
-          <Button className="primarybtn" onClick={() => setShowDeleteModal(false)}>
-            Cancel
-          </Button>
-          <Button className="secondarybtn" onClick={handleDeleteConfirm}>
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        {/* ADD MODAL START */}
+        <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
+          <br />
+          <h1 className="text-divider">Fill-in Form</h1>
+          <Modal.Body>
+            <Form>
+              <Form.Group controlId="unit_no" className="addForm">
+                <Form.Label className="formIcon">
+                  <MdNumbers />
+                </Form.Label>
+                <Form.Control
+                  className="unitformField"
+                  type="text"
+                  placeholder="Enter unit number"
+                  name="unit_no"
+                  onChange={(e) => setUnitNo(e.target.value)}
+                />
+              </Form.Group>
+              <div className="pullOutForm">
+                <div className="col-md-6">
+                  <Form.Group controlId="pull_out_date" className="addForm">
+                    <Form.Label className="formIcon">
+                      <RiCalendarTodoFill />
+                    </Form.Label>
+                    <Form.Control
+                      className="pullformField"
+                      type="date"
+                      name="pull_out_date"
+                      onChange={(e) => setUnitNo(e.target.value)}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col-md-6">
+                  <Form.Group controlId="pull_out_date" className="addForm">
+                    <Form.Label className="formIcon">
+                      <RiCalendarTodoFill />
+                    </Form.Label>
+                    <Form.Control
+                      className="pullformField"
+                      type="date"
+                      name="pull_out_date"
+                      onChange={(e) => setUnitNo(e.target.value)}
+                    />
+                  </Form.Group>
+                </div>
+              </div>
+              <Form.Group controlId="unit_upload" className="addForm">
+                <Form.Control
+                  className="formField"
+                  type="file"
+                  placeholder="Upload CSV"
+                  name="unit_upload"
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+
+              <Modal.Footer className="modalbtn">
+                <Button
+                  className="primarybtn"
+                  onClick={() => setShowAddModal(false)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  className="secondarybtn"
+                  type="submit"
+                  onClick={handleAddNewUnit}
+                >
+                  Save
+                </Button>
+              </Modal.Footer>
+            </Form>
+          </Modal.Body>
+        </Modal>
+        {/* ADD MODAL END */}
+
+        <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} className="deleteModal">
+          <br />
+          <h1 className="text-divider">Delete Unit</h1>
+          <Modal.Body>
+            <p className="confirmation">Are you sure you want to delete this request?</p>
+          </Modal.Body>
+          <Modal.Footer className="modalbtn">
+            <Button className="primarybtn" onClick={() => setShowDeleteModal(false)}>
+              Cancel
+            </Button>
+            <Button className="secondarybtn" onClick={handleDeleteConfirm}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     </div>
   );
 };
 
-export default PullOut_Tenants;
+export default AccessPermit_tenants;

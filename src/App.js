@@ -168,40 +168,40 @@ class App extends Component {
           {/*Protected Routes*/}
           {/* SUPER ADMIN ROUTES ----------------------------------------------------------------------------------------------------------------- */}
           <Route element={<DefaultLayout />}>
-          <Route element={<RequireAuth allowedRoles={['Super Admin']} />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/waterbilllist" element={<WaterBillList />} />
-            <Route path="/assocduelist" element={<AssocDueList />} />
-            <Route path="/managebilling" element={<ManageBilling />} />
-            <Route path="/addbill" element={<AddBill />} />
-            <Route path="/maininvoice" element={<MainInvoice />} />
-            <Route path="/unitlist" element={<CondoUnitList />} />
-            <Route path="/userlist" element={<UserList />} />
-            <Route path="/requestlist" element={<RequestList />} />
-            <Route path="/pullout" element={<PullOut />} />
-            <Route path="/accesspermit" element={<AccessPermit />} />
-            <Route path="/guestlist" element={<GuestList />} />
-            <Route path="/servicelist" element={<ServiceList />} />
-            <Route path="/adminlist" element={<AdminList />} />
-            <Route path="/addadmin" element={<AddNewAdminUser />} />
-            <Route path="/adminprivileges" element={<AdminPriv />} />
-            <Route path="/calendarreminders" element={<CalendarReminders />} />
-            </Route>
+            {/* <Route element={<RequireAuth allowedRoles={['Super Admin']} />}> */}
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/waterbilllist" element={<WaterBillList />} />
+              <Route path="/assocduelist" element={<AssocDueList />} />
+              <Route path="/managebilling" element={<ManageBilling />} />
+              <Route path="/addbill" element={<AddBill />} />
+              <Route path="/maininvoice" element={<MainInvoice />} />
+              <Route path="/unitlist" element={<CondoUnitList />} />
+              <Route path="/userlist" element={<UserList />} />
+              <Route path="/requestlist" element={<RequestList />} />
+              <Route path="/pullout" element={<PullOut />} />
+              <Route path="/accesspermit" element={<AccessPermit />} />
+              <Route path="/guestlist" element={<GuestList />} />
+              <Route path="/servicelist" element={<ServiceList />} />
+              <Route path="/adminlist" element={<AdminList />} />
+              <Route path="/addadmin" element={<AddNewAdminUser />} />
+              <Route path="/adminprivileges" element={<AdminPriv />} />
+              <Route path="/calendarreminders" element={<CalendarReminders />} />
+            {/* </Route> */}
           </Route>
           
           {/* ADMIN TEAM ROUTES ----------------------------------------------------------------------------------------------------------------- */}
           <Route element={<AdminLayout />}>
-          <Route element={<RequireAuth allowedRoles={['Admin']} />}>
-            <Route path="/admin" element={<Dashboard_adminteam />} />
-            <Route path="/admin/waterbilllist" element={<WaterBillList_adminteam />} />
-            <Route path="/admin/assocduelist" element={<AssocDueList_adminteam />} />
-            <Route path="/admin/managebilling" element={<ManageBilling_adminteam />} />
-            <Route path="/admin/unitlist" element={<CondoUnitList_adminteam />} />
-            <Route path="/admin/userlist" element={<UserList_adminteam />} />
-            <Route path="/admin/securitylist" element={<SecurityGuardList_adminteam />} />
-            <Route path="/admin/requestlist" element={<RequestList_adminteam />} />
-            <Route path="/admin/guestlist" element={<GuestList_adminteam />} />
-            <Route path="/admin/servicelist" element={<ServiceList_adminteam />} />
+            <Route element={<RequireAuth allowedRoles={['Admin']} />}>
+              <Route path="/admin" element={<Dashboard_adminteam />} />
+              <Route path="/admin/waterbilllist" element={<WaterBillList_adminteam />} />
+              <Route path="/admin/assocduelist" element={<AssocDueList_adminteam />} />
+              <Route path="/admin/managebilling" element={<ManageBilling_adminteam />} />
+              <Route path="/admin/unitlist" element={<CondoUnitList_adminteam />} />
+              <Route path="/admin/userlist" element={<UserList_adminteam />} />
+              <Route path="/admin/securitylist" element={<SecurityGuardList_adminteam />} />
+              <Route path="/admin/requestlist" element={<RequestList_adminteam />} />
+              <Route path="/admin/guestlist" element={<GuestList_adminteam />} />
+              <Route path="/admin/servicelist" element={<ServiceList_adminteam />} />
             </Route>
           </Route>
 
