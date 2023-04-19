@@ -76,27 +76,27 @@ const Login = () => {
           if(roles === 'Super Admin'){
             const accessToken = response?.data?.accessToken;
             const roles1 = [1, 'Super Admin'] 
-            setAuth({ email, password, roles, accessToken });
+            setAuth({ email, password, roles1, accessToken });
             navigate('/dashboard')
           }else if(roles === 'Admin'){
             const accessToken = response?.data?.accessToken;
             const roles1 = [2, 'Admin'] 
             console.log(roles1, accessToken);
-            setAuth({ email, password, roles, accessToken });
+            setAuth({ email, password, roles1, accessToken });
             
             navigate('/admin')
           }else if(roles === 'Unit Owner'){
             const accessToken = response?.data?.accessToken;
             const roles1 = [3, 'Unit Owner'] 
             console.log(roles1, accessToken);
-            setAuth({ email, password, roles, accessToken });
+            setAuth({ email, password, roles1, accessToken });
             
             navigate('/unitowner')
           }else if(roles === 'Tenant'){
             const accessToken = response?.data?.accessToken;
             const roles1 = [4, 'Tenant'] 
             console.log(roles1, accessToken);
-            setAuth({ email, password, roles, accessToken });
+            setAuth({ email, password, roles1, accessToken });
             
             navigate('/tenants')
           }

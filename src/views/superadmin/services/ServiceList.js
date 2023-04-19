@@ -14,6 +14,7 @@ import axios from "src/api/axios";
 const SERVICE_ADD_URL = "/service/addService";
 const SERVICE_GET_URL = "/service/getAllService";
 const SERVICE_UPDATE_URL = "/service/updateService/";
+const SERVICE_DELETE_URL = "/service/delService/";
 
 const ServiceList = () => {
   const [data, setData] = useState([]);
@@ -69,6 +70,21 @@ const ServiceList = () => {
     setSelectedData({});
     setShowEditModal(false);
   };
+
+  //Delete Service
+  const handleDeleteService = async (e) => {
+    e.preventDefault();
+    const servName = selectedData.service_name;
+    console.log(servName)
+    try {
+      await axios.delete(SERVICE_DELETE_URL + `${servName}`);
+    } catch (error) {
+      console.log(error);
+    }
+    setSelectedData({});
+  };
+  
+
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.service_name]: event.target.value });
@@ -351,7 +367,7 @@ const ServiceList = () => {
             <Button className="primarybtn" onClick={() => setShowDeleteModal(false)}>
               Cancel
             </Button>
-            <Button className="secondarybtn" onClick={handleDeleteConfirm}>
+            <Button className="secondarybtn" onClick={handleDeleteService}>
               Delete
             </Button>
           </Modal.Footer>

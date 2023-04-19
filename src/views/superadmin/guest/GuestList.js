@@ -17,6 +17,7 @@ import axios from "src/api/axios";
 
 const GUEST_GET_URL = "/guest/getAllGuest";
 const GUEST_ADD_URL = "/guest/addGuest";
+const GUEST_DELETE_URL = "/guest/delGuest/";
 const GuestList = () => {
   const [data, setData] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -73,6 +74,19 @@ const GuestList = () => {
     } catch (error) {
       console.log(error)
     }
+  };
+
+  //Delete Guest
+  const handleDeleteGuest = async (e) => {
+    e.preventDefault();
+    const gNum = selectedData.guest_no;
+    console.log(gNum)
+    try {
+      await axios.delete(GUEST_DELETE_URL + `${gNum}`);
+    } catch (error) {
+      console.log(error);
+    }
+    setSelectedData({});
   };
 
   const handleInputChange = (event) => {
@@ -448,7 +462,7 @@ const GuestList = () => {
             <Button className="primarybtn" onClick={() => setShowDeleteModal(false)}>
               Cancel
             </Button>
-            <Button className="secondarybtn" onClick={handleDeleteConfirm}>
+            <Button className="secondarybtn" onClick={handleDeleteGuest}>
               Delete
             </Button>
           </Modal.Footer>
