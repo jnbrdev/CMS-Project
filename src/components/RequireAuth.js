@@ -7,9 +7,11 @@ const RequireAuth = ({ allowedRoles }) => {
     const location = useLocation();
 
     return(
-        role => allowedRoles?.includes(role)
+        auth?.roles1?.find(role => allowedRoles?.includes(role))
             ? <Outlet />
-            : <Navigate to="/login" state={{ from: location}} replace/>
+            :auth?.email 
+                ? <Navigate to="/login" replace/>
+                :<Navigate to="/login" state={{ from: location}} replace/>
 
                 
     )
