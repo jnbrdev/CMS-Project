@@ -1,348 +1,251 @@
-import { useState, useEffect, useRef } from "react";
-import "datatables.net";
-import "datatables.net-bs4";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../../../all-views-scss/_maininvoice.scss";
-import { Button, Form, Modal } from "react-bootstrap";
-import { useReactToPrint } from "react-to-print";
+import { useState, useEffect } from 'react';
+import $ from 'jquery';
+import 'datatables.net';
+import 'datatables.net-bs4';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../../all-views-scss/_datatable.scss'
+import { MdNumbers, MdOutlinePayments } from 'react-icons/md';
+import { RiCalendarTodoFill } from 'react-icons/ri';
+import { GiReceiveMoney, GiMoneyStack, GiPayMoney } from 'react-icons/gi';
+import { TbReportMoney } from 'react-icons/tb';
+import { Modal, Button, Form } from 'react-bootstrap';
 import axios from "src/api/axios";
+import useAuth from "src/hooks/useAuth";
 
-const INVOICE_GET_URL = "/invoice/unitInvoiceData/";
-
-const SOA_unitowner = () => {
-    const exportPDF= useRef();
-    const [showViewModal, setShowViewModal] = useState(false);
-    const [data, setData] = useState([]);
-    const [showAddModal, setShowAddModal] = useState(false);
-    const [showUploadModal, setShowUploadModal] = useState(false);
-    const [showEditModal, setShowEditModal] = useState(false);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [selectedData, setSelectedData] = useState({});
-    const [formData, setFormData] = useState({
-        unit_num: '',
-        invoice_date: '',
-        due_date: '',
-        
-    });
+const USER_ADD_URL = "/users/addUser";
+const USER_SHOW_URL = "/users/getAllUser";
+const BILLINGS_SHOW_URL = "/billings/getBillingsUnitOwner/";
+const WaterBills_unitowner = () => {
+  const [data, setData] = useState([]);
+  const [showPayModal, setShowPayModal] = useState(false);
+  const [selectedData, setSelectedData] = useState({});
+  const [formData, setFormData] = useState({
+    invoice_num: '',
+    unit_num: '',
+    billed_to: '',
+    bill_cost: '',
+    due_date: '',
+    prev_reading: '',
+    curr_reading: '',
+    reading_date: '',
+    penalty: '',
+  });
+    const {auth} = useAuth()
     const [assocData, setAssocData] = useState([]);
     const [waterBillData, setWaterBillData] = useState([]);
     const [accountAgingData, setAccountAgingData] = useState([]);
-
-    //Get Unit and Rate data
-    const [unitRateData, setUnitRateData] = useState([]);
-    const [assocDueTotal, setAssocDueTotal] = useState();
-    const handleUnitNumberChange = async (event) => {
-        const newUnitNumber = event.target.value;
-        formData.unit_num = newUnitNumber;
-
-        // Fetch data based on unit number using Axios
-        try {
-            // Get additional data based on the fetched unit data
-            const invoiceResponse = await axios.post(
-                `${INVOICE_GET_URL}${newUnitNumber}`
-            );
-             // Do something with the invoice data, e.g. store it in state
-            const invoiceData = invoiceResponse.data;
-            setWaterBillData(invoiceData.waterBillData)
-            setAssocData(invoiceData.assocDueData)
-            setAccountAgingData(invoiceData.accountAgingData)
-            setFormData(invoiceData)
-            setData(invoiceData)
-            
-           
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    useEffect(() => {
-        console.log(formData, assocData, waterBillData, accountAgingData)
-    }, [formData, assocData, waterBillData, accountAgingData]);
-
-    const generatePDF= useReactToPrint({
-        content: ()=>exportPDF.current,
-        documentTitle:"Bill-Invoice",
-        // onAfterPrint:()=>alert("Data saved in PDF")
+  useEffect(() => {
+    const email = auth?.email //get user logged in email in the auth state
+    axios.post(`${BILLINGS_SHOW_URL}${email}`).then((response) => {
+      setData(response.data);
     });
+  }, []);
 
-    const handleInputChange = (event) => {
-        setFormData({ ...formData, [event.target.id]: event.target.value });
-    };
+  const handleInputChange = (event) => {
+    setFormData({ ...formData, [event.target.id]: event.target.value });
+  };
 
-    const handleAddNewEntry = () => {
-        setShowAddModal(true);
-    };
+  const handlePayBills = () => {
+    setShowPayModal(true);
+  };
 
-    const handleUploadEntry = () => {
-        setShowUploadModal(true);
-    };
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    const newId = data.length + 1;
+    const newData = { id: newId, ...formData };
+    setData([...data, newData]);
+    setFormData({ invoice_num: '', unit_num: '', billed_to: '', bill_cost: '', due_date: '', prev_reading: '', curr_reading: '',  reading_date: '', penalty: '',  });
+    setShowPayModal(false);
+  };
 
-    const handleEditButtonClick = (data) => {
-        setSelectedData(data);
-        setFormData(data);
-        setShowEditModal(true);
-    };
+  return (
+    <div className="container">
+      <br />
+      <div className="tbl-title">
+        <h1 className="text-divider">WATER BILL LIST</h1>
+      </div>
 
-    const handleDeleteButtonClick = (data) => {
-        setSelectedData(data);
-        setShowDeleteModal(true);
-    };
-
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        const newId = data.length + 1;
-        const newData = { id: newId, ...formData };
-        setData([...data, newData]);
-        setFormData({
-            invoice_num: "",
-            unit_num: "",
-            unit_size: "",
-            billed_to: "",
-            bill_cost: "",
-            due_date: "",
-            prev_reading: "",
-            curr_reading: "",
-            reading_date: "",
-            penalty: "",
-            meter: "",
-            rate: "",
-        });
-        setShowAddModal(false);
-    };
-
-    const handleUploadFormSubmit = (event) => {
-        event.preventDefault();
-        const newId = data.length + 1;
-        const newData = { id: newId, ...formData };
-        setData([...data, newData]);
-        setFormData({
-            invoice_num: "",
-            unit_num: "",
-            unit_size: "",
-            billed_to: "",
-            bill_cost: "",
-            due_date: "",
-            prev_reading: "",
-            curr_reading: "",
-            reading_date: "",
-            penalty: "",
-            meter: "",
-            rate: "",
-        });
-        setShowUploadModal(false);
-    };
-
-    const handleUpdateSubmit = (event) => {
-        event.preventDefault();
-        const newData = data.map((item) =>
-            item.id === selectedData.id ? formData : item
-        );
-        setData(newData);
-        setFormData({
-            invoice_num: "",
-            unit_num: "",
-            unit_size: "",
-            billed_to: "",
-            bill_cost: "",
-            due_date: "",
-            prev_reading: "",
-            curr_reading: "",
-            reading_date: "",
-            penalty: "",
-            meter: "",
-            rate: "",
-        });
-        setSelectedData({});
-        setShowEditModal(false);
-    };
-
-    const handleDeleteConfirm = () => {
-        const newData = data.filter((item) => item.id !== selectedData.id);
-        setData(newData);
-        setSelectedData({});
-        setShowDeleteModal(false);
-    };
-    const handleAddModalCancel = () => {
-        setFormData({
-            unit_num: '',
-            waterBillTo: '',
-            invoiceWaterBillTo: '',
-            assocBillTo: '',
-            invoiceAssocBillTo: '',
-            unit_size: '',
-            meter_no: '',
-            previous_reading: '',
-            ratePerSqm: '',
-            discountRate: '',
-            ratePerCubic: '',
-            penaltyRate: '',
-            assocDueRate: '',
-        });
-        setWaterBillTotal('')
-        setAssocDueTotal('')
-        setReadingDate('')
-        setCurReading('')
-        setShowAddModal(false);
-    };
-
-    return (
-        <div ref={exportPDF} style={{width:'100%'}}>
-            <div className="container">
-                <Form onSubmit={handleFormSubmit}>
-                    {/* WATER BILL DETAILS */}
-                    <div className="company">
-                        <div className="condo-name">
-                            <img src="../images/condo-connect.png" className="com-image"></img>
-                            {/* <h1>Lorem ipsum dolor corp.</h1> */}
-                        </div>
-                        {/* <p className="com-address">#Lorem ipsum dolor sit amet</p> */}
-                    </div>
-                    <div className="waterbillBox">
-                        <img src="../images/condo.png" className="com-logo"></img>
-                        <h2 className="invoice-label">STATEMENT OF ACCOUNT</h2>
-                        <hr className="underline" />
-                        <div className="invoice-row">
-                            <div className="col-md-6">
-                            <Form.Group controlId="unit_num" className="invoice-field-label">
-                                    <Form.Label className="invoice-form-label">Unit No:</Form.Label>
-                                    <Form.Control
-                                        className="invoice-input"
-                                        type="text"
-                                        name="unit_num"
-                                        placeholder="Input unit number.."
-                                        onChange={handleUnitNumberChange}
-                                    />
-                                </Form.Group>
-                            </div>
-                            <div className="col-md-6">
-                                <Form.Group controlId="invoice_date" className="invoice-field-label">
-                                    <Form.Label className="invoice-form-label">Date:</Form.Label>
-                                    <Form.Control
-                                        className="invoice-input-date"
-                                        type="text"
-                                        name="invoice_date"
-                                        value={formData.invoice_date}
-                                        readOnly
-                                    />
-                                </Form.Group>
-                            </div>
-                        </div>
-                        <br />
-                        <div className="balance">
-                            <div className="col-md-6">
-                                <Form.Group controlId="view_record" className="invoice-field-label">
-                                    <div>
-                                        <Form.Label className="main-invoice-form-label"></Form.Label>
-                                    </div>
-                                    <input
-                                        className="view-record-input"
-                                        type="text"
-                                        name="view_record"
-                                        readOnly
-                                    />
-                                </Form.Group>
-                            </div>
-                            <div className="col-md-6">
-                                <Form.Group controlId="balance" className="invoice-field-label">
-                                    <div>
-                                        <Form.Label className="main-invoice-form-label"></Form.Label>
-                                    </div>
-                                    <input
-                                        className="balance-input"
-                                        type="text"
-                                        name="balance"
-                                        readOnly
-                                    />
-                                </Form.Group>
-                            </div>
-                        </div>
-                        <br />
-                            <table className="table table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>INVOICE #</th>
-                                        <th>DESCRIPTION</th>
-                                        <th>TRANSACTION DATE</th>
-                                        <th>CHARGES</th>
-                                        <th>RUNNING BALANCE</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {data.map((entry) => (
-                                <tr key={entry.id}>
-                                    <td>{entry.waterBillData.invoiceID}</td>
-                                    <td style={{ whiteSpace: 'pre-wrap' }}>{entry.waterBillData.description}</td>
-                                    <td>{entry.waterBillData.readDate}</td>
-                                    <td>{entry.waterBillData.amount}</td>
-                                    <td>
-                                    Outstanding Balance:
-                                    <br />
-                                    {entry.accAgingData.total}
-                                    <br />
-                                    <br />
-                                    <br />
-                                    {/*(
-                                        Number(entry.accAgingData.thirty_days) +
-                                        Number(entry.accAgingData.sixty_days) +
-                                        Number(entry.accAgingData.ninety_days)
-                                    ).toFixed(2)*/}
-                                    </td>
-                                </tr>
-                                ))}
-                                {data.map((entry) => (
-                                <tr key={entry.id}>
-                                    <td>{entry.assocDueData.invoice_no}</td>
-                                    <td style={{ whiteSpace: 'pre-wrap' }}>{entry.assocDueData.description}</td>
-                                    <td></td>
-                                    <td> {entry.assocDueData.amount}</td>
-                                    <td>
-                                    <br />
-                                    <br />
-                                    <br />
-                                    Total Charges: {entry.totalCharges}
-                                    </td>
-                                </tr>
-                                ))}
-                                    
-                                </tbody>
-                            </table>
-                    </div>
-                    <br />
-                    
-                    {/* STATEMENT OF AGING TABLE */}
-                    <p className="statement">STATEMENT OF ACCOUNT AGING</p>
-                    <table className="table table-sm">
-                        <thead>
-                            <tr>
-                                <th>ADVANCES</th>
-                                <th>CURRENT</th>
-                                <th>30 DAYS</th>
-                                <th>60 DAYS</th>
-                                <th>OVER 90</th>
-                                <th>TOTAL</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.map((entry) => (
-                                    <tr key={entry.id}>
-                                        <td>{entry.accAgingData.unit_no}</td>
-                                        <td>{entry.accAgingData.current}</td>
-                                        <td>{entry.accAgingData.thirty_days}</td>
-                                        <td>{entry.accAgingData.sixty_days}</td>
-                                        <td>{entry.accAgingData.ninety_days}</td>
-                                        <td>{entry.accAgingData.total}</td>
-                                    </tr>
-                                    ))}
-                        </tbody>
-                    </table>
-                    <br/>
-                    <Button className="secondarybtn" onClick={generatePDF}>
-                        Download | Print Invoice
+      {/* DATE PICKER START */}
+      <div className="table-head">
+        <Form.Group controlId="dateFrom" className="filter-date-from">
+          <Form.Label className="filter-date-label">From</Form.Label>
+          <Form.Control
+            className="filter-date-input"
+            type="date"
+            placeholder="yyyy-mm-dd"
+            name="datFrom"
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="dateTo" className="filter-date-to">
+          <Form.Label className="filter-date-label">To</Form.Label>
+          <Form.Control
+            className="filter-date-input"
+            type="date"
+            placeholder="yyyy-mm-dd"
+            name="dateTo"
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+      </div>
+    {/* DATE PICKER END */}
+      
+      <div className="divider"></div><hr />
+      <table id="example" className="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Invoice No.</th>
+            <th>Unit No.</th>
+            <th style={{width: '30%'}}>Description</th>
+            <th>Charges</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+            {data.waterBillData?.map((entry) => (
+            <tr key={`${entry.invoiceID}-water-bill`}>
+            <td>{entry.invoiceID}</td>
+            <td>{entry.unit_no}</td>
+            <td style={{ width: '30%', whiteSpace: 'pre-wrap' }}>{entry.description}</td>
+            <td>{entry.amount}</td>
+            <td>{entry.due_date}</td>
+            <td>{entry.status}</td>
+            <td>
+                <Button className="edit" onClick={handlePayBills}>
+                <MdOutlinePayments />
+                </Button>
+            </td>
+            </tr>
+            ))}
+            {data.assocDueData?.map((entry) => (
+                <tr key={`${entry.invoice_no}-assoc-due`}>
+                <td>{entry.invoice_no}</td>
+                <td>{entry.unit_no}</td>
+                <td style={{ width: '30%', whiteSpace: 'pre-wrap' }}>{entry.description}</td>
+                <td>{entry.amount}</td>
+                <td>{entry.due_date}</td>
+                <td>{entry.status}</td>
+                <td>
+                    <Button className="edit" onClick={handlePayBills}>
+                    <MdOutlinePayments />
                     </Button>
-                </Form>
-            </div>
-        </div>
-    );
+                </td>
+                </tr>
+            ))}
+          </tbody>
+        </table>
+
+      {/* PAY MODAL START */}
+      <Modal show={showPayModal} onHide={() => setShowPayModal(false)}>
+        <br/>
+        <h1 className="text-divider">Pay Bills</h1>
+        <Modal.Body>
+          <Form onSubmit={handleFormSubmit}>
+            <Form.Group controlId="invoice_num" className="addForm">
+              <Form.Label className="formIcon"><MdNumbers /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Enter invoice number"
+                name="invoice_num"
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="unit_num" className="addForm">
+              <Form.Label className="formIcon"><MdNumbers /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Enter unit number"
+                name="unit_num"
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="billed_to" className="addForm">
+              <Form.Label className="formIcon"><GiReceiveMoney /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Enter billed to"
+                name="billed_to"
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="bill_cost" className="addForm">
+              <Form.Label className="formIcon"><GiMoneyStack /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Enter bill cost"
+                name="bill_cost"
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="due_date" className="addForm">
+              <Form.Label className="formIcon"><RiCalendarTodoFill /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="date"
+                name="due_date"
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="prev_reading" className="addForm">
+              <Form.Label className="formIcon"><TbReportMoney /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Enter previous reading"
+                name="prev_reading"
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="current_reading" className="addForm">
+              <Form.Label className="formIcon"><TbReportMoney /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Enter current reading"
+                name="current_reading"
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="reading_date" className="addForm">
+              <Form.Label className="formIcon"><RiCalendarTodoFill /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="date"
+                name="reading_date"
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="penalty" className="addForm">
+              <Form.Label className="formIcon"><GiPayMoney /></Form.Label>
+              <Form.Control
+                className="formField"
+                type="text"
+                placeholder="Enter penalty"
+                name="penalty"
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <br />
+            <Modal.Footer className="modalbtn">
+              <Button className="primarybtn" onClick={() => setShowPayModal(false)}>
+                Cancel
+              </Button>
+              <Button className="secondarybtn" type="submit">
+                Save
+              </Button>
+            </Modal.Footer>
+          </Form>
+        </Modal.Body>
+      </Modal>
+      {/* PAY MODAL END */}
+    </div>
+  );
 };
 
-export default SOA_unitowner;
+export default WaterBills_unitowner;
