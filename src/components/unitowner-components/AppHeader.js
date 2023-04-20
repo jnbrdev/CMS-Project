@@ -10,6 +10,7 @@ import {
   CHeaderToggler,
   CNavLink,
   CNavItem,
+  CFormLabel,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilBell, cilEnvelopeOpen, cilList, cilMenu } from '@coreui/icons'
@@ -17,10 +18,12 @@ import { cilBell, cilEnvelopeOpen, cilList, cilMenu } from '@coreui/icons'
 import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
 import { logo } from 'src/assets/brand/logo'
+import useAuth from "src/hooks/useAuth";
 
 const AppHeader = () => {
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
+  const {auth} = useAuth()
 
   return (
     <CHeader position="sticky" className="mb-4">
@@ -49,19 +52,19 @@ const AppHeader = () => {
         </CHeaderNav>
         <CHeaderNav>
           <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilBell} size="lg" />
-            </CNavLink>
+            <CFormLabel>
+              Logged in As: {auth?.full_name}
+              <br/>
+              Account Balance: ₱{auth?.acc_balance}
+            </CFormLabel>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilList} size="lg" />
-            </CNavLink>
+          <CFormLabel>
+              
+            </CFormLabel>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilEnvelopeOpen} size="lg" />
-            </CNavLink>
+            
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav className="ms-3">
