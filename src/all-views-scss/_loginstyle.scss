@@ -1,29 +1,50 @@
 // This is a login form style
-#root {
+// #root {
+//     background-image: url(../all-views-images/bglog.jpg);
+//     background-position: center center;
+//     background-repeat: no-repeat;
+//     background-size: cover;
+//     position: relative;
+// }
+.login-container {
     background-image: url(../all-views-images/bglog.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    position: relative;
-}
-.login-container {
+    min-width: 100%;
+    height: 533px;
     display: flex;
-    align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    width: 50vh;
-    background-color: transparent;
+    padding: 65px 0
 }
 
 .login-wrapper{
-    justify-content: center;
+    background: white;
+    border-radius: 10px;
+}
+
+.login-form-body {
+    margin-top: 60px;
+}
+#welcome-col {
+    background-image: url(../all-views-images/login-bg.jpeg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px 0 0 10px;
+}
+
+#login-col {
+    background-color: #163F7A;
+    border-radius: 0 10px 10px 0;
 }
 
 .login-form {
     padding: 10px;
-    border-radius: 60px;
-    // width:400px;
-    background-color: #ffffffaa;
+    background-color: transparent;
+    width: 270px;
+    height: 60vh;
+    border: none;
 }
 
 .login-form h1{
@@ -36,34 +57,66 @@
 
 .login-form p{
     text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    color: white;
+}
+
+.login-form img {
+    height: 55px;
+    float: right;
+}
+
+.welcome-back {
+    font-size: 40px;
+    margin-top: 60px;
+    text-align: end;
+    font-weight: bold;
+    font-family: sans-serif
+}
+
+.sign-access {
+    font-size: 15px;
+    color: #4f5d73;
+    text-align: end;
 }
 
 .input-group-text {
-    background-color: #009DFF;
+    background-color: #2E75B6;
     color: #ffffff;
-    padding: 0px 18px 0px 18px;
-    font-size: 25px;
+    padding: 0px 15px 0px 15px;
+    font-size: 15px;
+    border: 1px;
 }
 
 .input-group {
-   height: 50px;
+   height: 35px;
    border-radius: 15px;
 }
 
-.login, .registernow {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+// .input-icon {
+//     font-size: 15px;
+// }
+
+// .login, .registernow {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+// }
+
+.login {
+    color: #ffffff;
+    background-color: #2E75B6;
+    border: none;
+    border-radius: 25px;
+    margin: 5px;
+    width: 70%;
+    text-decoration: none;
 }
 
-.login button {
-    text-align: center;
-    color: #ffffff;
-    background-color: #009DFF;
-    border: none;
-    border-radius: 10px;
-    margin:5px;
-    padding: 10px 135px 10px 135px;
+.button-row {
+    display: flex;
+    justify-content: center;
 }
 
 .registernow button {
@@ -86,7 +139,7 @@
 // footer & login-header
 :root {
 	--mainColor: #fff;
-	--mainColorLight: #5767aa;
+	--mainColorLight: #2E75B6;
 	--secondaryColor: #303C54;
 	--textColor: #eee;
 }
@@ -103,27 +156,43 @@
 	align-items: center;
 	justify-content: right;
 	height: 80px;
-	padding: 0 2rem;
+    padding: 0 2rem;
 	background-color: var(--mainColor);
 	color: var(--textColor);
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19);
-    position: absolute;
-    margin-top: -124px;
 }
 
-.login-container .footer {
-    text-align: center;
-    background-color: #303C54;
-    border: none;
-    position: absolute;
+// .login-container .footer {
+//     text-align: center;
+//     background-color: #303C54;
+//     border: none;
+//     position: absolute;
+//     display: flex;
+//     margin-top: 489px;
+// }
+.footer {
+    --cui-footer-min-height: 3rem;
+    --cui-footer-padding-x: 1rem;
+    --cui-footer-padding-y: 0.5rem;
+    --cui-footer-color: rgba(44, 56, 74, 0.95);
+    --cui-footer-bg: #303C54;
+    --cui-footer-border-color: #d8dbe0;
+    --cui-footer-border: 1px solid var(--cui-footer-border-color);
     display: flex;
-    margin-top: 489px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--cui-footer-min-height);
+    padding: var(--cui-footer-padding-y) var(--cui-footer-padding-x);
+    color: var(--cui-footer-color);
+    background: var(--cui-footer-bg);
+    border-top: var(--cui-footer-border);
 }
 
 
 nav a {
     margin: 0 1rem;
-    color: #009FE9;
+    color: #2E75B6;
     text-decoration: none;
     font-weight: bolder;
     font-size: larger;

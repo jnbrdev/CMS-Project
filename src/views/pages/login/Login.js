@@ -129,100 +129,111 @@ const Login = () => {
   }
 
   return (
-    <CContainer className="login-container">
-      <CRow className="login-wrapper">
-          <header className="login-header-menu">
-          <h3><a class="login-header-menu-logo" href="#"><img src="./images/condo-connect.png"></img></a></h3>
-          <nav ref={navRef}>
-            <Link to="/homepage">HOME</Link>
-            <Link href="/#">ABOUT</Link>
-            <Link href="/#">CONTACT</Link>
-            <Link to="/login">SIGN IN</Link>
-            <button
-              className="login-nav-btn nav-close-btn"
-              onClick={showNavbar}>
-              <FaTimes />
-            </button>
-          </nav>
-          <button
-            className="login-nav-btn"
-            onClick={showNavbar}>
-            <FaBars />
-          </button>
-        </header>
-        <CCol>
-          <CCardGroup>
-            <CCard className="login-form">
-              <CCardBody>
-                <CForm>
-                  <CCol className="userIcon">
-                    <FaUserCircle />
-                  </CCol>
-                  <p className="text-medium-emphasis">
-                    Sign In to your account
-                  </p>
+    <div>
 
-                  <p
-                    ref={errRef}
-                    className={errMsg ? "errmsg" : "offscreen"}
-                    aria-live="assertive"
-                  >
-                    {errMsg}
-                  </p>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>
-                      <FaUserAlt />
-                    </CInputGroupText>
-                    <CFormInput
-                      type="email"
-                      placeholder="email"
-                      id="email"
-                      ref={userRef}
-                      autoComplete="off"
-                      onChange={(e) => setEmail(e.target.value)}
-                      value={email}
-                      required
-                    />
-                  </CInputGroup>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>
-                      <FaLock />
-                    </CInputGroupText>
-                    <CFormInput
-                      type="password"
-                      placeholder="Password"
-                      id="password"
-                      onChange={(e) => setPassword(e.target.value)}
-                      value={password}
-                      required
-                    />
-                  </CInputGroup>
-                  <Link>
-                    <CRow>
-                      <CCol>
-                        <CButton color="primary" onClick={login}>
-                          Login
-                        </CButton>
-                      </CCol>
-                    </CRow>
-                  </Link>
-                  {/* <Link to="/register" className="registernow">
-                    <CRow>
-                      <CCol>
-                        <CButton color="none">Guest? Request here.</CButton>
-                      </CCol>
-                    </CRow>
-                  </Link> */}
-                </CForm>
-              </CCardBody>
-            </CCard>
-          </CCardGroup>
-        </CCol>
-        <footer className="footer">
-          {/* <h4>Hello Word</h4> */}
-        </footer>
-      </CRow>
-    </CContainer>
+      <header className="login-header-menu">
+        <h3><a class="login-header-menu-logo" href="#"><img src="./images/condo-connect.png"></img></a></h3>
+        <nav ref={navRef}>
+          <Link to="/homepage">HOME</Link>
+          <Link href="/#">ABOUT</Link>
+          <Link href="/#">CONTACT</Link>
+          <Link to="/login">SIGN IN</Link>
+          <button
+            className="login-nav-btn nav-close-btn"
+            onClick={showNavbar}>
+            <FaTimes />
+          </button>
+        </nav>
+        <button
+          className="login-nav-btn"
+          onClick={showNavbar}>
+          <FaBars />
+        </button>
+      </header>
+
+      <CContainer className="login-container">
+        <CRow className="login-wrapper">
+          <CCol className="col-md-6" id="welcome-col">
+            <CCardGroup>
+              <CCard className="login-form">
+                <CCardBody>
+                  <img src="./images/condo-connect.png"></img><br/>
+                  <h1 className="welcome-back">WELCOME BACK!</h1><br/>
+                  <p className="sign-access">Sign in to continue access</p>
+                </CCardBody>
+              </CCard>
+            </CCardGroup>
+          </CCol>
+          <CCol className="col-md-6" id="login-col">
+            <CCardGroup>
+              <CCard className="login-form">
+                <CCardBody className="login-form-body">
+                  <CForm>
+                    <p> LOGIN </p>
+
+                    <p
+                      ref={errRef}
+                      className={errMsg ? "errmsg" : "offscreen"}
+                      aria-live="assertive"
+                    >
+                      {errMsg}
+                    </p>
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText className="input-icon">
+                        <FaUserAlt />
+                      </CInputGroupText>
+                      <CFormInput
+                        type="email"
+                        placeholder="Email"
+                        id="email"
+                        ref={userRef}
+                        autoComplete="off"
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
+                        required
+                      />
+                    </CInputGroup>
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText className="input-icon">
+                        <FaLock />
+                      </CInputGroupText>
+                      <CFormInput
+                        type="password"
+                        placeholder="Password"
+                        id="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        value={password}
+                        required
+                      />
+                    </CInputGroup>
+                    <Link>
+                      <CRow>
+                        <CCol className="button-row">
+                          <CButton color="primary" onClick={login} className="login">
+                            Login
+                          </CButton>
+                        </CCol>
+                      </CRow>
+                    </Link>
+                    {/* <Link to="/register" className="registernow">
+                      <CRow>
+                        <CCol>
+                          <CButton color="none">Guest? Request here.</CButton>
+                        </CCol>
+                      </CRow>
+                    </Link> */}
+                  </CForm>
+                </CCardBody>
+              </CCard>
+            </CCardGroup>
+          </CCol>
+        </CRow>
+      </CContainer>
+
+      <footer className="footer">
+        {/* <h4>Hello Word</h4> */}
+      </footer>
+    </div>
   );
 };
 
