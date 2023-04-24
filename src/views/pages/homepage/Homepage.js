@@ -15,7 +15,9 @@ function Homepage() {
 	return (
 		<div classsName="home-container">
 			<header className="home-header-menu">
-				<h3><a class="home-header-menu-logo" href="#"><img src="./images/condo-connect.png"></img></a></h3>
+			<Link to="/homepage">
+				<img src="./images/condo-connect.png" class="login-header-menu-logo" />
+			</Link>
 				<nav ref={navRef}>
 					<Link href="/#">HOME</Link>
 					<Link href="/#">ABOUT</Link>

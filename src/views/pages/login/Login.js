@@ -138,7 +138,9 @@ const Login = () => {
     <div>
 
       <header className="login-header-menu">
-        <h3><a class="login-header-menu-logo" href="#"><img src="./images/condo-connect.png"></img></a></h3>
+        <Link to="/homepage">
+          <img src="./images/condo-connect.png" class="login-header-menu-logo" />
+        </Link>
         <nav ref={navRef}>
           <Link to="/homepage">HOME</Link>
           <Link href="/#">ABOUT</Link>
@@ -221,13 +223,13 @@ const Login = () => {
                         </CCol>
                       </CRow>
                     </Link>
-                    {/* <Link to="/register" className="registernow">
-                      <CRow>
-                        <CCol>
-                          <CButton color="none">Guest? Request here.</CButton>
-                        </CCol>
-                      </CRow>
-                    </Link> */}
+                    <br/>
+                    <p className="register-label">Don't have an account yet? </p>
+                    <Link to="/register" className="registernow">
+                      <CCol className="reg-btn-col">
+                        <CButton color="none">Signup here</CButton>
+                      </CCol>
+                    </Link>
                   </CForm>
                 </CCardBody>
               </CCard>
