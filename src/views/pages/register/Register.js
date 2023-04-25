@@ -143,7 +143,7 @@ const Register = () => {
 
       <header className="register-header-menu">
         <Link to="/homepage">
-          <img src="./images/condo-connect.png" class="login-header-menu-logo" />
+          <img src="./images/condo-connect.png" class="register-header-menu-logo" />
         </Link>
         <nav ref={navRef}>
           <Link to="/homepage">HOME</Link>

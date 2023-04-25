@@ -54,7 +54,7 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 
-const Dashboard_tenants = () => {
+const Dashboard_secguard = () => {
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
 
   const progressExample = [
@@ -458,4 +458,4 @@ const Dashboard_tenants = () => {
   )
 }
 
-export default Dashboard_tenants
+export default Dashboard_secguard;

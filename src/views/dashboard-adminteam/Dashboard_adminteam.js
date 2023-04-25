@@ -458,4 +458,4 @@ const Dashboard_adminteam = () => {
   )
 }
 
-export default Dashboard_adminteam
+export default Dashboard_adminteam;

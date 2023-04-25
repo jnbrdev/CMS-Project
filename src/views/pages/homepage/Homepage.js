@@ -16,7 +16,7 @@ function Homepage() {
 		<div classsName="home-container">
 			<header className="home-header-menu">
 			<Link to="/homepage">
-				<img src="./images/condo-connect.png" class="login-header-menu-logo" />
+				<img src="./images/condo-connect.png" class="home-header-menu-logo" />
 			</Link>
 				<nav ref={navRef}>
 					<Link href="/#">HOME</Link>

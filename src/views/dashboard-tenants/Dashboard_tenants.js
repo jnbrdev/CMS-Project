@@ -458,4 +458,4 @@ const Dashboard_tenants = () => {
   )
 }
 
-export default Dashboard_tenants
+export default Dashboard_tenants;
