@@ -19,14 +19,27 @@ import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
 import { logo } from 'src/assets/brand/logo'
 import useAuth from "src/hooks/useAuth";
+import { useState, useEffect } from 'react';
+import axios from "src/api/axios";
+import SOA_unitowner from "src/views/unitowner/billings_unitowner/SOA_unitowner"
 
+const USER_BALANCE_URL = "/users/getUserBalance/";
 const AppHeader = () => {
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
   const {auth} = useAuth()
+  const [userBalance, setUserBalance] = useState();
+  useEffect(() => {
+    const email = auth?.email //get user logged in email in the auth state
+    axios.get(`${USER_BALANCE_URL}${email}`).then((response) => {
+      setUserBalance(response.data);
+    });
+  }, [userBalance]);
+
 
   return (
     <CHeader position="sticky" className="mb-4">
+      
       <CContainer fluid>
         <CHeaderToggler
           className="ps-1"
@@ -55,7 +68,7 @@ const AppHeader = () => {
             <CFormLabel>
               Logged in As: {auth?.full_name}
               <br/>
-              Account Balance: ₱{auth?.acc_balance}
+              Account Balance: ₱{userBalance}
             </CFormLabel>
           </CNavItem>
           <CNavItem>

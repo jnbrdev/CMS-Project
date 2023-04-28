@@ -14,6 +14,7 @@ import useAuth from "src/hooks/useAuth";
 
 const BILLINGS_SHOW_URL = "/billings/getBillingsUnitOwner/";
 const BILLINGS_PAYMENT_URL = "/billings/payment";
+const USER_BALANCE_URL = "/users/getUserBalance/";
 const WaterBills_unitowner = () => {
   const [data, setData] = useState([]);
   const [showPayModal, setShowPayModal] = useState(false);
@@ -37,31 +38,25 @@ const WaterBills_unitowner = () => {
     });
   }, []);
 
-  const handleInputChange = (event) => {
-    setFormData({ ...formData, [event.target.id]: event.target.value });
-  };
 
   const handlePayBills = (data) => () => {
     setSelectedData(data);
     setShowPayModal(true);
+    balance()
+      
   };
-  
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    const newId = data.length + 1;
-    const newData = { id: newId, ...formData };
-    setData([...data, newData]);
-    setFormData({ invoice_num: '', unit_num: '', billed_to: '', bill_cost: '', due_date: '', prev_reading: '', curr_reading: '',  reading_date: '', penalty: '',  });
-    setShowPayModal(false);
-  };
+  // Show Balance of user  
+  const balance = () =>{
+    const email = auth?.email //get user logged in email in the auth state
+      axios.get(`${USER_BALANCE_URL}${email}`).then((response) => {
+        setUserBalance(response.data);
+      });
+  }
   // PAYMENT
   const [paymentMethod, setPaymentMethod] = useState("");
-  const [accountBalance, setAccountBalance] = useState(1000); // Replace with actual user balance
-  const [charges, setCharges] = useState(0);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
-  
+  const [userBalance, setUserBalance] = useState();
   const handleFormSubmits = (e) => {
     e.preventDefault();
     console.log("Payment method selected: ", paymentMethod);
@@ -91,37 +86,17 @@ const WaterBills_unitowner = () => {
         email: email,
         trans_no: transaction_no,
         bill_type: types
-      }).then(console.log(response?.message));     
+      }).then(window.location.reload())    
     } catch (error) {
       console.log(error)
     }
+
+    
     
   };
   return (
     <div className="wrap">
       <div className="head-container">
-        <div className="table-head">
-          <Form.Group controlId="dateFrom" className="filter-date-from">
-            <Form.Label className="filter-date-label">From</Form.Label>
-            <Form.Control
-              className="filter-date-input"
-              type="date"
-              placeholder="yyyy-mm-dd"
-              name="datFrom"
-              onChange={handleInputChange}
-            />
-          </Form.Group>
-          <Form.Group controlId="dateTo" className="filter-date-to">
-            <Form.Label className="filter-date-label">To</Form.Label>
-            <Form.Control
-              className="filter-date-input"
-              type="date"
-              placeholder="yyyy-mm-dd"
-              name="dateTo"
-              onChange={handleInputChange}
-            />
-          </Form.Group>
-        </div>
       </div>
       <br />
       <div className="container">
@@ -205,10 +180,10 @@ const WaterBills_unitowner = () => {
                   <Form.Label>Account Balance:</Form.Label>
                   {parseFloat(auth?.acc_balance) <= parseFloat(selectedData.amount) ? (
                     <>
-                      <Form.Label style={{ color: "red" }}> Insufficient funds! ₱{auth?.acc_balance}</Form.Label>
+                      <Form.Label style={{ color: "red" }}> Insufficient funds! ₱{userBalance}</Form.Label>
                     </>
                   ) : (
-                    <Form.Control plaintext readOnly defaultValue={`₱${auth?.acc_balance}`} />
+                    <Form.Control plaintext readOnly defaultValue={`₱${userBalance}`} />
                   )}
                   
                 </Form.Group>
