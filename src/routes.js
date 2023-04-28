@@ -102,9 +102,6 @@ const CondoUnitList_adminteam = React.lazy(() => import('./views/adminteam/unit_
 //User
 const UserList_adminteam = React.lazy(() => import('./views/adminteam/user_adminteam/UserList_adminteam'))
 
-//Security
-const SecurityGuardList_adminteam = React.lazy(() => import('./views/adminteam/security_adminteam/SecurityGuardList_adminteam'))
-
 //Request
 const RequestList_adminteam = React.lazy(() => import('./views/adminteam/request_adminteam/RequestList_adminteam'))
 
@@ -240,7 +237,6 @@ const routes = [
   { path: '/adminteam/services_adminteam/servicelist_adminteam', name: 'Service List', element: ServiceList_adminteam },
   { path: '/adminteam/units_adminteam/condounitlist_adminteam', name: 'View Unit Details', element: CondoUnitList_adminteam },
   { path: '/adminteam/user_adminteam/userlist_adminteam', name: 'User List', element: UserList_adminteam },
-  { path: '/adminteam/security_adminteam/securityguardlist_adminteam', name: 'Security Guard List', element: SecurityGuardList_adminteam },
   { path: '/adminteam/guest_adminteam/guestlist_adminteam', name: 'Guest List', element: GuestList_adminteam },
 
   // TENANTS PATHS ---------------------------------------------------------------------------------------------------------------------------------------

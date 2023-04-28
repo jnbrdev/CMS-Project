@@ -76,9 +76,6 @@ const CondoUnitList_adminteam = React.lazy(() => import('./views/adminteam/unit_
 //User
 const UserList_adminteam = React.lazy(() => import('./views/adminteam/user_adminteam/UserList_adminteam'))
 
-//Security
-const SecurityGuardList_adminteam = React.lazy(() => import('./views/adminteam/security_adminteam/SecurityGuardList_adminteam'))
-
 //Request
 const RequestList_adminteam = React.lazy(() => import('./views/adminteam/request_adminteam/RequestList_adminteam'))
 
@@ -191,18 +188,17 @@ class App extends Component {
           
           {/* ADMIN TEAM ROUTES ----------------------------------------------------------------------------------------------------------------- */}
           <Route element={<AdminLayout />}>
-            <Route element={<RequireAuth allowedRoles={['Admin']} />}>
+            {/* <Route element={<RequireAuth allowedRoles={['Admin']} />}> */}
               <Route path="/admin" element={<Dashboard_adminteam />} />
               <Route path="/admin/waterbilllist" element={<WaterBillList_adminteam />} />
               <Route path="/admin/assocduelist" element={<AssocDueList_adminteam />} />
               <Route path="/admin/managebilling" element={<ManageBilling_adminteam />} />
               <Route path="/admin/unitlist" element={<CondoUnitList_adminteam />} />
               <Route path="/admin/userlist" element={<UserList_adminteam />} />
-              <Route path="/admin/securitylist" element={<SecurityGuardList_adminteam />} />
               <Route path="/admin/requestlist" element={<RequestList_adminteam />} />
               <Route path="/admin/guestlist" element={<GuestList_adminteam />} />
               <Route path="/admin/servicelist" element={<ServiceList_adminteam />} />
-            </Route>
+            {/* </Route> */}
           </Route>
 
           {/* TENANTS ROUTES -------------------------------------------------------------------------------------------------------------------- */}

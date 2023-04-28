@@ -80,13 +80,6 @@ const adminteam_nav = [
 
   {
     component: CNavItem,
-    name: 'Security Guards',
-    to: '/admin/securitylist',
-    icon: <CIcon icon={cilShieldAlt} customClassName="nav-icon" />,
-  },
-
-  {
-    component: CNavItem,
     name: 'Guest',
     to: '/admin/guestlist',
     icon: <CIcon icon={cilBell} customClassName="nav-icon" />,
