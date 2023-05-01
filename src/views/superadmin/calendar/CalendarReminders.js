@@ -7,6 +7,9 @@ import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import '../../../all-views-scss/_calendarevent.scss'
+import { BsFillPlusSquareFill } from 'react-icons/bs';
+import { Button } from 'react-bootstrap';
 
 const locales = {
     "en-US": require("date-fns/locale/en-US"),
@@ -73,18 +76,26 @@ function CalendarReminders_tenants() {
     }
 
     return (
-        <div className="App">
-            <h1>Calendar</h1>
-            <h2>Add New Event</h2>
-            <div>
-                <input type="text" placeholder="Add Title" style={{ width: "20%", marginRight: "10px" }} value={newEvent.title} onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })} />
-                <DatePicker placeholderText="Start Date" style={{ marginRight: "10px" }} selected={newEvent.start} onChange={(start) => setNewEvent({ ...newEvent, start })} />
-                <DatePicker placeholderText="End Date" selected={newEvent.end} onChange={(end) => setNewEvent({ ...newEvent, end })} />
-                <button stlye={{ marginTop: "10px" }} onClick={handleAddEvent}>
-                    Add Event
-                </button>
+        <div className="calendar-wrap">
+            <div className="calendar-head-container">
+                <input type="text" className="calendar-formField" placeholder="Add Title" value={newEvent.title} onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })} />
+                <DatePicker className="calendar-formField" placeholderText="Start Date" selected={newEvent.start} onChange={(start) => setNewEvent({ ...newEvent, start })} />
+                <DatePicker className="calendar-formField" placeholderText="End Date" selected={newEvent.end} onChange={(end) => setNewEvent({ ...newEvent, end })} />
+                <div className="thead-btn">
+                    <Button className="thead-btn-tertiary" onClick={handleAddEvent}>
+                        <BsFillPlusSquareFill />
+                    </Button>
+                </div>
             </div>
-            <Calendar localizer={localizer} events={allEvents} startAccessor="start" endAccessor="end" style={{ height: 500, margin: "50px" }} />
+            <br/>
+            <div className="calendar-container">
+                  <br/>
+                <div className="tbl-title">
+                    <h1 className="text-divider">EVENT CALENDAR</h1>
+                </div>
+                <Calendar localizer={localizer} events={allEvents} startAccessor="start" endAccessor="end" style={{ height: 500, margin: "50px" }} />
+                <br/>
+            </div>
         </div>
     );
 }
