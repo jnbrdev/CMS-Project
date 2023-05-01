@@ -55,9 +55,9 @@ const Login = () => {
     e.preventDefault();
     try {
       axios
-        .post(LOGIN_URL, {
-          email: email,
-          password: password,
+        .post(LOGIN_URL, JSON.stringify({email, password}),{
+          headers: {'Content-Type': 'application/json'},
+          withCredentials: false
         })
         .then((response) => {
           if (response.data.message === "Login Successfully!") {
@@ -83,7 +83,6 @@ const Login = () => {
             const accessToken = response?.data?.accessToken;
             const roles1 = [2, 'Admin'] 
             const full_name = response?.data?.full_name 
-            console.log(roles1, accessToken);
             setAuth({ email, password, full_name, roles1, accessToken });
             
             navigate('/admin')
@@ -92,7 +91,6 @@ const Login = () => {
             const roles1 = [3, 'Unit Owner']
             const full_name = response?.data?.full_name
             const acc_balance = response?.data?.acc_balance  
-            console.log(roles1, accessToken);
             setAuth({ email, password, full_name, acc_balance, roles1, accessToken });
             
             navigate('/unitowner')
@@ -101,16 +99,16 @@ const Login = () => {
             const roles1 = [4, 'Tenant'] 
             const full_name = response?.data?.full_name
             const acc_balance = response?.data?.acc_balance 
-            console.log(roles1, accessToken);
             setAuth({ email, password, full_name, acc_balance, roles1, accessToken });
             
             navigate('/tenants')
           }
-
-          console.log(response.data);
-          console.log(roles);
+          
+         
           errRef.current.focus();
         });
+        
+        navigate(from, {replace: true});
     } catch (error) {
       console.log(error);
       if (!error.response) {

@@ -158,14 +158,14 @@ class App extends Component {
     return (
       <Suspense fallback={loading}>
         <Routes>
-          <Route path="/homepage" element={<Homepage />} />
+          <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           
           {/*Protected Routes*/}
           {/* SUPER ADMIN ROUTES ----------------------------------------------------------------------------------------------------------------- */}
           <Route element={<DefaultLayout />}>
-            {/* <Route element={<RequireAuth allowedRoles={['Super Admin']} />}> */}
+            <Route element={<RequireAuth allowedRoles={['Super Admin']} />}> 
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/waterbilllist" element={<WaterBillList />} />
               <Route path="/assocduelist" element={<AssocDueList />} />
@@ -183,12 +183,12 @@ class App extends Component {
               <Route path="/addadmin" element={<AddNewAdminUser />} />
               <Route path="/adminprivileges" element={<AdminPriv />} />
               <Route path="/calendarreminders" element={<CalendarReminders />} />
-            {/* </Route> */}
+            </Route> 
           </Route>
           
           {/* ADMIN TEAM ROUTES ----------------------------------------------------------------------------------------------------------------- */}
           <Route element={<AdminLayout />}>
-            {/* <Route element={<RequireAuth allowedRoles={['Admin']} />}> */}
+            <Route element={<RequireAuth allowedRoles={['Admin']} />}> 
               <Route path="/admin" element={<Dashboard_adminteam />} />
               <Route path="/admin/waterbilllist" element={<WaterBillList_adminteam />} />
               <Route path="/admin/assocduelist" element={<AssocDueList_adminteam />} />
@@ -198,12 +198,12 @@ class App extends Component {
               <Route path="/admin/requestlist" element={<RequestList_adminteam />} />
               <Route path="/admin/guestlist" element={<GuestList_adminteam />} />
               <Route path="/admin/servicelist" element={<ServiceList_adminteam />} />
-            {/* </Route> */}
+            </Route> 
           </Route>
 
           {/* TENANTS ROUTES -------------------------------------------------------------------------------------------------------------------- */}
           <Route element={<TenantsLayout />}>
-
+            <Route element={<RequireAuth allowedRoles={['Tenant']} />}> 
             <Route path="/tenants" element={<Dashboard_tenants />} />
             <Route path="/tenants/soa_tenants" element={<SOA_tenants />} />
             <Route path="/tenants/requestvisit_tenants" element={<RequestVisit_tenants />} />
@@ -211,12 +211,12 @@ class App extends Component {
             <Route path="/tenants/accesspermit_tenants" element={<AccessPermit_tenants />} />
             <Route path="/tenants/calendarreminders_tenants" element={<CalendarReminders_tenants />} />
             <Route path="/tenants/faq_tenants" element={<FAQ_tenants />} />
-
+            </Route>
           </Route>
 
           {/* UNIT OWNER ROUTES ----------------------------------------------------------------------------------------------------------------- */}
           <Route element={<UnitOwnerLayout />}>
-
+            <Route element={<RequireAuth allowedRoles={['Unit Owner']} />}> 
             <Route path="/unitowner" element={<Dashboard_unitowner />} />
             <Route path="/unitowner/tenantslist" element={<TenantsList />} />
             <Route path="/unitowner/soa_unitowner" element={<SOA_unitowner />} />
@@ -225,7 +225,7 @@ class App extends Component {
             <Route path="/unitowner/accesspermit_unitowner" element={<AccessPermit_unitowner />} />
             <Route path="/unitowner/calendarreminders_unitowner" element={<CalendarReminders_unitowner />} />
             <Route path="/unitowner/faq_unitowner" element={<FAQ_unitowner />} />
-
+            </Route>
           </Route>
 
             {/* UNIT OWNER ROUTES ----------------------------------------------------------------------------------------------------------------- */}
