@@ -203,7 +203,7 @@ class App extends Component {
 
           {/* TENANTS ROUTES -------------------------------------------------------------------------------------------------------------------- */}
           <Route element={<TenantsLayout />}>
-            <Route element={<RequireAuth allowedRoles={['Tenant']} />}> 
+            {/* <Route element={<RequireAuth allowedRoles={['Tenant']} />}>  */}
             <Route path="/tenants" element={<Dashboard_tenants />} />
             <Route path="/tenants/soa_tenants" element={<SOA_tenants />} />
             <Route path="/tenants/requestvisit_tenants" element={<RequestVisit_tenants />} />
@@ -211,12 +211,12 @@ class App extends Component {
             <Route path="/tenants/accesspermit_tenants" element={<AccessPermit_tenants />} />
             <Route path="/tenants/calendarreminders_tenants" element={<CalendarReminders_tenants />} />
             <Route path="/tenants/faq_tenants" element={<FAQ_tenants />} />
-            </Route>
+            {/* </Route> */}
           </Route>
 
           {/* UNIT OWNER ROUTES ----------------------------------------------------------------------------------------------------------------- */}
           <Route element={<UnitOwnerLayout />}>
-            <Route element={<RequireAuth allowedRoles={['Unit Owner']} />}> 
+            {/* <Route element={<RequireAuth allowedRoles={['Unit Owner']} />}>  */}
             <Route path="/unitowner" element={<Dashboard_unitowner />} />
             <Route path="/unitowner/tenantslist" element={<TenantsList />} />
             <Route path="/unitowner/soa_unitowner" element={<SOA_unitowner />} />
@@ -225,7 +225,7 @@ class App extends Component {
             <Route path="/unitowner/accesspermit_unitowner" element={<AccessPermit_unitowner />} />
             <Route path="/unitowner/calendarreminders_unitowner" element={<CalendarReminders_unitowner />} />
             <Route path="/unitowner/faq_unitowner" element={<FAQ_unitowner />} />
-            </Route>
+            {/* </Route> */}
           </Route>
 
             {/* UNIT OWNER ROUTES ----------------------------------------------------------------------------------------------------------------- */}

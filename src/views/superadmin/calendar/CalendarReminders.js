@@ -41,7 +41,7 @@ const events = [
     },
 ];
 
-function CalendarReminders_tenants() {
+function CalendarReminders() {
     const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
     const [allEvents, setAllEvents] = useState(events);
 
@@ -100,4 +100,4 @@ function CalendarReminders_tenants() {
     );
 }
 
-export default CalendarReminders_tenants;
+export default CalendarReminders;
