@@ -1,12 +1,25 @@
+.register-wrap-all {
+	margin: 0;
+    font-family: var(--cui-body-font-family);
+    font-size: var(--cui-body-font-size);
+    font-weight: var(--cui-body-font-weight);
+    line-height: var(--cui-body-line-height);
+    color: var(--cui-body-color);
+    text-align: var(--cui-body-text-align);
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 21, 0);
+}
+
 .register-container {
     background-image: url(../all-views-images/bglog.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
     min-width: 100%;
-    height: 533px;
+    min-height: 81vh !important;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 31px 0;
 }
 
@@ -14,17 +27,6 @@
     background: white;
     border-radius: 10px;
 }
-
-// .register-form-body {
-//     margin-top: 30px;
-// }
-// #welcome-col {
-//     background-image: url(../all-views-images/login-bg.jpeg);
-//     background-position: center center;
-//     background-repeat: no-repeat;
-//     background-size: cover;
-//     border-radius: 10px 0 0 10px;
-// }
 
 #register-col {
     background-image: url(../all-views-images/login-bg.jpeg);
@@ -38,7 +40,7 @@
     padding: 10px;
     background-color: transparent;
     width: 270px;
-    height: 60vh;
+    height: 465px;
     border: none;
 }
 
@@ -133,15 +135,14 @@
 .register-header-menu-logo {
     display: flex;
     height: 65px;
-    margin-top: 3px;
-    margin-right: 530px;
+    margin-top: -7px;
 }
 
 .register-header-menu {
 	display: flex;
 	align-items: center;
 	justify-content: right;
-	height: 80px;
+	height: 12vh;
     padding: 0 2rem;
 	background-color: var(--mainColor);
 	color: var(--textColor);
@@ -157,7 +158,7 @@
 //     margin-top: 489px;
 // }
 .footer {
-    --cui-footer-min-height: 3rem;
+    --cui-footer-min-height: 7vh;
     --cui-footer-padding-x: 1rem;
     --cui-footer-padding-y: 0.5rem;
     --cui-footer-color: rgba(44, 56, 74, 0.95);
@@ -204,4 +205,5 @@ nav a:hover {
 nav {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 }

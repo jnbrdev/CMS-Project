@@ -133,28 +133,31 @@ const Login = () => {
   }
 
   return (
-    <div>
-
+    <div className="login-wrap-all">
       <header className="login-header-menu">
-        <Link to="/homepage">
-          <img src="./images/condo-connect.png" class="login-header-menu-logo" />
-        </Link>
-        <nav ref={navRef}>
-          <Link to="/homepage">HOME</Link>
-          <Link href="/#">ABOUT</Link>
-          <Link href="/#">CONTACT</Link>
-          <Link to="/login">SIGN IN</Link>
+        <div className="col-md-6">
+          <Link to="/">
+            <img src="./images/condo-connect.png" class="login-header-menu-logo" />
+          </Link>
+        </div>
+        <div className="col-md-6">
+          <nav ref={navRef}>
+            <Link to="/">HOME</Link>
+            <Link href="/#">ABOUT</Link>
+            <Link href="/#">CONTACT</Link>
+            <Link to="/login">SIGN IN</Link>
+            <button
+              className="login-nav-btn nav-close-btn"
+              onClick={showNavbar}>
+              <FaTimes />
+            </button>
+          </nav>
           <button
-            className="login-nav-btn nav-close-btn"
+            className="login-nav-btn"
             onClick={showNavbar}>
-            <FaTimes />
+            <FaBars />
           </button>
-        </nav>
-        <button
-          className="login-nav-btn"
-          onClick={showNavbar}>
-          <FaBars />
-        </button>
+        </div>
       </header>
 
       <CContainer className="login-container">
@@ -177,7 +180,7 @@ const Login = () => {
                   <CForm>
                     <p> LOGIN </p>
 
-                    <p
+                    <p style={{fontSize:"8px"}}
                       ref={errRef}
                       className={errMsg ? "errmsg" : "offscreen"}
                       aria-live="assertive"

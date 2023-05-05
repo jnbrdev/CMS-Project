@@ -85,7 +85,7 @@ const AppHeaderDropdown = () => {
           </CBadge>
         </CDropdownItem>
         <CDropdownDivider />
-        <Link to="/homepage" style={ { textDecoration: 'none' }}>
+        <Link to="/" style={ { textDecoration: 'none' }}>
           <CDropdownItem href="#">
             <CIcon icon={cilAccountLogout} className="me-2" />
               Sign Out

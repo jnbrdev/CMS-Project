@@ -165,7 +165,7 @@ class App extends Component {
           {/*Protected Routes*/}
           {/* SUPER ADMIN ROUTES ----------------------------------------------------------------------------------------------------------------- */}
           <Route element={<DefaultLayout />}>
-            <Route element={<RequireAuth allowedRoles={['Super Admin']} />}> 
+            {/* <Route element={<RequireAuth allowedRoles={['Super Admin']} />}>  */}
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/waterbilllist" element={<WaterBillList />} />
               <Route path="/assocduelist" element={<AssocDueList />} />
@@ -183,7 +183,7 @@ class App extends Component {
               <Route path="/addadmin" element={<AddNewAdminUser />} />
               <Route path="/adminprivileges" element={<AdminPriv />} />
               <Route path="/calendarreminders" element={<CalendarReminders />} />
-            </Route> 
+            {/* </Route>  */}
           </Route>
           
           {/* ADMIN TEAM ROUTES ----------------------------------------------------------------------------------------------------------------- */}

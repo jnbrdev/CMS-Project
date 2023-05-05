@@ -1,12 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap");
-
-* {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-	font-family: "Titillium Web", sans-serif;
-}
-
 :root {
 	--mainColor: #fff;
 	--mainColorLight: #2E75B6;
@@ -14,18 +5,50 @@
 	--textColor: #eee;
 }
 
+.home-container {
+	margin: 0;
+    font-family: var(--cui-body-font-family);
+    font-size: var(--cui-body-font-size);
+    font-weight: var(--cui-body-font-weight);
+    line-height: var(--cui-body-line-height);
+    color: var(--cui-body-color);
+    text-align: var(--cui-body-text-align);
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 21, 0);
+}
+
+.home-body {
+	min-height: 81vh !important;
+	background-image: url(../all-views-images/bglog.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	display: flex;
+    align-items: center
+}
+
+.home-body h1 {
+	font-size: 75px;
+    background: transparent;
+    display: flex;
+    position: absolute;
+    color: white;
+    font-family: fantasy;
+    margin-left: 110px;
+}
+
+
 .home-header-menu-logo {
 	display: flex;
     height: 65px;
-    margin-top: 3px;
-    margin-right: 530px;
+    margin-top: -7px;
 }
 
 .home-header-menu {
 	display: flex;
 	align-items: center;
-	justify-content: right;
-	height: 80px;
+	justify-content: center;
+	height: 12vh;
 	padding: 0 2rem;
 	background-color: var(--mainColor);
 	color: var(--textColor);
@@ -33,7 +56,7 @@
 }
 
 .footer {
-    --cui-footer-min-height: 3rem;
+	--cui-footer-min-height: 7vh;
     --cui-footer-padding-x: 1rem;
     --cui-footer-padding-y: 0.5rem;
     --cui-footer-color: rgba(44, 56, 74, 0.95);
@@ -85,25 +108,7 @@ nav a:hover {
 nav {
 	display: flex;
 	align-items: center;
-}
-
-.home-body {
-    min-height: 533px;
-	background-image: url(../all-views-images/bglog.jpg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.home-body h1 {
-	font-size: 75px;
-    background: transparent;
-    display: flex;
-    position: absolute;
-    color: white;
-    font-family: fantasy;
-	margin-top: 150px;
-    margin-left: 110px;
+	justify-content: center;
 }
 
 @media only screen and (max-width: 1024px) {

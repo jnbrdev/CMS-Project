@@ -139,28 +139,31 @@ const Register = () => {
   }
 
   return (
-    <div>
-
+    <div className="register-wrap-all">
       <header className="register-header-menu">
-        <Link to="/homepage">
-          <img src="./images/condo-connect.png" class="register-header-menu-logo" />
-        </Link>
-        <nav ref={navRef}>
-          <Link to="/homepage">HOME</Link>
-          <Link href="/#">ABOUT</Link>
-          <Link href="/#">CONTACT</Link>
-          <Link to="/login">SIGN IN</Link>
+        <div className="col-md-6">
+          <Link to="/">
+            <img src="./images/condo-connect.png" class="register-header-menu-logo" />
+          </Link>
+        </div>
+        <div className="col-md-6">
+          <nav ref={navRef}>
+            <Link to="/">HOME</Link>
+            <Link href="/#">ABOUT</Link>
+            <Link href="/#">CONTACT</Link>
+            <Link to="/login">SIGN IN</Link>
+            <button
+              className="register-nav-btn nav-close-btn"
+              onClick={showNavbar}>
+              <FaTimes />
+            </button>
+          </nav>
           <button
-            className="register-nav-btn nav-close-btn"
+            className="register-nav-btn"
             onClick={showNavbar}>
-            <FaTimes />
+            <FaBars />
           </button>
-        </nav>
-        <button
-          className="register-nav-btn"
-          onClick={showNavbar}>
-          <FaBars />
-        </button>
+        </div>
       </header>
 
       <CContainer className="register-container">
